@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  localllm:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        USERNAME: developer
+        USER_UID: 1000
+        USER_GID: 1000
+    container_name: localllm-dev
+    hostname: localllm-dev
+    
+    # Mount local directory to container workspace
+    volumes:
+      - .:/workspace:cached
+      - ./models:/workspace/models:cached
+      # Cache for build artifacts
+      - build-cache:/workspace/build
+    
+    # X11 display forwarding for GUI
+    environment:
+      # For macOS with XQuartz: set DISPLAY to host.docker.internal:0
+      # For Linux: use $DISPLAY from host
+      - DISPLAY=${DISPLAY:-host.docker.internal:0}
+      - QT_QPA_PLATFORM=xcb
+      - QT_X11_NO_MITSHM=1
+    
+    # Network mode for X11 forwarding
+    network_mode: "host"
+    
+    # Enable TTY for interactive use
+    stdin_open: true
+    tty: true
+    
+    # Keep container running
+    command: /bin/bash -c "while sleep 1000; do :; done"
+
+volumes:
+  build-cache:

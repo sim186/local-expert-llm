@@ -1,0 +1,332 @@
+# LocalLLM - Annotation Report Generator
+
+A desktop application built with C++ and Qt6 that integrates a local Large Language Model (LLM) to generate report conclusions based on user annotations. Uses llama.cpp for local inference to ensure complete offline functionality and privacy.
+
+![LocalLLM Screenshot](docs/screenshot.png)
+
+## Features
+
+- ✅ **Privacy-First**: All processing happens locally—no cloud APIs, no data sent externally
+- ✅ **Qt GUI**: Clean, responsive interface built with Qt6 Widgets
+- ✅ **Annotation Management**: Add and track annotations with ease
+- ✅ **Smart Conclusions**: LLM generates contextual conclusions based on annotation count
+- ✅ **Background Inference**: Non-blocking UI with threaded LLM processing
+- ✅ **Cross-Platform**: Works on Windows, Linux, and macOS
+- ✅ **Docker Support**: Consistent build environment with all dependencies
+
+## Prerequisites
+
+### Option 1: Docker Setup (Recommended)
+
+- **Docker Desktop** (v20.10+)
+- **XQuartz** (macOS only, for GUI support)
+  - Download from: https://www.xquartz.org/
+- **Git** (for cloning repository)
+
+### Option 2: Native Setup
+
+- **Qt 6.x** (6.2 or later recommended)
+- **CMake** 3.20 or later
+- **C++17 compatible compiler**
+  - GCC 9+ or Clang 10+ (Linux/macOS)
+  - MSVC 2019+ or MinGW (Windows)
+- **Git** (for submodules)
+
+## Quick Start with Docker
+
+### 1. Setup XQuartz (macOS only)
+
+```bash
+# Install XQuartz via Homebrew
+brew install --cask xquartz
+
+# Start XQuartz
+open -a XQuartz
+
+# In XQuartz preferences (XQuartz → Preferences → Security):
+# ✓ Enable "Allow connections from network clients"
+
+# Restart XQuartz and add localhost to allowed clients
+xhost + localhost
+```
+
+### 2. Clone Repository
+
+```bash
+git clone --recursive https://github.com/yourusername/local_llm.git
+cd local_llm
+
+# If you forgot --recursive, run:
+git submodule update --init --recursive
+```
+
+### 3. Build Docker Container
+
+```bash
+# Build the container (first time only, may take 5-10 minutes)
+docker-compose build
+
+# Start the container
+docker-compose up -d
+
+# Access the container shell
+docker-compose exec localllm bash
+```
+
+### 4. Build the Application
+
+Inside the container:
+
+```bash
+# Create build directory
+mkdir -p build && cd build
+
+# Configure with CMake
+cmake ..
+
+# Build (this will take several minutes for llama.cpp)
+cmake --build . -j$(nproc)
+```
+
+### 5. Download a Model
+
+You need a GGUF format model. We recommend starting with a small quantized model:
+
+**Option A: TinyLlama (1.1B, fastest, ~600MB)**
+```bash
+cd /workspace/models
+wget https://huggingface.co/TheBloke/TinyLlama-1.1B-Chat-v1.0-GGUF/resolve/main/tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf
+mv tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf model.gguf
+```
+
+**Option B: Llama-2-7B (better quality, ~4GB)**
+```bash
+cd /workspace/models
+wget https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGUF/resolve/main/llama-2-7b-chat.Q4_K_M.gguf
+mv llama-2-7b-chat.Q4_K_M.gguf model.gguf
+```
+
+**Manual Download:**
+- Visit [Hugging Face](https://huggingface.co/models?library=gguf)
+- Download any GGUF model
+- Place in `models/` directory as `model.gguf`
+
+### 6. Run the Application
+
+```bash
+# From the build directory
+./LocalLLM
+```
+
+The GUI window should appear on your host system!
+
+## Native Build Instructions
+
+### Install Qt6
+
+**macOS (Homebrew):**
+```bash
+brew install qt@6
+export Qt6_DIR=$(brew --prefix qt@6)/lib/cmake/Qt6
+```
+
+**Ubuntu/Debian:**
+```bash
+sudo apt-get update
+sudo apt-get install qt6-base-dev qt6-tools-dev cmake build-essential
+```
+
+**Windows:**
+- Download Qt from https://www.qt.io/download-qt-installer
+- Install Qt 6.x with MinGW or MSVC compiler
+
+### Build Steps
+
+```bash
+# Clone with submodules
+git clone --recursive https://github.com/yourusername/local_llm.git
+cd local_llm
+
+# Create build directory
+mkdir build && cd build
+
+# Configure (may need to specify Qt6_DIR)
+cmake ..
+
+# Build
+cmake --build . -j4
+
+# Run
+./LocalLLM  # Linux/macOS
+# or
+LocalLLM.exe  # Windows
+```
+
+## Usage
+
+1. **Add Annotations**
+   - Enter text in the input field
+   - Click "Add Annotation" or press Enter
+   - Repeat to build your annotation list
+
+2. **Generate Report**
+   - Click "Generate Report Conclusion"
+   - If prompted, select your GGUF model file
+   - Wait for the LLM to generate (may take 10-60 seconds)
+   - View the generated conclusion in the output area
+
+3. **Sample Workflow**
+   - Add 3-4 annotations → LLM suggests more analysis needed
+   - Add 10+ annotations → LLM highlights substantial insights available
+
+## Project Structure
+
+```
+local_llm/
+├── CMakeLists.txt          # Build configuration
+├── Dockerfile              # Docker container definition
+├── docker-compose.yml      # Docker orchestration
+├── README.md               # This file
+├── models/                 # Place GGUF models here
+│   └── model.gguf         # Your model file
+├── src/
+│   ├── main.cpp           # Application entry point
+│   ├── mainwindow.h/cpp   # Main UI window
+│   └── llamaworker.h/cpp  # LLM inference worker
+└── external/
+    └── llama.cpp/         # llama.cpp library (submodule)
+```
+
+## Troubleshooting
+
+### Model Not Loading
+
+**Error:** "Failed to load model"
+
+**Solutions:**
+- Verify model file exists in `models/` directory
+- Check file is valid GGUF format (not corrupted download)
+- Ensure sufficient RAM (4GB+ for Q4 quantized models)
+- Try a smaller model like TinyLlama
+
+### GUI Not Showing (Docker on macOS)
+
+**Error:** "Cannot connect to display"
+
+**Solutions:**
+```bash
+# Ensure XQuartz is running
+open -a XQuartz
+
+# Allow localhost connections
+xhost + localhost
+
+# Check DISPLAY variable in container
+docker-compose exec localllm echo $DISPLAY
+# Should show: host.docker.internal:0
+
+# Restart container if needed
+docker-compose restart
+```
+
+### Build Errors
+
+**Error:** "Qt6 not found"
+
+**Solution (Native):**
+```bash
+# macOS
+export Qt6_DIR=/opt/homebrew/opt/qt@6/lib/cmake/Qt6
+
+# Linux - install dev packages
+sudo apt-get install qt6-base-dev qt6-tools-dev
+```
+
+**Error:** "llama.cpp submodule empty"
+
+**Solution:**
+```bash
+git submodule update --init --recursive
+```
+
+### Slow Inference
+
+**Tips for better performance:**
+- Use quantized models (Q4_K_M or Q5_K_M)
+- Adjust thread count in `llamaworker.cpp` (`ctx_params.n_threads`)
+- Use smaller models for testing (TinyLlama)
+- Close other applications to free RAM
+
+## Advanced Configuration
+
+### Custom Model Path
+
+Edit `src/mainwindow.cpp`, line 17:
+```cpp
+modelPath = "/your/custom/path/to/model.gguf";
+```
+
+### Adjust Inference Parameters
+
+Edit `src/llamaworker.cpp`:
+```cpp
+ctx_params.n_ctx = 2048;        // Context window size
+ctx_params.n_threads = 4;       // CPU threads
+const int max_tokens = 256;     // Max generated tokens
+
+// Sampling parameters
+llama_sampler_init_temp(0.7f);      // Temperature (0.0-1.0)
+llama_sampler_init_top_p(0.9f, 1);  // Top-p sampling
+```
+
+## Development
+
+### Building in VS Code with DevContainer
+
+1. Install "Dev Containers" extension
+2. Open project in VS Code
+3. Click "Reopen in Container" when prompted
+4. Build from integrated terminal
+
+### Code Organization
+
+- **main.cpp**: QApplication initialization
+- **mainwindow.{h,cpp}**: UI and annotation management
+- **llamaworker.{h,cpp}**: Background LLM inference with llama.cpp API
+
+## Performance Characteristics
+
+| Model | Size | RAM | Speed (tokens/sec) | Quality |
+|-------|------|-----|-------------------|---------|
+| TinyLlama Q4 | 600MB | 2GB | 20-40 | Good |
+| Llama-2-7B Q4 | 4GB | 8GB | 5-15 | Excellent |
+| Llama-2-7B Q8 | 7GB | 12GB | 3-8 | Best |
+
+*Approximate values on modern CPU (Intel i7/Apple M1)*
+
+## License
+
+This project is licensed under the MIT License - see LICENSE file for details.
+
+## Acknowledgments
+
+- [llama.cpp](https://github.com/ggerganov/llama.cpp) - Efficient LLM inference
+- [Qt Framework](https://www.qt.io/) - Cross-platform GUI toolkit
+- [Meta AI Llama](https://ai.meta.com/llama/) - Foundation models
+
+## Contributing
+
+Contributions welcome! Please:
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes with tests
+4. Submit a pull request
+
+## Support
+
+- Report issues: [GitHub Issues](https://github.com/yourusername/local_llm/issues)
+- Documentation: [Wiki](https://github.com/yourusername/local_llm/wiki)
+
+---
+
+**Built with ❤️ for offline privacy and local AI**
