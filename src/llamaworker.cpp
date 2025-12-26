@@ -1,6 +1,7 @@
 #include "llamaworker.h"
 #include <QDebug>
 #include <QFile>
+#include <ctime>
 
 // Include llama.cpp headers
 #ifdef __cplusplus
@@ -71,18 +72,21 @@ void LlamaWorker::run() {
 
     if (!ctx) {
       emit error("Failed to create llama context");
-      llama_free_model(model);
+      llama_model_free(model);
       llama_backend_free();
       return;
     }
 
     qDebug() << "Context created successfully";
 
+    // Get the vocabulary from the model
+    const struct llama_vocab *vocab = llama_model_get_vocab(model);
+
     // Tokenize the prompt
     std::vector<llama_token> tokens_list;
     tokens_list.resize(prompt.size() + 1);
 
-    int n_tokens = llama_tokenize(model, prompt.c_str(), prompt.size(),
+    int n_tokens = llama_tokenize(vocab, prompt.c_str(), prompt.size(),
                                   tokens_list.data(), tokens_list.size(),
                                   true, // add_bos (beginning of sequence)
                                   false // special tokens
@@ -91,7 +95,7 @@ void LlamaWorker::run() {
     if (n_tokens < 0) {
       tokens_list.resize(-n_tokens);
       n_tokens =
-          llama_tokenize(model, prompt.c_str(), prompt.size(),
+          llama_tokenize(vocab, prompt.c_str(), prompt.size(),
                          tokens_list.data(), tokens_list.size(), true, false);
     }
 
@@ -106,6 +110,9 @@ void LlamaWorker::run() {
                             llama_sampler_init_temp(0.7f)); // Temperature
     llama_sampler_chain_add(
         sampler, llama_sampler_init_top_p(0.9f, 1)); // Top-p sampling
+    llama_sampler_chain_add(
+        sampler, llama_sampler_init_dist(time(
+                     NULL))); // Random distributions sampling (final selector)
 
     // Evaluate the prompt
     if (llama_decode(ctx, llama_batch_get_one(tokens_list.data(), n_tokens)) !=
@@ -113,7 +120,7 @@ void LlamaWorker::run() {
       emit error("Failed to evaluate prompt");
       llama_sampler_free(sampler);
       llama_free(ctx);
-      llama_free_model(model);
+      llama_model_free(model);
       llama_backend_free();
       return;
     }
@@ -130,14 +137,14 @@ void LlamaWorker::run() {
       llama_token new_token = llama_sampler_sample(sampler, ctx, -1);
 
       // Check for end of sequence
-      if (llama_token_is_eog(model, new_token)) {
+      if (llama_vocab_is_eog(vocab, new_token)) {
         break;
       }
 
       // Convert token to text
       char buf[128];
       int n =
-          llama_token_to_piece(model, new_token, buf, sizeof(buf), 0, false);
+          llama_token_to_piece(vocab, new_token, buf, sizeof(buf), 0, false);
 
       if (n < 0) {
         emit error("Failed to convert token to text");
@@ -162,7 +169,7 @@ void LlamaWorker::run() {
     // Clean up
     llama_sampler_free(sampler);
     llama_free(ctx);
-    llama_free_model(model);
+    llama_model_free(model);
     llama_backend_free();
 
     // Emit result

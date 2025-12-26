@@ -75,17 +75,14 @@ docker-compose exec localllm bash
 
 ### 4. Build the Application
 
-Inside the container:
+Use `docker compose exec` to build the application inside the running container:
 
 ```bash
-# Create build directory
-mkdir -p build && cd build
+# 1. Configure with CMake (creates the build directory if it doesn't exist)
+docker compose exec localllm cmake -B /workspace/build_container -S /workspace
 
-# Configure with CMake
-cmake ..
-
-# Build (this will take several minutes for llama.cpp)
-cmake --build . -j$(nproc)
+# 2. Build the project (using -j4 for parallel compilation)
+docker compose exec localllm cmake --build /workspace/build_container -j4
 ```
 
 ### 5. Download a Model
@@ -94,28 +91,20 @@ You need a GGUF format model. We recommend starting with a small quantized model
 
 **Option A: TinyLlama (1.1B, fastest, ~600MB)**
 ```bash
-cd /workspace/models
-wget https://huggingface.co/TheBloke/TinyLlama-1.1B-Chat-v1.0-GGUF/resolve/main/tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf
-mv tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf model.gguf
+docker compose exec localllm bash -c "cd /workspace/models && wget https://huggingface.co/TheBloke/TinyLlama-1.1B-Chat-v1.0-GGUF/resolve/main/tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf -O model.gguf"
 ```
 
 **Option B: Llama-2-7B (better quality, ~4GB)**
 ```bash
-cd /workspace/models
-wget https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGUF/resolve/main/llama-2-7b-chat.Q4_K_M.gguf
-mv llama-2-7b-chat.Q4_K_M.gguf model.gguf
+docker compose exec localllm bash -c "cd /workspace/models && wget https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGUF/resolve/main/llama-2-7b-chat.Q4_K_M.gguf -O model.gguf"
 ```
-
-**Manual Download:**
-- Visit [Hugging Face](https://huggingface.co/models?library=gguf)
-- Download any GGUF model
-- Place in `models/` directory as `model.gguf`
 
 ### 6. Run the Application
 
+To run the application with GUI support on macOS, ensure **XQuartz** is running and configured (`xhost + localhost`), then execute:
+
 ```bash
-# From the build directory
-./LocalLLM
+docker compose exec -T -e DISPLAY=host.docker.internal:0 localllm /workspace/build_container/LocalLLM
 ```
 
 The GUI window should appear on your host system!

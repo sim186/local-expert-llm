@@ -1,0 +1,777 @@
+[
+{
+  "directory": "/workspace/build_container/external/llama.cpp/ggml/src",
+  "command": "/usr/bin/c++ -DGGML_BUILD -DGGML_COMMIT=\\\"af3be131c-dirty\\\" -DGGML_SCHED_MAX_COPIES=4 -DGGML_SHARED -DGGML_VERSION=\\\"0.9.4\\\" -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -Dggml_base_EXPORTS -I/workspace/build_container/external/llama.cpp/ggml/src/ggml-base_autogen/include -I/workspace/external/llama.cpp/ggml/src/. -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/ggml-base.dir/ggml-base_autogen/mocs_compilation.cpp.o -c /workspace/build_container/external/llama.cpp/ggml/src/ggml-base_autogen/mocs_compilation.cpp",
+  "file": "/workspace/build_container/external/llama.cpp/ggml/src/ggml-base_autogen/mocs_compilation.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/ggml/src",
+  "command": "/usr/bin/cc -DGGML_BUILD -DGGML_COMMIT=\\\"af3be131c-dirty\\\" -DGGML_SCHED_MAX_COPIES=4 -DGGML_SHARED -DGGML_VERSION=\\\"0.9.4\\\" -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -Dggml_base_EXPORTS -I/workspace/build_container/external/llama.cpp/ggml/src/ggml-base_autogen/include -I/workspace/external/llama.cpp/ggml/src/. -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wshadow -Wstrict-prototypes -Wpointer-arith -Wmissing-prototypes -Werror=implicit-int -Werror=implicit-function-declaration -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wdouble-promotion -std=gnu11 -o CMakeFiles/ggml-base.dir/ggml.c.o -c /workspace/external/llama.cpp/ggml/src/ggml.c",
+  "file": "/workspace/external/llama.cpp/ggml/src/ggml.c"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/ggml/src",
+  "command": "/usr/bin/c++ -DGGML_BUILD -DGGML_COMMIT=\\\"af3be131c-dirty\\\" -DGGML_SCHED_MAX_COPIES=4 -DGGML_SHARED -DGGML_VERSION=\\\"0.9.4\\\" -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -Dggml_base_EXPORTS -I/workspace/build_container/external/llama.cpp/ggml/src/ggml-base_autogen/include -I/workspace/external/llama.cpp/ggml/src/. -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/ggml-base.dir/ggml.cpp.o -c /workspace/external/llama.cpp/ggml/src/ggml.cpp",
+  "file": "/workspace/external/llama.cpp/ggml/src/ggml.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/ggml/src",
+  "command": "/usr/bin/cc -DGGML_BUILD -DGGML_COMMIT=\\\"af3be131c-dirty\\\" -DGGML_SCHED_MAX_COPIES=4 -DGGML_SHARED -DGGML_VERSION=\\\"0.9.4\\\" -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -Dggml_base_EXPORTS -I/workspace/build_container/external/llama.cpp/ggml/src/ggml-base_autogen/include -I/workspace/external/llama.cpp/ggml/src/. -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wshadow -Wstrict-prototypes -Wpointer-arith -Wmissing-prototypes -Werror=implicit-int -Werror=implicit-function-declaration -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wdouble-promotion -std=gnu11 -o CMakeFiles/ggml-base.dir/ggml-alloc.c.o -c /workspace/external/llama.cpp/ggml/src/ggml-alloc.c",
+  "file": "/workspace/external/llama.cpp/ggml/src/ggml-alloc.c"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/ggml/src",
+  "command": "/usr/bin/c++ -DGGML_BUILD -DGGML_COMMIT=\\\"af3be131c-dirty\\\" -DGGML_SCHED_MAX_COPIES=4 -DGGML_SHARED -DGGML_VERSION=\\\"0.9.4\\\" -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -Dggml_base_EXPORTS -I/workspace/build_container/external/llama.cpp/ggml/src/ggml-base_autogen/include -I/workspace/external/llama.cpp/ggml/src/. -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/ggml-base.dir/ggml-backend.cpp.o -c /workspace/external/llama.cpp/ggml/src/ggml-backend.cpp",
+  "file": "/workspace/external/llama.cpp/ggml/src/ggml-backend.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/ggml/src",
+  "command": "/usr/bin/c++ -DGGML_BUILD -DGGML_COMMIT=\\\"af3be131c-dirty\\\" -DGGML_SCHED_MAX_COPIES=4 -DGGML_SHARED -DGGML_VERSION=\\\"0.9.4\\\" -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -Dggml_base_EXPORTS -I/workspace/build_container/external/llama.cpp/ggml/src/ggml-base_autogen/include -I/workspace/external/llama.cpp/ggml/src/. -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/ggml-base.dir/ggml-opt.cpp.o -c /workspace/external/llama.cpp/ggml/src/ggml-opt.cpp",
+  "file": "/workspace/external/llama.cpp/ggml/src/ggml-opt.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/ggml/src",
+  "command": "/usr/bin/c++ -DGGML_BUILD -DGGML_COMMIT=\\\"af3be131c-dirty\\\" -DGGML_SCHED_MAX_COPIES=4 -DGGML_SHARED -DGGML_VERSION=\\\"0.9.4\\\" -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -Dggml_base_EXPORTS -I/workspace/build_container/external/llama.cpp/ggml/src/ggml-base_autogen/include -I/workspace/external/llama.cpp/ggml/src/. -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/ggml-base.dir/ggml-threading.cpp.o -c /workspace/external/llama.cpp/ggml/src/ggml-threading.cpp",
+  "file": "/workspace/external/llama.cpp/ggml/src/ggml-threading.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/ggml/src",
+  "command": "/usr/bin/cc -DGGML_BUILD -DGGML_COMMIT=\\\"af3be131c-dirty\\\" -DGGML_SCHED_MAX_COPIES=4 -DGGML_SHARED -DGGML_VERSION=\\\"0.9.4\\\" -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -Dggml_base_EXPORTS -I/workspace/build_container/external/llama.cpp/ggml/src/ggml-base_autogen/include -I/workspace/external/llama.cpp/ggml/src/. -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wshadow -Wstrict-prototypes -Wpointer-arith -Wmissing-prototypes -Werror=implicit-int -Werror=implicit-function-declaration -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wdouble-promotion -std=gnu11 -o CMakeFiles/ggml-base.dir/ggml-quants.c.o -c /workspace/external/llama.cpp/ggml/src/ggml-quants.c",
+  "file": "/workspace/external/llama.cpp/ggml/src/ggml-quants.c"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/ggml/src",
+  "command": "/usr/bin/c++ -DGGML_BUILD -DGGML_COMMIT=\\\"af3be131c-dirty\\\" -DGGML_SCHED_MAX_COPIES=4 -DGGML_SHARED -DGGML_VERSION=\\\"0.9.4\\\" -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -Dggml_base_EXPORTS -I/workspace/build_container/external/llama.cpp/ggml/src/ggml-base_autogen/include -I/workspace/external/llama.cpp/ggml/src/. -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/ggml-base.dir/gguf.cpp.o -c /workspace/external/llama.cpp/ggml/src/gguf.cpp",
+  "file": "/workspace/external/llama.cpp/ggml/src/gguf.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/ggml/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_BUILD -DGGML_BACKEND_SHARED -DGGML_SCHED_MAX_COPIES=4 -DGGML_SHARED -DGGML_USE_CPU_REPACK -DGGML_USE_LLAMAFILE -DGGML_USE_OPENMP -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -Dggml_cpu_EXPORTS -I/workspace/build_container/external/llama.cpp/ggml/src/ggml-cpu_autogen/include -I/workspace/external/llama.cpp/ggml/src/.. -I/workspace/external/llama.cpp/ggml/src/. -I/workspace/external/llama.cpp/ggml/src/ggml-cpu -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -mcpu=native -fopenmp -std=gnu++17 -o CMakeFiles/ggml-cpu.dir/ggml-cpu_autogen/mocs_compilation.cpp.o -c /workspace/build_container/external/llama.cpp/ggml/src/ggml-cpu_autogen/mocs_compilation.cpp",
+  "file": "/workspace/build_container/external/llama.cpp/ggml/src/ggml-cpu_autogen/mocs_compilation.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/ggml/src",
+  "command": "/usr/bin/cc -DGGML_BACKEND_BUILD -DGGML_BACKEND_SHARED -DGGML_SCHED_MAX_COPIES=4 -DGGML_SHARED -DGGML_USE_CPU_REPACK -DGGML_USE_LLAMAFILE -DGGML_USE_OPENMP -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -Dggml_cpu_EXPORTS -I/workspace/build_container/external/llama.cpp/ggml/src/ggml-cpu_autogen/include -I/workspace/external/llama.cpp/ggml/src/.. -I/workspace/external/llama.cpp/ggml/src/. -I/workspace/external/llama.cpp/ggml/src/ggml-cpu -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wshadow -Wstrict-prototypes -Wpointer-arith -Wmissing-prototypes -Werror=implicit-int -Werror=implicit-function-declaration -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wdouble-promotion -mcpu=native -fopenmp -std=gnu11 -o CMakeFiles/ggml-cpu.dir/ggml-cpu/ggml-cpu.c.o -c /workspace/external/llama.cpp/ggml/src/ggml-cpu/ggml-cpu.c",
+  "file": "/workspace/external/llama.cpp/ggml/src/ggml-cpu/ggml-cpu.c"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/ggml/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_BUILD -DGGML_BACKEND_SHARED -DGGML_SCHED_MAX_COPIES=4 -DGGML_SHARED -DGGML_USE_CPU_REPACK -DGGML_USE_LLAMAFILE -DGGML_USE_OPENMP -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -Dggml_cpu_EXPORTS -I/workspace/build_container/external/llama.cpp/ggml/src/ggml-cpu_autogen/include -I/workspace/external/llama.cpp/ggml/src/.. -I/workspace/external/llama.cpp/ggml/src/. -I/workspace/external/llama.cpp/ggml/src/ggml-cpu -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -mcpu=native -fopenmp -std=gnu++17 -o CMakeFiles/ggml-cpu.dir/ggml-cpu/ggml-cpu.cpp.o -c /workspace/external/llama.cpp/ggml/src/ggml-cpu/ggml-cpu.cpp",
+  "file": "/workspace/external/llama.cpp/ggml/src/ggml-cpu/ggml-cpu.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/ggml/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_BUILD -DGGML_BACKEND_SHARED -DGGML_SCHED_MAX_COPIES=4 -DGGML_SHARED -DGGML_USE_CPU_REPACK -DGGML_USE_LLAMAFILE -DGGML_USE_OPENMP -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -Dggml_cpu_EXPORTS -I/workspace/build_container/external/llama.cpp/ggml/src/ggml-cpu_autogen/include -I/workspace/external/llama.cpp/ggml/src/.. -I/workspace/external/llama.cpp/ggml/src/. -I/workspace/external/llama.cpp/ggml/src/ggml-cpu -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -mcpu=native -fopenmp -std=gnu++17 -o CMakeFiles/ggml-cpu.dir/ggml-cpu/repack.cpp.o -c /workspace/external/llama.cpp/ggml/src/ggml-cpu/repack.cpp",
+  "file": "/workspace/external/llama.cpp/ggml/src/ggml-cpu/repack.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/ggml/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_BUILD -DGGML_BACKEND_SHARED -DGGML_SCHED_MAX_COPIES=4 -DGGML_SHARED -DGGML_USE_CPU_REPACK -DGGML_USE_LLAMAFILE -DGGML_USE_OPENMP -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -Dggml_cpu_EXPORTS -I/workspace/build_container/external/llama.cpp/ggml/src/ggml-cpu_autogen/include -I/workspace/external/llama.cpp/ggml/src/.. -I/workspace/external/llama.cpp/ggml/src/. -I/workspace/external/llama.cpp/ggml/src/ggml-cpu -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -mcpu=native -fopenmp -std=gnu++17 -o CMakeFiles/ggml-cpu.dir/ggml-cpu/hbm.cpp.o -c /workspace/external/llama.cpp/ggml/src/ggml-cpu/hbm.cpp",
+  "file": "/workspace/external/llama.cpp/ggml/src/ggml-cpu/hbm.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/ggml/src",
+  "command": "/usr/bin/cc -DGGML_BACKEND_BUILD -DGGML_BACKEND_SHARED -DGGML_SCHED_MAX_COPIES=4 -DGGML_SHARED -DGGML_USE_CPU_REPACK -DGGML_USE_LLAMAFILE -DGGML_USE_OPENMP -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -Dggml_cpu_EXPORTS -I/workspace/build_container/external/llama.cpp/ggml/src/ggml-cpu_autogen/include -I/workspace/external/llama.cpp/ggml/src/.. -I/workspace/external/llama.cpp/ggml/src/. -I/workspace/external/llama.cpp/ggml/src/ggml-cpu -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wshadow -Wstrict-prototypes -Wpointer-arith -Wmissing-prototypes -Werror=implicit-int -Werror=implicit-function-declaration -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wdouble-promotion -mcpu=native -fopenmp -std=gnu11 -o CMakeFiles/ggml-cpu.dir/ggml-cpu/quants.c.o -c /workspace/external/llama.cpp/ggml/src/ggml-cpu/quants.c",
+  "file": "/workspace/external/llama.cpp/ggml/src/ggml-cpu/quants.c"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/ggml/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_BUILD -DGGML_BACKEND_SHARED -DGGML_SCHED_MAX_COPIES=4 -DGGML_SHARED -DGGML_USE_CPU_REPACK -DGGML_USE_LLAMAFILE -DGGML_USE_OPENMP -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -Dggml_cpu_EXPORTS -I/workspace/build_container/external/llama.cpp/ggml/src/ggml-cpu_autogen/include -I/workspace/external/llama.cpp/ggml/src/.. -I/workspace/external/llama.cpp/ggml/src/. -I/workspace/external/llama.cpp/ggml/src/ggml-cpu -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -mcpu=native -fopenmp -std=gnu++17 -o CMakeFiles/ggml-cpu.dir/ggml-cpu/traits.cpp.o -c /workspace/external/llama.cpp/ggml/src/ggml-cpu/traits.cpp",
+  "file": "/workspace/external/llama.cpp/ggml/src/ggml-cpu/traits.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/ggml/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_BUILD -DGGML_BACKEND_SHARED -DGGML_SCHED_MAX_COPIES=4 -DGGML_SHARED -DGGML_USE_CPU_REPACK -DGGML_USE_LLAMAFILE -DGGML_USE_OPENMP -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -Dggml_cpu_EXPORTS -I/workspace/build_container/external/llama.cpp/ggml/src/ggml-cpu_autogen/include -I/workspace/external/llama.cpp/ggml/src/.. -I/workspace/external/llama.cpp/ggml/src/. -I/workspace/external/llama.cpp/ggml/src/ggml-cpu -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -mcpu=native -fopenmp -std=gnu++17 -o CMakeFiles/ggml-cpu.dir/ggml-cpu/amx/amx.cpp.o -c /workspace/external/llama.cpp/ggml/src/ggml-cpu/amx/amx.cpp",
+  "file": "/workspace/external/llama.cpp/ggml/src/ggml-cpu/amx/amx.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/ggml/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_BUILD -DGGML_BACKEND_SHARED -DGGML_SCHED_MAX_COPIES=4 -DGGML_SHARED -DGGML_USE_CPU_REPACK -DGGML_USE_LLAMAFILE -DGGML_USE_OPENMP -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -Dggml_cpu_EXPORTS -I/workspace/build_container/external/llama.cpp/ggml/src/ggml-cpu_autogen/include -I/workspace/external/llama.cpp/ggml/src/.. -I/workspace/external/llama.cpp/ggml/src/. -I/workspace/external/llama.cpp/ggml/src/ggml-cpu -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -mcpu=native -fopenmp -std=gnu++17 -o CMakeFiles/ggml-cpu.dir/ggml-cpu/amx/mmq.cpp.o -c /workspace/external/llama.cpp/ggml/src/ggml-cpu/amx/mmq.cpp",
+  "file": "/workspace/external/llama.cpp/ggml/src/ggml-cpu/amx/mmq.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/ggml/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_BUILD -DGGML_BACKEND_SHARED -DGGML_SCHED_MAX_COPIES=4 -DGGML_SHARED -DGGML_USE_CPU_REPACK -DGGML_USE_LLAMAFILE -DGGML_USE_OPENMP -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -Dggml_cpu_EXPORTS -I/workspace/build_container/external/llama.cpp/ggml/src/ggml-cpu_autogen/include -I/workspace/external/llama.cpp/ggml/src/.. -I/workspace/external/llama.cpp/ggml/src/. -I/workspace/external/llama.cpp/ggml/src/ggml-cpu -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -mcpu=native -fopenmp -std=gnu++17 -o CMakeFiles/ggml-cpu.dir/ggml-cpu/binary-ops.cpp.o -c /workspace/external/llama.cpp/ggml/src/ggml-cpu/binary-ops.cpp",
+  "file": "/workspace/external/llama.cpp/ggml/src/ggml-cpu/binary-ops.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/ggml/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_BUILD -DGGML_BACKEND_SHARED -DGGML_SCHED_MAX_COPIES=4 -DGGML_SHARED -DGGML_USE_CPU_REPACK -DGGML_USE_LLAMAFILE -DGGML_USE_OPENMP -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -Dggml_cpu_EXPORTS -I/workspace/build_container/external/llama.cpp/ggml/src/ggml-cpu_autogen/include -I/workspace/external/llama.cpp/ggml/src/.. -I/workspace/external/llama.cpp/ggml/src/. -I/workspace/external/llama.cpp/ggml/src/ggml-cpu -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -mcpu=native -fopenmp -std=gnu++17 -o CMakeFiles/ggml-cpu.dir/ggml-cpu/unary-ops.cpp.o -c /workspace/external/llama.cpp/ggml/src/ggml-cpu/unary-ops.cpp",
+  "file": "/workspace/external/llama.cpp/ggml/src/ggml-cpu/unary-ops.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/ggml/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_BUILD -DGGML_BACKEND_SHARED -DGGML_SCHED_MAX_COPIES=4 -DGGML_SHARED -DGGML_USE_CPU_REPACK -DGGML_USE_LLAMAFILE -DGGML_USE_OPENMP -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -Dggml_cpu_EXPORTS -I/workspace/build_container/external/llama.cpp/ggml/src/ggml-cpu_autogen/include -I/workspace/external/llama.cpp/ggml/src/.. -I/workspace/external/llama.cpp/ggml/src/. -I/workspace/external/llama.cpp/ggml/src/ggml-cpu -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -mcpu=native -fopenmp -std=gnu++17 -o CMakeFiles/ggml-cpu.dir/ggml-cpu/vec.cpp.o -c /workspace/external/llama.cpp/ggml/src/ggml-cpu/vec.cpp",
+  "file": "/workspace/external/llama.cpp/ggml/src/ggml-cpu/vec.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/ggml/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_BUILD -DGGML_BACKEND_SHARED -DGGML_SCHED_MAX_COPIES=4 -DGGML_SHARED -DGGML_USE_CPU_REPACK -DGGML_USE_LLAMAFILE -DGGML_USE_OPENMP -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -Dggml_cpu_EXPORTS -I/workspace/build_container/external/llama.cpp/ggml/src/ggml-cpu_autogen/include -I/workspace/external/llama.cpp/ggml/src/.. -I/workspace/external/llama.cpp/ggml/src/. -I/workspace/external/llama.cpp/ggml/src/ggml-cpu -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -mcpu=native -fopenmp -std=gnu++17 -o CMakeFiles/ggml-cpu.dir/ggml-cpu/ops.cpp.o -c /workspace/external/llama.cpp/ggml/src/ggml-cpu/ops.cpp",
+  "file": "/workspace/external/llama.cpp/ggml/src/ggml-cpu/ops.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/ggml/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_BUILD -DGGML_BACKEND_SHARED -DGGML_SCHED_MAX_COPIES=4 -DGGML_SHARED -DGGML_USE_CPU_REPACK -DGGML_USE_LLAMAFILE -DGGML_USE_OPENMP -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -Dggml_cpu_EXPORTS -I/workspace/build_container/external/llama.cpp/ggml/src/ggml-cpu_autogen/include -I/workspace/external/llama.cpp/ggml/src/.. -I/workspace/external/llama.cpp/ggml/src/. -I/workspace/external/llama.cpp/ggml/src/ggml-cpu -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -mcpu=native -fopenmp -std=gnu++17 -o CMakeFiles/ggml-cpu.dir/ggml-cpu/llamafile/sgemm.cpp.o -c /workspace/external/llama.cpp/ggml/src/ggml-cpu/llamafile/sgemm.cpp",
+  "file": "/workspace/external/llama.cpp/ggml/src/ggml-cpu/llamafile/sgemm.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/ggml/src",
+  "command": "/usr/bin/cc -DGGML_BACKEND_BUILD -DGGML_BACKEND_SHARED -DGGML_SCHED_MAX_COPIES=4 -DGGML_SHARED -DGGML_USE_CPU_REPACK -DGGML_USE_LLAMAFILE -DGGML_USE_OPENMP -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -Dggml_cpu_EXPORTS -I/workspace/build_container/external/llama.cpp/ggml/src/ggml-cpu_autogen/include -I/workspace/external/llama.cpp/ggml/src/.. -I/workspace/external/llama.cpp/ggml/src/. -I/workspace/external/llama.cpp/ggml/src/ggml-cpu -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wshadow -Wstrict-prototypes -Wpointer-arith -Wmissing-prototypes -Werror=implicit-int -Werror=implicit-function-declaration -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wdouble-promotion -mcpu=native -fopenmp -std=gnu11 -o CMakeFiles/ggml-cpu.dir/ggml-cpu/arch/arm/quants.c.o -c /workspace/external/llama.cpp/ggml/src/ggml-cpu/arch/arm/quants.c",
+  "file": "/workspace/external/llama.cpp/ggml/src/ggml-cpu/arch/arm/quants.c"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/ggml/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_BUILD -DGGML_BACKEND_SHARED -DGGML_SCHED_MAX_COPIES=4 -DGGML_SHARED -DGGML_USE_CPU_REPACK -DGGML_USE_LLAMAFILE -DGGML_USE_OPENMP -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -Dggml_cpu_EXPORTS -I/workspace/build_container/external/llama.cpp/ggml/src/ggml-cpu_autogen/include -I/workspace/external/llama.cpp/ggml/src/.. -I/workspace/external/llama.cpp/ggml/src/. -I/workspace/external/llama.cpp/ggml/src/ggml-cpu -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -mcpu=native -fopenmp -std=gnu++17 -o CMakeFiles/ggml-cpu.dir/ggml-cpu/arch/arm/repack.cpp.o -c /workspace/external/llama.cpp/ggml/src/ggml-cpu/arch/arm/repack.cpp",
+  "file": "/workspace/external/llama.cpp/ggml/src/ggml-cpu/arch/arm/repack.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/ggml/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_BUILD -DGGML_SCHED_MAX_COPIES=4 -DGGML_SHARED -DGGML_USE_CPU -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -Dggml_EXPORTS -I/workspace/build_container/external/llama.cpp/ggml/src/ggml_autogen/include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/ggml.dir/ggml_autogen/mocs_compilation.cpp.o -c /workspace/build_container/external/llama.cpp/ggml/src/ggml_autogen/mocs_compilation.cpp",
+  "file": "/workspace/build_container/external/llama.cpp/ggml/src/ggml_autogen/mocs_compilation.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/ggml/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_BUILD -DGGML_SCHED_MAX_COPIES=4 -DGGML_SHARED -DGGML_USE_CPU -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -Dggml_EXPORTS -I/workspace/build_container/external/llama.cpp/ggml/src/ggml_autogen/include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/ggml.dir/ggml-backend-reg.cpp.o -c /workspace/external/llama.cpp/ggml/src/ggml-backend-reg.cpp",
+  "file": "/workspace/external/llama.cpp/ggml/src/ggml-backend-reg.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/llama_autogen/mocs_compilation.cpp.o -c /workspace/build_container/external/llama.cpp/src/llama_autogen/mocs_compilation.cpp",
+  "file": "/workspace/build_container/external/llama.cpp/src/llama_autogen/mocs_compilation.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/llama.cpp.o -c /workspace/external/llama.cpp/src/llama.cpp",
+  "file": "/workspace/external/llama.cpp/src/llama.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/llama-adapter.cpp.o -c /workspace/external/llama.cpp/src/llama-adapter.cpp",
+  "file": "/workspace/external/llama.cpp/src/llama-adapter.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/llama-arch.cpp.o -c /workspace/external/llama.cpp/src/llama-arch.cpp",
+  "file": "/workspace/external/llama.cpp/src/llama-arch.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/llama-batch.cpp.o -c /workspace/external/llama.cpp/src/llama-batch.cpp",
+  "file": "/workspace/external/llama.cpp/src/llama-batch.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/llama-chat.cpp.o -c /workspace/external/llama.cpp/src/llama-chat.cpp",
+  "file": "/workspace/external/llama.cpp/src/llama-chat.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/llama-context.cpp.o -c /workspace/external/llama.cpp/src/llama-context.cpp",
+  "file": "/workspace/external/llama.cpp/src/llama-context.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/llama-cparams.cpp.o -c /workspace/external/llama.cpp/src/llama-cparams.cpp",
+  "file": "/workspace/external/llama.cpp/src/llama-cparams.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/llama-grammar.cpp.o -c /workspace/external/llama.cpp/src/llama-grammar.cpp",
+  "file": "/workspace/external/llama.cpp/src/llama-grammar.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/llama-graph.cpp.o -c /workspace/external/llama.cpp/src/llama-graph.cpp",
+  "file": "/workspace/external/llama.cpp/src/llama-graph.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/llama-hparams.cpp.o -c /workspace/external/llama.cpp/src/llama-hparams.cpp",
+  "file": "/workspace/external/llama.cpp/src/llama-hparams.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/llama-impl.cpp.o -c /workspace/external/llama.cpp/src/llama-impl.cpp",
+  "file": "/workspace/external/llama.cpp/src/llama-impl.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/llama-io.cpp.o -c /workspace/external/llama.cpp/src/llama-io.cpp",
+  "file": "/workspace/external/llama.cpp/src/llama-io.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/llama-kv-cache.cpp.o -c /workspace/external/llama.cpp/src/llama-kv-cache.cpp",
+  "file": "/workspace/external/llama.cpp/src/llama-kv-cache.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/llama-kv-cache-iswa.cpp.o -c /workspace/external/llama.cpp/src/llama-kv-cache-iswa.cpp",
+  "file": "/workspace/external/llama.cpp/src/llama-kv-cache-iswa.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/llama-memory.cpp.o -c /workspace/external/llama.cpp/src/llama-memory.cpp",
+  "file": "/workspace/external/llama.cpp/src/llama-memory.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/llama-memory-hybrid.cpp.o -c /workspace/external/llama.cpp/src/llama-memory-hybrid.cpp",
+  "file": "/workspace/external/llama.cpp/src/llama-memory-hybrid.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/llama-memory-recurrent.cpp.o -c /workspace/external/llama.cpp/src/llama-memory-recurrent.cpp",
+  "file": "/workspace/external/llama.cpp/src/llama-memory-recurrent.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/llama-mmap.cpp.o -c /workspace/external/llama.cpp/src/llama-mmap.cpp",
+  "file": "/workspace/external/llama.cpp/src/llama-mmap.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/llama-model-loader.cpp.o -c /workspace/external/llama.cpp/src/llama-model-loader.cpp",
+  "file": "/workspace/external/llama.cpp/src/llama-model-loader.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/llama-model-saver.cpp.o -c /workspace/external/llama.cpp/src/llama-model-saver.cpp",
+  "file": "/workspace/external/llama.cpp/src/llama-model-saver.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/llama-model.cpp.o -c /workspace/external/llama.cpp/src/llama-model.cpp",
+  "file": "/workspace/external/llama.cpp/src/llama-model.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/llama-quant.cpp.o -c /workspace/external/llama.cpp/src/llama-quant.cpp",
+  "file": "/workspace/external/llama.cpp/src/llama-quant.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/llama-sampling.cpp.o -c /workspace/external/llama.cpp/src/llama-sampling.cpp",
+  "file": "/workspace/external/llama.cpp/src/llama-sampling.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/llama-vocab.cpp.o -c /workspace/external/llama.cpp/src/llama-vocab.cpp",
+  "file": "/workspace/external/llama.cpp/src/llama-vocab.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/unicode-data.cpp.o -c /workspace/external/llama.cpp/src/unicode-data.cpp",
+  "file": "/workspace/external/llama.cpp/src/unicode-data.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/unicode.cpp.o -c /workspace/external/llama.cpp/src/unicode.cpp",
+  "file": "/workspace/external/llama.cpp/src/unicode.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/afmoe.cpp.o -c /workspace/external/llama.cpp/src/models/afmoe.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/afmoe.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/apertus.cpp.o -c /workspace/external/llama.cpp/src/models/apertus.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/apertus.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/arcee.cpp.o -c /workspace/external/llama.cpp/src/models/arcee.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/arcee.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/arctic.cpp.o -c /workspace/external/llama.cpp/src/models/arctic.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/arctic.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/arwkv7.cpp.o -c /workspace/external/llama.cpp/src/models/arwkv7.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/arwkv7.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/baichuan.cpp.o -c /workspace/external/llama.cpp/src/models/baichuan.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/baichuan.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/bailingmoe.cpp.o -c /workspace/external/llama.cpp/src/models/bailingmoe.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/bailingmoe.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/bailingmoe2.cpp.o -c /workspace/external/llama.cpp/src/models/bailingmoe2.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/bailingmoe2.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/bert.cpp.o -c /workspace/external/llama.cpp/src/models/bert.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/bert.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/bitnet.cpp.o -c /workspace/external/llama.cpp/src/models/bitnet.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/bitnet.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/bloom.cpp.o -c /workspace/external/llama.cpp/src/models/bloom.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/bloom.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/chameleon.cpp.o -c /workspace/external/llama.cpp/src/models/chameleon.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/chameleon.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/chatglm.cpp.o -c /workspace/external/llama.cpp/src/models/chatglm.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/chatglm.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/codeshell.cpp.o -c /workspace/external/llama.cpp/src/models/codeshell.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/codeshell.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/cogvlm.cpp.o -c /workspace/external/llama.cpp/src/models/cogvlm.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/cogvlm.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/cohere2-iswa.cpp.o -c /workspace/external/llama.cpp/src/models/cohere2-iswa.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/cohere2-iswa.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/command-r.cpp.o -c /workspace/external/llama.cpp/src/models/command-r.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/command-r.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/dbrx.cpp.o -c /workspace/external/llama.cpp/src/models/dbrx.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/dbrx.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/deci.cpp.o -c /workspace/external/llama.cpp/src/models/deci.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/deci.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/deepseek.cpp.o -c /workspace/external/llama.cpp/src/models/deepseek.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/deepseek.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/deepseek2.cpp.o -c /workspace/external/llama.cpp/src/models/deepseek2.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/deepseek2.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/dots1.cpp.o -c /workspace/external/llama.cpp/src/models/dots1.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/dots1.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/dream.cpp.o -c /workspace/external/llama.cpp/src/models/dream.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/dream.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/ernie4-5-moe.cpp.o -c /workspace/external/llama.cpp/src/models/ernie4-5-moe.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/ernie4-5-moe.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/ernie4-5.cpp.o -c /workspace/external/llama.cpp/src/models/ernie4-5.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/ernie4-5.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/exaone.cpp.o -c /workspace/external/llama.cpp/src/models/exaone.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/exaone.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/exaone4.cpp.o -c /workspace/external/llama.cpp/src/models/exaone4.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/exaone4.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/falcon-h1.cpp.o -c /workspace/external/llama.cpp/src/models/falcon-h1.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/falcon-h1.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/falcon.cpp.o -c /workspace/external/llama.cpp/src/models/falcon.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/falcon.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/gemma-embedding.cpp.o -c /workspace/external/llama.cpp/src/models/gemma-embedding.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/gemma-embedding.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/gemma.cpp.o -c /workspace/external/llama.cpp/src/models/gemma.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/gemma.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/gemma2-iswa.cpp.o -c /workspace/external/llama.cpp/src/models/gemma2-iswa.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/gemma2-iswa.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/gemma3.cpp.o -c /workspace/external/llama.cpp/src/models/gemma3.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/gemma3.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/gemma3n-iswa.cpp.o -c /workspace/external/llama.cpp/src/models/gemma3n-iswa.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/gemma3n-iswa.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/glm4-moe.cpp.o -c /workspace/external/llama.cpp/src/models/glm4-moe.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/glm4-moe.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/glm4.cpp.o -c /workspace/external/llama.cpp/src/models/glm4.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/glm4.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/gpt2.cpp.o -c /workspace/external/llama.cpp/src/models/gpt2.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/gpt2.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/gptneox.cpp.o -c /workspace/external/llama.cpp/src/models/gptneox.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/gptneox.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/granite-hybrid.cpp.o -c /workspace/external/llama.cpp/src/models/granite-hybrid.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/granite-hybrid.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/granite.cpp.o -c /workspace/external/llama.cpp/src/models/granite.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/granite.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/grok.cpp.o -c /workspace/external/llama.cpp/src/models/grok.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/grok.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/grovemoe.cpp.o -c /workspace/external/llama.cpp/src/models/grovemoe.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/grovemoe.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/hunyuan-dense.cpp.o -c /workspace/external/llama.cpp/src/models/hunyuan-dense.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/hunyuan-dense.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/hunyuan-moe.cpp.o -c /workspace/external/llama.cpp/src/models/hunyuan-moe.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/hunyuan-moe.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/internlm2.cpp.o -c /workspace/external/llama.cpp/src/models/internlm2.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/internlm2.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/jais.cpp.o -c /workspace/external/llama.cpp/src/models/jais.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/jais.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/jamba.cpp.o -c /workspace/external/llama.cpp/src/models/jamba.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/jamba.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/lfm2.cpp.o -c /workspace/external/llama.cpp/src/models/lfm2.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/lfm2.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/llada-moe.cpp.o -c /workspace/external/llama.cpp/src/models/llada-moe.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/llada-moe.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/llada.cpp.o -c /workspace/external/llama.cpp/src/models/llada.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/llada.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/llama-iswa.cpp.o -c /workspace/external/llama.cpp/src/models/llama-iswa.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/llama-iswa.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/llama.cpp.o -c /workspace/external/llama.cpp/src/models/llama.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/llama.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/mamba.cpp.o -c /workspace/external/llama.cpp/src/models/mamba.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/mamba.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/mimo2-iswa.cpp.o -c /workspace/external/llama.cpp/src/models/mimo2-iswa.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/mimo2-iswa.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/minicpm3.cpp.o -c /workspace/external/llama.cpp/src/models/minicpm3.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/minicpm3.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/minimax-m2.cpp.o -c /workspace/external/llama.cpp/src/models/minimax-m2.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/minimax-m2.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/modern-bert.cpp.o -c /workspace/external/llama.cpp/src/models/modern-bert.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/modern-bert.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/mpt.cpp.o -c /workspace/external/llama.cpp/src/models/mpt.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/mpt.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/nemotron-h.cpp.o -c /workspace/external/llama.cpp/src/models/nemotron-h.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/nemotron-h.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/nemotron.cpp.o -c /workspace/external/llama.cpp/src/models/nemotron.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/nemotron.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/neo-bert.cpp.o -c /workspace/external/llama.cpp/src/models/neo-bert.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/neo-bert.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/olmo.cpp.o -c /workspace/external/llama.cpp/src/models/olmo.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/olmo.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/olmo2.cpp.o -c /workspace/external/llama.cpp/src/models/olmo2.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/olmo2.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/olmoe.cpp.o -c /workspace/external/llama.cpp/src/models/olmoe.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/olmoe.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/openai-moe-iswa.cpp.o -c /workspace/external/llama.cpp/src/models/openai-moe-iswa.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/openai-moe-iswa.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/openelm.cpp.o -c /workspace/external/llama.cpp/src/models/openelm.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/openelm.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/orion.cpp.o -c /workspace/external/llama.cpp/src/models/orion.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/orion.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/pangu-embedded.cpp.o -c /workspace/external/llama.cpp/src/models/pangu-embedded.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/pangu-embedded.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/phi2.cpp.o -c /workspace/external/llama.cpp/src/models/phi2.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/phi2.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/phi3.cpp.o -c /workspace/external/llama.cpp/src/models/phi3.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/phi3.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/plamo.cpp.o -c /workspace/external/llama.cpp/src/models/plamo.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/plamo.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/plamo2.cpp.o -c /workspace/external/llama.cpp/src/models/plamo2.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/plamo2.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/plm.cpp.o -c /workspace/external/llama.cpp/src/models/plm.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/plm.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/qwen.cpp.o -c /workspace/external/llama.cpp/src/models/qwen.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/qwen.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/qwen2.cpp.o -c /workspace/external/llama.cpp/src/models/qwen2.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/qwen2.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/qwen2moe.cpp.o -c /workspace/external/llama.cpp/src/models/qwen2moe.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/qwen2moe.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/qwen2vl.cpp.o -c /workspace/external/llama.cpp/src/models/qwen2vl.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/qwen2vl.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/qwen3.cpp.o -c /workspace/external/llama.cpp/src/models/qwen3.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/qwen3.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/qwen3vl.cpp.o -c /workspace/external/llama.cpp/src/models/qwen3vl.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/qwen3vl.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/qwen3vl-moe.cpp.o -c /workspace/external/llama.cpp/src/models/qwen3vl-moe.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/qwen3vl-moe.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/qwen3moe.cpp.o -c /workspace/external/llama.cpp/src/models/qwen3moe.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/qwen3moe.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/qwen3next.cpp.o -c /workspace/external/llama.cpp/src/models/qwen3next.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/qwen3next.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/refact.cpp.o -c /workspace/external/llama.cpp/src/models/refact.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/refact.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/rnd1.cpp.o -c /workspace/external/llama.cpp/src/models/rnd1.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/rnd1.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/rwkv6-base.cpp.o -c /workspace/external/llama.cpp/src/models/rwkv6-base.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/rwkv6-base.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/rwkv6.cpp.o -c /workspace/external/llama.cpp/src/models/rwkv6.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/rwkv6.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/rwkv6qwen2.cpp.o -c /workspace/external/llama.cpp/src/models/rwkv6qwen2.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/rwkv6qwen2.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/rwkv7-base.cpp.o -c /workspace/external/llama.cpp/src/models/rwkv7-base.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/rwkv7-base.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/rwkv7.cpp.o -c /workspace/external/llama.cpp/src/models/rwkv7.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/rwkv7.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/seed-oss.cpp.o -c /workspace/external/llama.cpp/src/models/seed-oss.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/seed-oss.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/smallthinker.cpp.o -c /workspace/external/llama.cpp/src/models/smallthinker.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/smallthinker.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/smollm3.cpp.o -c /workspace/external/llama.cpp/src/models/smollm3.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/smollm3.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/stablelm.cpp.o -c /workspace/external/llama.cpp/src/models/stablelm.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/stablelm.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/starcoder.cpp.o -c /workspace/external/llama.cpp/src/models/starcoder.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/starcoder.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/starcoder2.cpp.o -c /workspace/external/llama.cpp/src/models/starcoder2.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/starcoder2.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/t5-dec.cpp.o -c /workspace/external/llama.cpp/src/models/t5-dec.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/t5-dec.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/t5-enc.cpp.o -c /workspace/external/llama.cpp/src/models/t5-enc.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/t5-enc.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/wavtokenizer-dec.cpp.o -c /workspace/external/llama.cpp/src/models/wavtokenizer-dec.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/wavtokenizer-dec.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/xverse.cpp.o -c /workspace/external/llama.cpp/src/models/xverse.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/xverse.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/mistral3.cpp.o -c /workspace/external/llama.cpp/src/models/mistral3.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/mistral3.cpp"
+},
+{
+  "directory": "/workspace/build_container/external/llama.cpp/src",
+  "command": "/usr/bin/c++ -DGGML_BACKEND_SHARED -DGGML_SHARED -DGGML_USE_CPU -DLLAMA_BUILD -DLLAMA_SHARED -Dllama_EXPORTS -I/workspace/build_container/external/llama.cpp/src/llama_autogen/include -I/workspace/external/llama.cpp/src/. -I/workspace/external/llama.cpp/src/../include -I/workspace/external/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -std=gnu++17 -o CMakeFiles/llama.dir/models/graph-context-mamba.cpp.o -c /workspace/external/llama.cpp/src/models/graph-context-mamba.cpp",
+  "file": "/workspace/external/llama.cpp/src/models/graph-context-mamba.cpp"
+}
+]

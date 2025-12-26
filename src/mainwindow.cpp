@@ -2,6 +2,7 @@
 #include "llamaworker.h"
 #include <QDir>
 #include <QFileDialog>
+#include <QGridLayout>
 #include <QMessageBox>
 
 /**
@@ -40,7 +41,7 @@ void MainWindow::setupUI() {
   mainLayout->setContentsMargins(10, 10, 10, 10);
 
   // ====== Annotation Section ======
-  annotationGroup = new QGroupBox("Annotations", centralWidget);
+  annotationGroup = new QGroupBox("Damage Annotations", centralWidget);
   QVBoxLayout *annotationLayout = new QVBoxLayout(annotationGroup);
 
   // Annotation list widget
@@ -48,16 +49,54 @@ void MainWindow::setupUI() {
   annotationList->setAlternatingRowColors(true);
   annotationLayout->addWidget(annotationList);
 
-  // Input row (text input + add button)
-  QHBoxLayout *inputLayout = new QHBoxLayout();
-  annotationInput = new QLineEdit(annotationGroup);
-  annotationInput->setPlaceholderText("Enter annotation text...");
-  addButton = new QPushButton("Add Annotation", annotationGroup);
-  addButton->setMaximumWidth(150);
+  // Input Grid
+  QGridLayout *inputGrid = new QGridLayout();
 
-  inputLayout->addWidget(annotationInput);
-  inputLayout->addWidget(addButton);
-  annotationLayout->addLayout(inputLayout);
+  // Classification
+  inputGrid->addWidget(new QLabel("Classification:"), 0, 0);
+  classificationInput = new QComboBox(annotationGroup);
+  classificationInput->addItems(
+      {"Crack", "Erosion", "Lightning Strike", "Delamination", "Other"});
+  inputGrid->addWidget(classificationInput, 0, 1);
+
+  // Severity
+  inputGrid->addWidget(new QLabel("Severity:"), 0, 2);
+  severityInput = new QComboBox(annotationGroup);
+  severityInput->addItems({"Low", "Medium", "High", "Critical"});
+  inputGrid->addWidget(severityInput, 0, 3);
+
+  // Radius
+  inputGrid->addWidget(new QLabel("Blade Radius (m):"), 1, 0);
+  radiusInput = new QLineEdit(annotationGroup);
+  radiusInput->setPlaceholderText("e.g. 45.5");
+  inputGrid->addWidget(radiusInput, 1, 1);
+
+  // Side
+  inputGrid->addWidget(new QLabel("Blade Side:"), 1, 2);
+  sideInput = new QComboBox(annotationGroup);
+  sideInput->addItems(
+      {"Pressure Side", "Suction Side", "Leading Edge", "Trailing Edge"});
+  inputGrid->addWidget(sideInput, 1, 3);
+
+  // Description
+  inputGrid->addWidget(new QLabel("Description:"), 2, 0);
+  descriptionInput = new QLineEdit(annotationGroup);
+  descriptionInput->setPlaceholderText("Enter detailed description...");
+  inputGrid->addWidget(descriptionInput, 2, 1);
+
+  // Add Random button
+  randomButton = new QPushButton("Add Random", annotationGroup);
+  randomButton->setStyleSheet(
+      "background-color: #e67e22; color: white; font-weight: bold;");
+  inputGrid->addWidget(randomButton, 2, 2);
+
+  // Add button
+  addButton = new QPushButton("Add Annotation", annotationGroup);
+  addButton->setStyleSheet(
+      "background-color: #2ecc71; color: white; font-weight: bold;");
+  inputGrid->addWidget(addButton, 2, 3);
+
+  annotationLayout->addLayout(inputGrid);
 
   // Annotation count label
   countLabel = new QLabel("Total annotations: 0", annotationGroup);
@@ -67,11 +106,11 @@ void MainWindow::setupUI() {
   mainLayout->addWidget(annotationGroup);
 
   // ====== Report Generation Section ======
-  reportGroup = new QGroupBox("Report Conclusion", centralWidget);
+  reportGroup = new QGroupBox("Expert Technical Conclusion", centralWidget);
   QVBoxLayout *reportLayout = new QVBoxLayout(reportGroup);
 
   // Generate button
-  generateButton = new QPushButton("Generate Report Conclusion", reportGroup);
+  generateButton = new QPushButton("Generate Expert Conclusion", reportGroup);
   generateButton->setStyleSheet(
       "QPushButton { background-color: #3498db; color: white; padding: 8px; "
       "font-weight: bold; }"
@@ -88,20 +127,20 @@ void MainWindow::setupUI() {
   reportOutput = new QTextEdit(reportGroup);
   reportOutput->setReadOnly(true);
   reportOutput->setPlaceholderText(
-      "Generated report conclusion will appear here...");
-  reportOutput->setMinimumHeight(150);
+      "The expert conclusion will appear here after generation...");
+  reportOutput->setMinimumHeight(200);
   reportLayout->addWidget(reportOutput);
 
   mainLayout->addWidget(reportGroup);
 
-  // Set layout stretch factors (60% annotations, 40% report)
-  mainLayout->setStretch(0, 6);
-  mainLayout->setStretch(1, 4);
+  // Set layout stretch factors
+  mainLayout->setStretch(0, 5);
+  mainLayout->setStretch(1, 5);
 
   // ====== Connect Signals and Slots ======
   connect(addButton, &QPushButton::clicked, this, &MainWindow::onAddAnnotation);
-  connect(annotationInput, &QLineEdit::returnPressed, this,
-          &MainWindow::onAddAnnotation);
+  connect(randomButton, &QPushButton::clicked, this,
+          &MainWindow::onAddRandomAnnotation);
   connect(generateButton, &QPushButton::clicked, this,
           &MainWindow::onGenerateReport);
 }
@@ -114,23 +153,33 @@ void MainWindow::updateAnnotationCount() {
 }
 
 /**
- * @brief Create LLM prompt based on annotation count
+ * @brief Create LLM prompt based on annotations
  */
-QString MainWindow::createPrompt(int count) {
-  QString prompt = QString("You are a helpful assistant. Based on %1 "
-                           "annotations made by the user, "
-                           "write a brief conclusion for their report. ")
-                       .arg(count);
+QString MainWindow::createPrompt() {
+  QString prompt = "You are a Wind Turbine Blade Expert. Your task is to "
+                   "analyze damage annotations and provide a professional "
+                   "technical conclusion based on blade standards reports.\n\n";
+  prompt += "Input Annotations:\n";
 
-  if (count < 5) {
-    prompt += "Since there are few annotations (less than 5), suggest that "
-              "more analysis may be needed. ";
-  } else if (count >= 10) {
-    prompt += "Since there are many annotations (10 or more), highlight that "
-              "there is substantial data for insights. ";
+  for (const auto &ann : annotations) {
+    prompt +=
+        QString("- Damage: %1, Severity: %2, Location: %3m on %4. Detail: %5\n")
+            .arg(ann.classification)
+            .arg(ann.severity)
+            .arg(ann.radius)
+            .arg(ann.side)
+            .arg(ann.description);
   }
 
-  prompt += "\n\nWrite a 2-3 sentence conclusion:";
+  prompt += "\nBased on these findings, please generate a report with the "
+            "following sections:\n";
+  prompt += "1. Summary of Findings: A technical summary of the identified "
+            "damages.\n";
+  prompt += "2. Recommendations/Guidelines: Specific actions based on blade "
+            "inspection standards.\n";
+  prompt += "3. Next Inspection Suggestions: Timeline and focus areas.\n";
+  prompt += "4. Conclusion: Final assessment of the blade's condition.\n\n";
+  prompt += "Expert Conclusion:";
 
   return prompt;
 }
@@ -139,23 +188,60 @@ QString MainWindow::createPrompt(int count) {
  * @brief Handle "Add Annotation" button click
  */
 void MainWindow::onAddAnnotation() {
-  QString text = annotationInput->text().trimmed();
+  Annotation ann;
+  ann.classification = classificationInput->currentText();
+  ann.severity = severityInput->currentText();
+  ann.radius = radiusInput->text().trimmed();
+  ann.description = descriptionInput->text().trimmed();
+  ann.side = sideInput->currentText();
 
-  if (text.isEmpty()) {
-    QMessageBox::warning(this, "Empty Annotation",
-                         "Please enter annotation text before adding.");
+  if (ann.radius.isEmpty() || ann.description.isEmpty()) {
+    QMessageBox::warning(this, "Incomplete Data",
+                         "Please enter a radius and description.");
     return;
   }
 
   // Add to storage
-  annotations.append(text);
+  annotations.append(ann);
 
   // Add to list widget
-  annotationList->addItem(text);
+  annotationList->addItem(ann.toString());
 
-  // Clear input field
-  annotationInput->clear();
-  annotationInput->setFocus();
+  // Clear numeric/text fields
+  radiusInput->clear();
+  descriptionInput->clear();
+  classificationInput->setFocus();
+
+  // Update count
+  updateAnnotationCount();
+}
+
+/**
+ * @brief Handle "Add Random" button click
+ */
+void MainWindow::onAddRandomAnnotation() {
+  QStringList classifications = {"Crack", "Erosion", "Lightning Strike",
+                                 "Delamination", "Other"};
+  QStringList severities = {"Low", "Medium", "High", "Critical"};
+  QStringList sides = {"Pressure Side", "Suction Side", "Leading Edge",
+                       "Trailing Edge"};
+  QStringList sampleDescriptions = {
+      "Minor surface wear detected",       "Hairline fracture along the edge",
+      "Evidence of recent strike impact",  "Surface coating peeling off",
+      "Noticeable structural deformation", "Moisture ingress at the tip"};
+
+  Annotation ann;
+  ann.classification = classifications.at(rand() % classifications.size());
+  ann.severity = severities.at(rand() % severities.size());
+  ann.side = sides.at(rand() % sides.size());
+  ann.radius = QString::number((rand() % 900) / 10.0, 'f', 1);
+  ann.description = sampleDescriptions.at(rand() % sampleDescriptions.size());
+
+  // Add to storage
+  annotations.append(ann);
+
+  // Add to list widget
+  annotationList->addItem(ann.toString());
 
   // Update count
   updateAnnotationCount();
@@ -198,7 +284,7 @@ void MainWindow::onGenerateReport() {
   }
 
   // Create prompt
-  QString prompt = createPrompt(annotations.size());
+  QString prompt = createPrompt();
 
   // Update UI state
   generateButton->setEnabled(false);

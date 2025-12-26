@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QComboBox>
 #include <QGroupBox>
 #include <QHBoxLayout>
 #include <QLabel>
@@ -15,6 +16,29 @@
 
 // Forward declaration
 class LlamaWorker;
+
+/**
+ * @brief Structured annotation data
+ */
+struct Annotation {
+  QString classification;
+  QString severity;
+  QString radius;
+  QString description;
+  QString side;
+
+  /**
+   * @brief Convert annotation to a readable string for the list
+   */
+  QString toString() const {
+    return QString("[%1] %2 - %3 (%4m, %5)")
+        .arg(severity)
+        .arg(classification)
+        .arg(description)
+        .arg(radius)
+        .arg(side);
+  }
+};
 
 /**
  * @brief Main window class for the LocalLLM application
@@ -60,6 +84,11 @@ private slots:
    */
   void onGenerationError(const QString &error);
 
+  /**
+   * @brief Slot called when "Add Random" button is clicked
+   */
+  void onAddRandomAnnotation();
+
 private:
   /**
    * @brief Initialize the user interface
@@ -72,11 +101,10 @@ private:
   void updateAnnotationCount();
 
   /**
-   * @brief Create the prompt for LLM based on annotation count
-   * @param count Number of annotations
+   * @brief Create the prompt for LLM based on annotations
    * @return Formatted prompt string
    */
-  QString createPrompt(int count);
+  QString createPrompt();
 
   // UI Components
   QWidget *centralWidget;
@@ -84,8 +112,16 @@ private:
 
   QGroupBox *annotationGroup;
   QListWidget *annotationList;
-  QLineEdit *annotationInput;
+
+  // Input Fields
+  QComboBox *classificationInput;
+  QComboBox *severityInput;
+  QLineEdit *radiusInput;
+  QLineEdit *descriptionInput;
+  QComboBox *sideInput;
+
   QPushButton *addButton;
+  QPushButton *randomButton;
   QLabel *countLabel;
 
   QGroupBox *reportGroup;
@@ -94,7 +130,7 @@ private:
   QLabel *statusLabel;
 
   // Data storage
-  QVector<QString> annotations;
+  QVector<Annotation> annotations;
 
   // LLM worker (runs in separate thread)
   LlamaWorker *worker;

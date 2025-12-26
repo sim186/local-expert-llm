@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   localllm:
     build:
@@ -16,8 +14,6 @@ services:
     volumes:
       - .:/workspace:cached
       - ./models:/workspace/models:cached
-      # Cache for build artifacts
-      - build-cache:/workspace/build
     
     # X11 display forwarding for GUI
     environment:
@@ -37,5 +33,3 @@ services:
     # Keep container running
     command: /bin/bash -c "while sleep 1000; do :; done"
 
-volumes:
-  build-cache:
