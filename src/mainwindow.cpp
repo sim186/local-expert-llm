@@ -1,9 +1,11 @@
 #include "mainwindow.h"
 #include "llamaworker.h"
 #include <QDir>
+#include <QFile>
 #include <QFileDialog>
 #include <QGridLayout>
 #include <QMessageBox>
+#include <QTextStream>
 
 /**
  * @brief Constructor - Initialize main window and UI
@@ -156,30 +158,87 @@ void MainWindow::updateAnnotationCount() {
  * @brief Create LLM prompt based on annotations
  */
 QString MainWindow::createPrompt() {
-  QString prompt = "You are a Wind Turbine Blade Expert. Your task is to "
-                   "analyze damage annotations and provide a professional "
-                   "technical conclusion based on blade standards reports.\n\n";
-  prompt += "Input Annotations:\n";
+  // Try to load the context template file
+  QString contextPath = QDir::currentPath() + "/context/input_context.txt";
+  QFile contextFile(contextPath);
 
-  for (const auto &ann : annotations) {
-    prompt +=
-        QString("- Damage: %1, Severity: %2, Location: %3m on %4. Detail: %5\n")
-            .arg(ann.classification)
-            .arg(ann.severity)
-            .arg(ann.radius)
-            .arg(ann.side)
-            .arg(ann.description);
+  QString prompt;
+
+  if (contextFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
+    // Read the template
+    QTextStream in(&contextFile);
+    QString templateContent = in.readAll();
+    contextFile.close();
+
+    // Build formatted annotations section
+    QString annotationsSection;
+    for (int i = 0; i < annotations.size(); ++i) {
+      const auto &ann = annotations[i];
+
+      if (i > 0) {
+        annotationsSection += "\n"; // Separate multiple annotations
+      }
+
+      annotationsSection += QString("Annotation #%1:\n").arg(i + 1);
+      annotationsSection +=
+          QString("Classification: %1\n").arg(ann.classification);
+      annotationsSection += QString("Severity (1-5): %1\n").arg(ann.severity);
+      annotationsSection +=
+          QString("Radius (meters from root): %1\n").arg(ann.radius);
+      annotationsSection += QString("Side (SS/PS): %1\n").arg(ann.side);
+      annotationsSection += QString("Description: %1\n").arg(ann.description);
+    }
+
+    // Replace the placeholder section in the template
+    // Find and replace the INPUT ANNOTATIONS section (lines 10-15 in the
+    // template)
+    QStringList lines = templateContent.split('\n');
+    QString result;
+    bool inAnnotationSection = false;
+
+    for (const QString &line : lines) {
+      if (line.contains("### INPUT ANNOTATIONS:")) {
+        result += line + "\n";
+        result += annotationsSection;
+        inAnnotationSection = true;
+      } else if (inAnnotationSection && line.contains("### TASK:")) {
+        result += "\n" + line + "\n";
+        inAnnotationSection = false;
+      } else if (!inAnnotationSection) {
+        result += line + "\n";
+      }
+    }
+
+    prompt = result;
+
+  } else {
+    // Fallback to the original prompt if context file is not found
+    prompt = "You are a Wind Turbine Blade Expert. Your task is to "
+             "analyze damage annotations and provide a professional "
+             "technical conclusion based on blade standards reports.\n\n";
+    prompt += "Input Annotations:\n";
+
+    for (const auto &ann : annotations) {
+      prompt +=
+          QString(
+              "- Damage: %1, Severity: %2, Location: %3m on %4. Detail: %5\n")
+              .arg(ann.classification)
+              .arg(ann.severity)
+              .arg(ann.radius)
+              .arg(ann.side)
+              .arg(ann.description);
+    }
+
+    prompt += "\nBased on these findings, please generate a report with the "
+              "following sections:\n";
+    prompt += "1. Summary of Findings: A technical summary of the identified "
+              "damages.\n";
+    prompt += "2. Recommendations/Guidelines: Specific actions based on blade "
+              "inspection standards.\n";
+    prompt += "3. Next Inspection Suggestions: Timeline and focus areas.\n";
+    prompt += "4. Conclusion: Final assessment of the blade's condition.\n\n";
+    prompt += "Expert Conclusion:";
   }
-
-  prompt += "\nBased on these findings, please generate a report with the "
-            "following sections:\n";
-  prompt += "1. Summary of Findings: A technical summary of the identified "
-            "damages.\n";
-  prompt += "2. Recommendations/Guidelines: Specific actions based on blade "
-            "inspection standards.\n";
-  prompt += "3. Next Inspection Suggestions: Timeline and focus areas.\n";
-  prompt += "4. Conclusion: Final assessment of the blade's condition.\n\n";
-  prompt += "Expert Conclusion:";
 
   return prompt;
 }

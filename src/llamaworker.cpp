@@ -63,9 +63,10 @@ void LlamaWorker::run() {
 
     // Set up context parameters
     llama_context_params ctx_params = llama_context_default_params();
-    ctx_params.n_ctx = 2048;  // Context size
-    ctx_params.n_batch = 512; // Batch size for prompt processing
-    ctx_params.n_threads = 4; // Number of threads to use
+    ctx_params.n_ctx = 2048;   // Context size
+    ctx_params.n_batch = 2048; // Batch size for prompt processing (increased
+                               // for larger context templates)
+    ctx_params.n_threads = 4;  // Number of threads to use
 
     // Create context
     llama_context *ctx = llama_new_context_with_model(model, ctx_params);
