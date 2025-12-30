@@ -127,10 +127,15 @@ sudo apt-get install qt6-base-dev qt6-tools-dev cmake build-essential
 
 **Windows:**
 - Download Qt from https://www.qt.io/download-qt-installer
-- Install Qt 6.x with MinGW or MSVC compiler
+- Run the installer and select:
+  - Qt 6.x (latest version)
+  - Choose either MinGW or MSVC compiler
+  - CMake (if not already installed)
+- Install Visual Studio 2019+ (for MSVC) or MinGW-w64
 
 ### Build Steps
 
+**Linux/macOS:**
 ```bash
 # Clone with submodules
 git clone --recursive https://github.com/yourusername/local_llm.git
@@ -146,10 +151,34 @@ cmake ..
 cmake --build . -j4
 
 # Run
-./LocalLLM  # Linux/macOS
-# or
-LocalLLM.exe  # Windows
+./LocalLLM
 ```
+
+**Windows (PowerShell or CMD):**
+```powershell
+# Clone with submodules
+git clone --recursive https://github.com/yourusername/local_llm.git
+cd local_llm
+
+# Initialize submodules if you forgot --recursive
+git submodule update --init --recursive
+
+# Configure with Visual Studio generator
+cmake -B build -G "Visual Studio 17 2022"
+# Or for MinGW: cmake -B build -G "MinGW Makefiles"
+
+# Build (Release configuration recommended for better performance)
+cmake --build build --config Release -j4
+
+# Run
+.\build\Release\LocalLLM.exe
+```
+
+> **Note for Windows users**: If CMake can't find Qt6, you may need to specify the Qt path:
+> ```powershell
+> cmake -B build -G "Visual Studio 17 2022" -DCMAKE_PREFIX_PATH="C:\Qt\6.x.x\msvc2019_64"
+> ```
+> Replace `6.x.x` and compiler version with your actual Qt installation path.
 
 ## Usage
 
@@ -236,6 +265,43 @@ sudo apt-get install qt6-base-dev qt6-tools-dev
 **Solution:**
 ```bash
 git submodule update --init --recursive
+```
+
+### Windows-Specific Issues
+
+**Error:** "Qt6 not found" or "Could not find Qt6"
+
+**Solution:**
+```powershell
+# Specify Qt path when configuring
+cmake -B build -G "Visual Studio 17 2022" -DCMAKE_PREFIX_PATH="C:\Qt\6.x.x\msvc2019_64"
+
+# For MinGW
+cmake -B build -G "MinGW Makefiles" -DCMAKE_PREFIX_PATH="C:\Qt\6.x.x\mingw_64"
+```
+
+**Error:** "Cannot open include file: 'llama.h'"
+
+**Solution:**
+```powershell
+# Ensure submodules are initialized
+git submodule update --init --recursive
+
+# Clean and rebuild
+rmdir /s /q build
+cmake -B build -G "Visual Studio 17 2022"
+cmake --build build --config Release
+```
+
+**Error:** Missing DLL files when running
+
+**Solution:**
+```powershell
+# Copy Qt DLLs to build directory, or add Qt bin to PATH
+set PATH=C:\Qt\6.x.x\msvc2019_64\bin;%PATH%
+
+# Or use windeployqt to copy all required DLLs
+C:\Qt\6.x.x\msvc2019_64\bin\windeployqt.exe .\build\Release\LocalLLM.exe
 ```
 
 ### Slow Inference

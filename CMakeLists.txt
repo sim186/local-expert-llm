@@ -68,6 +68,14 @@ if(APPLE)
     )
 endif()
 
+if(WIN32)
+    # Ensure console window shows for debugging output
+    # Set to ON for release builds without console
+    set_target_properties(${PROJECT_NAME} PROPERTIES
+        WIN32_EXECUTABLE OFF
+    )
+endif()
+
 # Install target
 install(TARGETS ${PROJECT_NAME}
     RUNTIME DESTINATION bin
