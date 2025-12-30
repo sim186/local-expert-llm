@@ -8,17 +8,35 @@
 - Category 5 (Critical): Immediate failure risk. Requires major repair or replacement (e.g., using a Heavy Lifting Vessel offshore). [cite: 1466, 1481]
 
 ### INPUT ANNOTATIONS:
-Classification: %1
-Severity (1-5): %2
-Radius (meters from root): %3
-Side (SS/PS): %4
-Description: %5
+
 
 ### TASK:
-Generate a report with:
-1. Summary of Findings: Technical overview of the damage type and its location (considering critical zones like Max Chord or Tip).
-2. Recommendations: Specific repair actions based on the Category (DC) listed above.
-3. Inspection Timeline: Suggested next inspection or repair deadline (e.g., 3 months, 6 months, or next scheduled).
-4. Conclusion: Final assessment of the blade's structural integrity.
+Based ONLY on the annotations provided above, generate a technical expert report with the following structure:
+
+1. **Summary of Findings**: 
+   - Provide a brief technical overview of each damage found
+   - Consider the location criticality (tip, max chord, root areas are most critical)
+   - Reference the specific severity and classification from the annotations
+
+2. **Category Classification**:
+   - Assign each damage to ONE specific Category (1-5) based on the reference standards above
+   - Do NOT list all categories - only mention the categories that apply to the actual damages
+   - For each applicable category, specify which damage it applies to and why
+
+3. **Recommendations**: 
+   - Provide specific repair actions based on the assigned Category
+   - Reference the standards (cite numbers) that support your recommendation
+   - Be specific about what needs to be done, not generic advice
+
+4. **Inspection Timeline**: 
+   - Based on the Category assignments, specify when the next inspection or repair must occur
+   - Use specific timeframes: "within 3 months", "within 6 months", "next scheduled maintenance", or "immediate action required"
+   - Do NOT list all possible timeframes - only the one(s) that apply
+
+5. **Conclusion**: 
+   - Provide a final assessment of the blade's current structural integrity
+   - Include a clear go/no-go decision for continued operation
+
+Do NOT include placeholder text like "[Insert...]" or generic lists of all categories. Use the ACTUAL data from the annotations above.
 
 Expert Conclusion:
