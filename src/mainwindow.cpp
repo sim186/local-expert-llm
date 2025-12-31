@@ -273,7 +273,7 @@ QString MainWindow::sanitizeClassification(const QString &classification) {
  */
 bool MainWindow::isValidClassification(const QString &classification) {
   const QStringList& validClassifications = getValidClassificationsList();
-  return validClassifications.contains(classification.trimmed(), Qt::CaseSensitive);
+  return validClassifications.contains(classification, Qt::CaseSensitive);
 }
 
 /**
@@ -281,8 +281,7 @@ bool MainWindow::isValidClassification(const QString &classification) {
  */
 QString MainWindow::createPrompt() {
   // Build a simple list of damage classifications only
-  QString classificationsOnly;
-  bool isFirst = true;
+  QStringList classificationsList;
   
   for (int i = 0; i < annotations.size(); ++i) {
     const auto &ann = annotations[i];
@@ -292,13 +291,12 @@ QString MainWindow::createPrompt() {
     
     // Only include valid classifications
     if (!sanitized.isEmpty()) {
-      if (!isFirst) {
-        classificationsOnly += ", ";
-      }
-      classificationsOnly += sanitized;
-      isFirst = false;
+      classificationsList.append(sanitized);
     }
   }
+  
+  // Join classifications with comma separator
+  QString classificationsOnly = classificationsList.join(", ");
 
   // Wrap in Chat Template based on model type
   QString templateType = m_controller->getTemplateType();
