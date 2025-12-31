@@ -239,6 +239,8 @@ void MainWindow::updateAnnotationCount() {
 
 /**
  * @brief Get static list of valid classifications
+ * 
+ * Returns a const reference to avoid unnecessary copying when used for validation.
  */
 const QStringList& MainWindow::getValidClassificationsList() {
   static const QStringList validClassifications = 
@@ -247,7 +249,9 @@ const QStringList& MainWindow::getValidClassificationsList() {
 }
 
 /**
- * @brief Get list of valid classifications
+ * @brief Get list of valid classifications (for UI usage)
+ * 
+ * Returns a copy for use with UI components that expect QStringList (not reference).
  */
 QStringList MainWindow::getValidClassifications() const {
   return getValidClassificationsList();

@@ -133,14 +133,24 @@ private:
   bool isValidClassification(const QString &classification);
 
   /**
-   * @brief Get list of valid classifications
+   * @brief Get list of valid classifications (for UI usage)
+   * 
+   * This method returns a copy of the valid classifications list for use
+   * in UI components like QComboBox::addItems() which expect a QStringList.
+   * For validation purposes, use getValidClassificationsList() instead to
+   * avoid copying.
+   * 
    * @return QStringList of valid classification values
    */
   QStringList getValidClassifications() const;
 
   /**
    * @brief Get static list of valid classifications (for validation)
-   * @return Static reference to valid classification list
+   * 
+   * This static method returns a const reference to the cached list of
+   * valid classifications. Use this for validation to avoid copying.
+   * 
+   * @return Static const reference to valid classification list
    */
   static const QStringList& getValidClassificationsList();
 
