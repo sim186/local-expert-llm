@@ -10,8 +10,10 @@ A desktop application built with C++ and Qt6 that integrates a local Large Langu
 - ✅ **Qt GUI**: Clean, responsive interface built with Qt6 Widgets
 - ✅ **Annotation Management**: Add and track annotations with ease
 - ✅ **Smart Conclusions**: LLM generates contextual conclusions based on annotation count
+- ✅ **Persistent Model Loading**: Models are loaded once and kept in memory for instant generation
+- ✅ **Multi-Model Support**: Built-in support for Llama 3, Mistral, Phi-3, Gemma, and Qwen with automatic prompt templating
 - ✅ **Background Inference**: Non-blocking UI with threaded LLM processing
-- ✅ **LLM Controller**: Manage models, download new ones, and tweak parameters (Temp, Top-P)
+- ✅ **LLM Controller**: Manage models, download new ones directly from HuggingFace, and tweak parameters
 - ✅ **Custom Prompts**: Edit and save system prompts directly in the app
 - ✅ **Cross-Platform**: Works on Windows, Linux, and macOS
 - ✅ **Docker Support**: Consistent build environment with all dependencies
@@ -92,17 +94,16 @@ docker compose exec localllm cmake --build /workspace/build_container -j4
 
 ### 5. Download a Model
 
-You need a GGUF format model. We recommend starting with a small quantized model:
+The application includes a built-in **Model Manager** for easy model downloading.
 
-**Option A: TinyLlama (1.1B, fastest, ~600MB)**
-```bash
-docker compose exec localllm bash -c "cd /workspace/models && wget https://huggingface.co/TheBloke/TinyLlama-1.1B-Chat-v1.0-GGUF/resolve/main/tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf -O model.gguf"
-```
+1.  Run the application (see step 6).
+2.  Go to **File > LLM Settings**.
+3.  Switch to the **Models** tab.
+4.  Click **Download** next to your desired model (e.g., Llama 3.2 1B or Phi-3.5 Mini).
+5.  Once downloaded, click **Select**.
 
-**Option B: Llama-2-7B (better quality, ~4GB)**
-```bash
-docker compose exec localllm bash -c "cd /workspace/models && wget https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGUF/resolve/main/llama-2-7b-chat.Q4_K_M.gguf -O model.gguf"
-```
+*Alternatively, if you want to manually place a model:*
+Place any GGUF model in the `models/` directory and select it in the settings.
 
 ### 6. Run the Application
 
@@ -189,8 +190,9 @@ cmake --build build --config Release -j4
 
 1. **Configure LLM**
    - Click **⚙ Settings** or go to **File > LLM Settings**.
-   - Go to the **Models** tab and download a model (e.g., Llama 3.2 1B).
-   - Click **Select** once downloaded.
+   - Go to the **Models** tab.
+   - **Download** a model from the curated list (Llama 3, Mistral, Phi-3, etc.).
+   - Click **Select** to load the model.
    - (Optional) Adjust **Temperature** or **System Prompt** in the Settings tab.
 
 2. **Add Annotations**
@@ -200,12 +202,29 @@ cmake --build build --config Release -j4
 
 3. **Generate Report**
    - Click "Generate Expert Conclusion"
-   - Wait for the LLM to generate (progress shown in status bar)
+   - The first generation loads the model into memory (taking a few seconds).
+   - **Subsequent generations are instant** as the model stays loaded.
    - View the generated conclusion in the output area
 
 4. **Sample Workflow**
    - Add 3-4 annotations → LLM suggests more analysis needed
    - Add 10+ annotations → LLM highlights substantial insights available
+
+## Performance & Architecture
+
+### Persistent Model Loading
+LocalLLM uses a persistent worker thread to keep the model loaded in memory.
+- **Startup:** Model loads once (takes 2-10s depending on size).
+- **Inference:** Subsequent requests are processed immediately.
+- **Memory:** The model stays in RAM/VRAM until you select a different model or close the app.
+
+### Multi-Template Support
+Different models require different prompt formats to work correctly. LocalLLM automatically detects and applies the correct template:
+- **Llama 3:** `<|begin_of_text|><|start_header_id|>system...`
+- **Mistral:** `[INST] ... [/INST]`
+- **ChatML (Qwen/TinyLlama):** `<|im_start|>system...`
+- **Phi-3:** `<|user|> ... <|end|>`
+- **Gemma:** `<start_of_turn>user ...`
 
 ## Project Structure
 
