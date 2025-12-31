@@ -8,6 +8,7 @@
 #include <QTableWidget>
 #include <QTextEdit>
 #include <QDoubleSpinBox>
+#include <QSpinBox>
 #include <QLabel>
 #include <QProgressBar>
 #include "llamaworker.h"
@@ -48,6 +49,8 @@ private:
     QTextEdit *m_promptEdit;
     QDoubleSpinBox *m_tempSpin;
     QDoubleSpinBox *m_topPSpin;
+    QSpinBox *m_threadsSpin;
+    QSpinBox *m_ctxSpin;
     QTableWidget *m_modelTable;
     QLabel *m_statusLabel;
     QProgressBar *m_progressBar;

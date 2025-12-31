@@ -318,7 +318,7 @@ C:\Qt\6.x.x\msvc2019_64\bin\windeployqt.exe .\build\Release\LocalLLM.exe
 
 **Tips for better performance:**
 - Use quantized models (Q4_K_M or Q5_K_M)
-- Adjust thread count in `llamaworker.cpp` (`ctx_params.n_threads`)
+- Adjust thread count in the **LLM Settings** dialog (try matching your physical CPU cores)
 - Use smaller models for testing (TinyLlama)
 - Close other applications to free RAM
 
@@ -333,6 +333,8 @@ You can select a custom model path directly from the **LLM Settings** dialog in 
 You can adjust the following parameters in the **LLM Settings** dialog:
 - **Temperature**: Controls randomness (0.0 - 2.0). Lower values are more deterministic.
 - **Top-P**: Nucleus sampling (0.0 - 1.0). Controls diversity.
+- **Threads**: Number of CPU threads to use for inference. Adjust based on your CPU cores.
+- **Context Size**: Maximum context size (tokens) the model can handle. Larger values require more RAM.
 - **System Prompt**: Customize the instructions given to the model.
 
 ### Console Output

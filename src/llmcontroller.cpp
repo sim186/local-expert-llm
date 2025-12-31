@@ -41,11 +41,16 @@ void LLMControllerDialog::setupUi()
     QVBoxLayout *settingsLayout = new QVBoxLayout(settingsTab);
 
     // Prompt Section
-    settingsLayout->addWidget(new QLabel("System Prompt:"));
+    QLabel *promptLabel = new QLabel("System Prompt:");
+    promptLabel->setToolTip("The initial instructions given to the model to define its persona and behavior.");
+    settingsLayout->addWidget(promptLabel);
+    
     m_promptEdit = new QTextEdit();
+    m_promptEdit->setToolTip("Enter the system prompt here. This sets the context for the AI.");
     settingsLayout->addWidget(m_promptEdit);
 
     QPushButton *savePromptBtn = new QPushButton("Save Prompt");
+    savePromptBtn->setToolTip("Save the current system prompt to file.");
     connect(savePromptBtn, &QPushButton::clicked, this, &LLMControllerDialog::savePrompt);
     settingsLayout->addWidget(savePromptBtn);
 
@@ -57,13 +62,28 @@ void LLMControllerDialog::setupUi()
     m_tempSpin->setRange(0.0, 2.0);
     m_tempSpin->setSingleStep(0.1);
     m_tempSpin->setValue(0.7);
+    m_tempSpin->setToolTip("Controls randomness. Higher values (e.g., 1.0) make output more creative but less predictable.\nLower values (e.g., 0.1) make it more deterministic and focused.");
     paramsLayout->addRow("Temperature:", m_tempSpin);
 
     m_topPSpin = new QDoubleSpinBox();
     m_topPSpin->setRange(0.0, 1.0);
     m_topPSpin->setSingleStep(0.05);
     m_topPSpin->setValue(0.9);
+    m_topPSpin->setToolTip("Nucleus sampling. Limits the next token selection to the top P% of probability mass.\nLower values (e.g., 0.1) reduce diversity and focus on the most likely words.");
     paramsLayout->addRow("Top-P:", m_topPSpin);
+
+    m_threadsSpin = new QSpinBox();
+    m_threadsSpin->setRange(1, 32);
+    m_threadsSpin->setValue(4);
+    m_threadsSpin->setToolTip("Number of CPU threads to use for inference.\nHigher values speed up generation but use more CPU resources.\nRecommended: Physical CPU cores - 1.");
+    paramsLayout->addRow("Threads:", m_threadsSpin);
+
+    m_ctxSpin = new QSpinBox();
+    m_ctxSpin->setRange(512, 32768);
+    m_ctxSpin->setSingleStep(512);
+    m_ctxSpin->setValue(4096);
+    m_ctxSpin->setToolTip("The maximum amount of text (prompt + generation) the model can remember.\nLarger context requires more RAM.");
+    paramsLayout->addRow("Context Size:", m_ctxSpin);
 
     settingsLayout->addWidget(paramsGroup);
     tabWidget->addTab(settingsTab, "Settings");
@@ -260,6 +280,8 @@ void LLMControllerDialog::saveSettings()
 {
     m_settings.setValue("temperature", m_tempSpin->value());
     m_settings.setValue("topP", m_topPSpin->value());
+    m_settings.setValue("threads", m_threadsSpin->value());
+    m_settings.setValue("contextSize", m_ctxSpin->value());
     m_settings.setValue("modelPath", m_currentModelPath);
 }
 
@@ -267,6 +289,8 @@ void LLMControllerDialog::loadSettings()
 {
     m_tempSpin->setValue(m_settings.value("temperature", 0.7).toDouble());
     m_topPSpin->setValue(m_settings.value("topP", 0.9).toDouble());
+    m_threadsSpin->setValue(m_settings.value("threads", 4).toInt());
+    m_ctxSpin->setValue(m_settings.value("contextSize", 4096).toInt());
     m_currentModelPath = m_settings.value("modelPath", "").toString();
     
     if (!m_currentModelPath.isEmpty()) {
@@ -280,9 +304,8 @@ LlamaParams LLMControllerDialog::getParams() const
     params.temperature = m_tempSpin->value();
     params.topP = m_topPSpin->value();
     params.modelPath = m_currentModelPath;
-    // Default values for others
-    params.contextSize = 4096;
-    params.threads = 4;
+    params.contextSize = m_ctxSpin->value();
+    params.threads = m_threadsSpin->value();
     return params;
 }
 
