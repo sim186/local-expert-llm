@@ -12,27 +12,47 @@
 #include <QSplitter>
 #include <QPixmap>
 #include <QIcon>
+#include <QThread>
 
 /**
  * @brief Constructor - Initialize main window and UI
  */
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), worker(nullptr) {
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), m_workerThread(nullptr), m_worker(nullptr) {
   m_controller = new LLMControllerDialog(this);
 
   setupUI();
   updateAnnotationCount();
   applyTheme();
+
+  // Initialize Worker Thread
+  m_workerThread = new QThread(this);
+  m_worker = new LlamaWorker();
+  m_worker->moveToThread(m_workerThread);
+
+  connect(m_workerThread, &QThread::finished, m_worker, &QObject::deleteLater);
+  connect(this, &MainWindow::requestGeneration, m_worker, &LlamaWorker::generate);
+  connect(this, &MainWindow::requestLoadModel, m_worker, &LlamaWorker::loadModel);
+  
+  connect(m_worker, &LlamaWorker::finished, this, &MainWindow::onGenerationComplete);
+  connect(m_worker, &LlamaWorker::error, this, &MainWindow::onGenerationError);
+  connect(m_worker, &LlamaWorker::statsReady, this, [this](float seconds){
+      m_elapsedTimeLabel->setText(QString("Time: %1 s").arg(seconds, 0, 'f', 2));
+      m_controller->setLastElapsedTime(seconds);
+  });
+  connect(m_worker, &LlamaWorker::statusUpdate, this, [this](const QString &status){
+      statusLabel->setText(status);
+  });
+
+  m_workerThread->start();
 }
 
 /**
  * @brief Destructor - Clean up resources
  */
 MainWindow::~MainWindow() {
-  // Clean up worker if it exists
-  if (worker) {
-    worker->quit();
-    worker->wait();
-    delete worker;
+  if (m_workerThread) {
+      m_workerThread->quit();
+      m_workerThread->wait();
   }
 }
 
@@ -260,16 +280,49 @@ QString MainWindow::createPrompt() {
   QString fullInstructions = templateContent;
   fullInstructions.replace("{{ANNOTATIONS}}", annotationsSection);
 
-  // 3. Wrap in Llama 3.1 Chat Template (CRITICAL for 7B/8B models)
-  // This tells the model: "You are the expert, here is the data, now answer."
-  QString finalPrompt =
-      QString("<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\n"
+  // 3. Wrap in Chat Template based on model type
+  QString templateType = m_controller->getTemplateType();
+  QString finalPrompt;
+
+  if (templateType == "llama3") {
+      finalPrompt = QString("<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\n"
               "You are a Wind Turbine Blade Expert. Follow the Blade Handbook "
               "2022 standards strictly.<|eot_id|>"
               "<|start_header_id|>user<|end_header_id|>\n\n"
               "%1<|eot_id|>"
               "<|start_header_id|>assistant<|end_header_id|>\n\n")
           .arg(fullInstructions);
+  } else if (templateType == "chatml") {
+      finalPrompt = QString("<|im_start|>system\n"
+              "You are a Wind Turbine Blade Expert. Follow the Blade Handbook "
+              "2022 standards strictly.<|im_end|>\n"
+              "<|im_start|>user\n"
+              "%1<|im_end|>\n"
+              "<|im_start|>assistant\n")
+          .arg(fullInstructions);
+  } else if (templateType == "mistral") {
+      finalPrompt = QString("<s>[INST] You are a Wind Turbine Blade Expert. Follow the Blade Handbook "
+              "2022 standards strictly.\n\n"
+              "%1 [/INST]")
+          .arg(fullInstructions);
+  } else if (templateType == "phi3") {
+      finalPrompt = QString("<|user|>\n"
+              "You are a Wind Turbine Blade Expert. Follow the Blade Handbook "
+              "2022 standards strictly.\n\n"
+              "%1<|end|>\n"
+              "<|assistant|>\n")
+          .arg(fullInstructions);
+  } else if (templateType == "gemma") {
+      finalPrompt = QString("<start_of_turn>user\n"
+              "You are a Wind Turbine Blade Expert. Follow the Blade Handbook "
+              "2022 standards strictly.\n\n"
+              "%1<end_of_turn>\n"
+              "<start_of_turn>model\n")
+          .arg(fullInstructions);
+  } else {
+      // Fallback to raw prompt if unknown
+      finalPrompt = fullInstructions;
+  }
 
   return finalPrompt;
 }
@@ -465,21 +518,10 @@ void MainWindow::onGenerateReport() {
   reportOutput->clear();
   reportOutput->setPlaceholderText("Please wait, LLM is generating...");
 
-  // Create and start worker thread
-  worker = new LlamaWorker(params, prompt);
-  
   m_modelInfoLabel->setText("Model: " + QFileInfo(params.modelPath).fileName());
 
-  connect(worker, &LlamaWorker::finished, this,
-          &MainWindow::onGenerationComplete);
-  connect(worker, &LlamaWorker::error, this, &MainWindow::onGenerationError);
-  connect(worker, &LlamaWorker::statsReady, this, [this](float seconds){
-      m_elapsedTimeLabel->setText(QString("Time: %1 s").arg(seconds, 0, 'f', 2));
-      m_controller->setLastElapsedTime(seconds);
-  });
-  connect(worker, &QThread::finished, worker, &QObject::deleteLater);
-
-  worker->start();
+  // Request generation via signal
+  emit requestGeneration(prompt, params);
 }
 
 void MainWindow::openSettings() {
@@ -502,9 +544,6 @@ void MainWindow::onGenerationComplete(const QString &result) {
   addButton->setEnabled(true);
   statusLabel->setText("Generation complete!");
   statusLabel->setStyleSheet("color: #27ae60; font-style: italic;");
-
-  // Clean up worker
-  worker = nullptr;
 }
 
 /**
@@ -523,9 +562,6 @@ void MainWindow::onGenerationError(const QString &error) {
   addButton->setEnabled(true);
   statusLabel->setText("Error occurred");
   statusLabel->setStyleSheet("color: #e74c3c; font-style: italic;");
-
-  // Clean up worker
-  worker = nullptr;
 }
 
 /**

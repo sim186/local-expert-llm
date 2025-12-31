@@ -2,7 +2,12 @@
 #define LLAMAWORKER_H
 
 #include <QString>
-#include <QThread>
+#include <QObject>
+#include <atomic>
+
+// Forward declarations for llama.cpp types
+struct llama_model;
+struct llama_context;
 
 struct LlamaParams {
     QString modelPath;
@@ -10,60 +15,54 @@ struct LlamaParams {
     float topP = 0.9f;
     int contextSize = 4096;
     int threads = 4;
+    int gpuLayers = 0; // Added for GPU support
 };
 
 /**
- * @brief Worker thread for running llama.cpp inference
+ * @brief Worker object for running llama.cpp inference
  *
- * This class runs LLM text generation in a separate thread to avoid
- * blocking the UI during inference.
+ * This class runs LLM text generation. It is designed to be moved to a 
+ * separate QThread. It maintains the model state to avoid reloading.
  */
-class LlamaWorker : public QThread {
+class LlamaWorker : public QObject {
   Q_OBJECT
 
 public:
-  /**
-   * @brief Constructor
-   * @param params Configuration parameters for the model
-   * @param prompt Input prompt for text generation
-   * @param parent Parent QObject
-   */
-  explicit LlamaWorker(const LlamaParams &params, const QString &prompt,
-                       QObject *parent = nullptr);
-
-  /**
-   * @brief Destructor
-   */
+  explicit LlamaWorker(QObject *parent = nullptr);
   ~LlamaWorker();
 
+  bool isModelLoaded() const;
+
+public slots:
+  /**
+   * @brief Load the model if params have changed or model is not loaded
+   */
+  void loadModel(const LlamaParams &params);
+
+  /**
+   * @brief Generate text based on prompt
+   */
+  void generate(const QString &prompt, const LlamaParams &genParams);
+
+  /**
+   * @brief Request to stop current generation
+   */
+  void stop();
+
 signals:
-  /**
-   * @brief Signal emitted when text generation is complete
-   * @param result Generated text
-   */
+  void modelLoaded();
   void finished(const QString &result);
-
-  /**
-   * @brief Signal emitted when an error occurs
-   * @param error Error message
-   */
   void error(const QString &error);
-
-  /**
-   * @brief Signal emitted with generation statistics
-   * @param elapsedSec Time taken for generation in seconds
-   */
   void statsReady(float elapsedSec);
-
-protected:
-  /**
-   * @brief Thread run method - performs LLM inference
-   */
-  void run() override;
+  void statusUpdate(const QString &status);
 
 private:
-    LlamaParams m_params;
-    QString m_prompt;
+  void freeModel();
+
+  llama_model *m_model = nullptr;
+  llama_context *m_ctx = nullptr;
+  LlamaParams m_currentParams;
+  std::atomic<bool> m_stopRequested;
 };
 
 #endif // LLAMAWORKER_H

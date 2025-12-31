@@ -155,9 +155,14 @@ private:
   QVector<Annotation> annotations;
 
   // LLM worker (runs in separate thread)
-  LlamaWorker *worker;
+  QThread *m_workerThread;
+  LlamaWorker *m_worker;
 
   LLMControllerDialog *m_controller;
+
+signals:
+    void requestGeneration(const QString &prompt, const LlamaParams &params);
+    void requestLoadModel(const LlamaParams &params);
 };
 
 #endif // MAINWINDOW_H

@@ -144,19 +144,19 @@ void LLMControllerDialog::setupModelList()
 {
     m_models = {
         {"Llama 3.2 1B", "1.2 GB", "1B", "Fastest, good for mobile/edge", 
-         "https://huggingface.co/bartowski/Llama-3.2-1B-Instruct-GGUF/resolve/main/Llama-3.2-1B-Instruct-Q4_K_M.gguf", "llama-3.2-1b-instruct-q4_k_m.gguf"},
+         "https://huggingface.co/bartowski/Llama-3.2-1B-Instruct-GGUF/resolve/main/Llama-3.2-1B-Instruct-Q4_K_M.gguf", "llama-3.2-1b-instruct-q4_k_m.gguf", "llama3"},
         {"Llama 3.2 3B", "2.4 GB", "3B", "Balanced performance/quality", 
-         "https://huggingface.co/bartowski/Llama-3.2-3B-Instruct-GGUF/resolve/main/Llama-3.2-3B-Instruct-Q4_K_M.gguf", "llama-3.2-3b-instruct-q4_k_m.gguf"},
+         "https://huggingface.co/bartowski/Llama-3.2-3B-Instruct-GGUF/resolve/main/Llama-3.2-3B-Instruct-Q4_K_M.gguf", "llama-3.2-3b-instruct-q4_k_m.gguf", "llama3"},
         {"Phi-3.5 Mini", "2.2 GB", "3.8B", "Strong reasoning capabilities", 
-         "https://huggingface.co/bartowski/Phi-3.5-mini-instruct-GGUF/resolve/main/Phi-3.5-mini-instruct-Q4_K_M.gguf", "phi-3.5-mini-instruct-q4_k_m.gguf"},
+         "https://huggingface.co/bartowski/Phi-3.5-mini-instruct-GGUF/resolve/main/Phi-3.5-mini-instruct-Q4_K_M.gguf", "phi-3.5-mini-instruct-q4_k_m.gguf", "phi3"},
         {"Qwen 2.5 1.5B", "1.1 GB", "1.5B", "Good for coding & general tasks", 
-         "https://huggingface.co/bartowski/Qwen2.5-1.5B-Instruct-GGUF/resolve/main/Qwen2.5-1.5B-Instruct-Q4_K_M.gguf", "qwen2.5-1.5b-instruct-q4_k_m.gguf"},
+         "https://huggingface.co/bartowski/Qwen2.5-1.5B-Instruct-GGUF/resolve/main/Qwen2.5-1.5B-Instruct-Q4_K_M.gguf", "qwen2.5-1.5b-instruct-q4_k_m.gguf", "chatml"},
         {"Mistral 7B v0.3", "4.1 GB", "7B", "High performance, versatile", 
-         "https://huggingface.co/bartowski/Mistral-7B-Instruct-v0.3-GGUF/resolve/main/Mistral-7B-Instruct-v0.3-Q4_K_M.gguf", "mistral-7b-instruct-v0.3-q4_k_m.gguf"},
+         "https://huggingface.co/bartowski/Mistral-7B-Instruct-v0.3-GGUF/resolve/main/Mistral-7B-Instruct-v0.3-Q4_K_M.gguf", "mistral-7b-instruct-v0.3-q4_k_m.gguf", "mistral"},
         {"Gemma 2 2B", "1.6 GB", "2B", "Google's lightweight open model", 
-         "https://huggingface.co/bartowski/gemma-2-2b-it-GGUF/resolve/main/gemma-2-2b-it-Q4_K_M.gguf", "gemma-2-2b-it-q4_k_m.gguf"},
+         "https://huggingface.co/bartowski/gemma-2-2b-it-GGUF/resolve/main/gemma-2-2b-it-Q4_K_M.gguf", "gemma-2-2b-it-q4_k_m.gguf", "gemma"},
         {"TinyLlama 1.1B", "638 MB", "1.1B", "Very small, fast for testing", 
-         "https://huggingface.co/TheBloke/TinyLlama-1.1B-Chat-v1.0-GGUF/resolve/main/tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf", "tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf"}
+         "https://huggingface.co/TheBloke/TinyLlama-1.1B-Chat-v1.0-GGUF/resolve/main/tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf", "tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf", "chatml"}
     };
 
     m_modelTable->setRowCount(m_models.size());
@@ -330,6 +330,16 @@ LlamaParams LLMControllerDialog::getParams() const
     params.contextSize = m_ctxSpin->value();
     params.threads = m_threadsSpin->value();
     return params;
+}
+
+QString LLMControllerDialog::getTemplateType() const
+{
+    for (const auto &model : m_models) {
+        if ("models/" + model.filename == m_currentModelPath) {
+            return model.templateType;
+        }
+    }
+    return "llama3"; // Default
 }
 
 void LLMControllerDialog::setLastElapsedTime(float seconds)

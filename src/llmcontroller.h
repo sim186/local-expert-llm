@@ -20,6 +20,7 @@ struct ModelInfo {
     QString description;
     QString url;
     QString filename;
+    QString templateType; // "llama3", "chatml", "mistral", "gemma", "tinyllama"
 };
 
 class LLMControllerDialog : public QDialog {
@@ -30,6 +31,7 @@ public:
     ~LLMControllerDialog();
 
     LlamaParams getParams() const;
+    QString getTemplateType() const;
     void setLastElapsedTime(float seconds);
 
 private slots:
