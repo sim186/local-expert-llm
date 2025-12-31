@@ -139,6 +139,12 @@ private:
   QStringList getValidClassifications() const;
 
   /**
+   * @brief Get static list of valid classifications (for validation)
+   * @return Static reference to valid classification list
+   */
+  static const QStringList& getValidClassificationsList();
+
+  /**
    * @brief Apply modern theme to the application
    */
   void applyTheme();

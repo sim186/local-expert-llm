@@ -238,10 +238,19 @@ void MainWindow::updateAnnotationCount() {
 }
 
 /**
+ * @brief Get static list of valid classifications
+ */
+const QStringList& MainWindow::getValidClassificationsList() {
+  static const QStringList validClassifications = 
+      {"Crack", "Erosion", "Lightning Strike", "Delamination", "Other"};
+  return validClassifications;
+}
+
+/**
  * @brief Get list of valid classifications
  */
 QStringList MainWindow::getValidClassifications() const {
-  return {"Crack", "Erosion", "Lightning Strike", "Delamination", "Other"};
+  return getValidClassificationsList();
 }
 
 /**
@@ -263,8 +272,7 @@ QString MainWindow::sanitizeClassification(const QString &classification) {
  * @brief Check if a classification is valid
  */
 bool MainWindow::isValidClassification(const QString &classification) {
-  // Use static to avoid repeated allocations
-  static const QStringList validClassifications = getValidClassifications();
+  const QStringList& validClassifications = getValidClassificationsList();
   return validClassifications.contains(classification.trimmed(), Qt::CaseSensitive);
 }
 
@@ -350,8 +358,8 @@ void MainWindow::onAddAnnotation() {
   ann.description = descriptionInput->text().trimmed();
   ann.side = sideInput->currentText();
 
-  // Validate classification
-  if (ann.classification.isEmpty() || !isValidClassification(ann.classification)) {
+  // Validate classification (sanitizeClassification returns empty string if invalid)
+  if (ann.classification.isEmpty()) {
     QMessageBox::warning(this, "Invalid Classification",
                          "Please select a valid damage classification.");
     return;
@@ -396,8 +404,8 @@ void MainWindow::onUpdateAnnotation() {
   ann.description = descriptionInput->text().trimmed();
   ann.side = sideInput->currentText();
 
-  // Validate classification
-  if (ann.classification.isEmpty() || !isValidClassification(ann.classification)) {
+  // Validate classification (sanitizeClassification returns empty string if invalid)
+  if (ann.classification.isEmpty()) {
     QMessageBox::warning(this, "Invalid Classification",
                          "Please select a valid damage classification.");
     return;
