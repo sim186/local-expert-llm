@@ -102,18 +102,18 @@ void MainWindow::setupUI() {
       {"Crack", "Erosion", "Lightning Strike", "Delamination", "Other"});
   inputGrid->addWidget(classificationInput, 0, 1);
 
-  // Severity
-  inputGrid->addWidget(new QLabel("Severity:"), 0, 2);
-  severityInput = new QComboBox(annotationGroup);
-  QStringList severities = {"Low", "Medium", "High", "Critical"};
-  for (const QString &sev : severities) {
-      severityInput->addItem(sev);
-      int index = severityInput->count() - 1;
+  // Damage Classification (renamed from Severity for clarity)
+  inputGrid->addWidget(new QLabel("Damage Classification:"), 0, 2);
+  damageClassificationInput = new QComboBox(annotationGroup);
+  QStringList damageClassifications = {"Minor", "Moderate", "Severe", "Critical"};
+  for (const QString &dmgClass : damageClassifications) {
+      damageClassificationInput->addItem(dmgClass);
+      int index = damageClassificationInput->count() - 1;
       QPixmap pixmap(16, 16);
-      pixmap.fill(getSeverityColor(sev));
-      severityInput->setItemIcon(index, QIcon(pixmap));
+      pixmap.fill(getDamageClassificationColor(dmgClass));
+      damageClassificationInput->setItemIcon(index, QIcon(pixmap));
   }
-  inputGrid->addWidget(severityInput, 0, 3);
+  inputGrid->addWidget(damageClassificationInput, 0, 3);
 
   // Radius
   inputGrid->addWidget(new QLabel("Blade Radius (m):"), 1, 0);
@@ -262,16 +262,17 @@ QString MainWindow::createPrompt() {
   for (int i = 0; i < annotations.size(); ++i) {
     const auto &ann = annotations[i];
     
-    // Map severity to category hint to guide the LLM
+    // Map damage classification to category hint to guide the LLM
     QString categoryHint;
-    if (ann.severity == "Low") categoryHint = " (Category 1-2)";
-    else if (ann.severity == "Medium") categoryHint = " (Category 3)";
-    else if (ann.severity == "High") categoryHint = " (Category 4)";
-    else if (ann.severity == "Critical") categoryHint = " (Category 5)";
+    if (ann.damageClassification == "Minor") categoryHint = " (Category 1-2)";
+    else if (ann.damageClassification == "Moderate") categoryHint = " (Category 3)";
+    else if (ann.damageClassification == "Severe") categoryHint = " (Category 4)";
+    else if (ann.damageClassification == "Critical") categoryHint = " (Category 5)";
 
     annotationsSection += QString("--- DAMAGE #%1 ---\n").arg(i + 1);
     annotationsSection += QString("Type: %1\n").arg(ann.classification);
-    annotationsSection += QString("Severity: %1%2\n").arg(ann.severity, categoryHint);
+    annotationsSection += QString("Damage Classification: %1%2\n").arg(ann.damageClassification, categoryHint);
+    annotationsSection += QString("Description: %1\n").arg(ann.description);
     annotationsSection +=
         QString("Location: %1m on %2\n\n").arg(ann.radius, ann.side);
   }
@@ -333,7 +334,7 @@ QString MainWindow::createPrompt() {
 void MainWindow::onAddAnnotation() {
   Annotation ann;
   ann.classification = classificationInput->currentText();
-  ann.severity = severityInput->currentText();
+  ann.damageClassification = damageClassificationInput->currentText();
   ann.radius = radiusInput->text().trimmed();
   ann.description = descriptionInput->text().trimmed();
   ann.side = sideInput->currentText();
@@ -350,7 +351,7 @@ void MainWindow::onAddAnnotation() {
   // Add to list widget
   QListWidgetItem *item = new QListWidgetItem(ann.toString());
   QPixmap pixmap(16, 16);
-  pixmap.fill(getSeverityColor(ann.severity));
+  pixmap.fill(getDamageClassificationColor(ann.damageClassification));
   item->setIcon(QIcon(pixmap));
   annotationList->addItem(item);
 
@@ -372,7 +373,7 @@ void MainWindow::onUpdateAnnotation() {
 
   Annotation &ann = annotations[row];
   ann.classification = classificationInput->currentText();
-  ann.severity = severityInput->currentText();
+  ann.damageClassification = damageClassificationInput->currentText();
   ann.radius = radiusInput->text().trimmed();
   ann.description = descriptionInput->text().trimmed();
   ann.side = sideInput->currentText();
@@ -387,7 +388,7 @@ void MainWindow::onUpdateAnnotation() {
   QListWidgetItem *item = annotationList->item(row);
   item->setText(ann.toString());
   QPixmap pixmap(16, 16);
-  pixmap.fill(getSeverityColor(ann.severity));
+  pixmap.fill(getDamageClassificationColor(ann.damageClassification));
   item->setIcon(QIcon(pixmap));
 
   // Clear numeric/text fields
@@ -412,7 +413,7 @@ void MainWindow::onAnnotationSelected() {
   if (hasSelection) {
     const Annotation &ann = annotations[row];
     classificationInput->setCurrentText(ann.classification);
-    severityInput->setCurrentText(ann.severity);
+    damageClassificationInput->setCurrentText(ann.damageClassification);
     radiusInput->setText(ann.radius);
     descriptionInput->setText(ann.description);
     sideInput->setCurrentText(ann.side);
@@ -420,7 +421,7 @@ void MainWindow::onAnnotationSelected() {
     radiusInput->clear();
     descriptionInput->clear();
     classificationInput->setCurrentIndex(0);
-    severityInput->setCurrentIndex(0);
+    damageClassificationInput->setCurrentIndex(0);
     sideInput->setCurrentIndex(0);
   }
 }
@@ -431,7 +432,7 @@ void MainWindow::onAnnotationSelected() {
 void MainWindow::onAddRandomAnnotation() {
   QStringList classifications = {"Crack", "Erosion", "Lightning Strike",
                                  "Delamination", "Other"};
-  QStringList severities = {"Low", "Medium", "High", "Critical"};
+  QStringList damageClassifications = {"Minor", "Moderate", "Severe", "Critical"};
   QStringList sides = {"Pressure Side", "Suction Side", "Leading Edge",
                        "Trailing Edge"};
   QStringList sampleDescriptions = {
@@ -441,7 +442,7 @@ void MainWindow::onAddRandomAnnotation() {
 
   Annotation ann;
   ann.classification = classifications.at(rand() % classifications.size());
-  ann.severity = severities.at(rand() % severities.size());
+  ann.damageClassification = damageClassifications.at(rand() % damageClassifications.size());
   ann.side = sides.at(rand() % sides.size());
   ann.radius = QString::number((rand() % 900) / 10.0, 'f', 1);
   ann.description = sampleDescriptions.at(rand() % sampleDescriptions.size());
@@ -452,7 +453,7 @@ void MainWindow::onAddRandomAnnotation() {
   // Add to list widget
   QListWidgetItem *item = new QListWidgetItem(ann.toString());
   QPixmap pixmap(16, 16);
-  pixmap.fill(getSeverityColor(ann.severity));
+  pixmap.fill(getDamageClassificationColor(ann.damageClassification));
   item->setIcon(QIcon(pixmap));
   annotationList->addItem(item);
 
@@ -747,10 +748,10 @@ void MainWindow::applyTheme() {
   setStyleSheet(theme);
 }
 
-QColor MainWindow::getSeverityColor(const QString &severity) {
-  if (severity == "Low") return QColor("#2ecc71");      // Green
-  if (severity == "Medium") return QColor("#f1c40f");   // Yellow
-  if (severity == "High") return QColor("#e67e22");     // Orange
-  if (severity == "Critical") return QColor("#e74c3c"); // Red
+QColor MainWindow::getDamageClassificationColor(const QString &damageClassification) {
+  if (damageClassification == "Minor") return QColor("#2ecc71");      // Green
+  if (damageClassification == "Moderate") return QColor("#f1c40f");   // Yellow
+  if (damageClassification == "Severe") return QColor("#e67e22");     // Orange
+  if (damageClassification == "Critical") return QColor("#e74c3c");   // Red
   return Qt::black;
 }

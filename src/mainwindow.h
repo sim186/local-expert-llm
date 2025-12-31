@@ -24,7 +24,7 @@ class LLMControllerDialog;
  */
 struct Annotation {
   QString classification;
-  QString severity;
+  QString damageClassification;  // Renamed from 'severity' for clarity
   QString radius;
   QString description;
   QString side;
@@ -34,7 +34,7 @@ struct Annotation {
    */
   QString toString() const {
     return QString("[%1] %2 - %3 (%4m, %5)")
-        .arg(severity)
+        .arg(damageClassification)
         .arg(classification)
         .arg(description)
         .arg(radius)
@@ -122,7 +122,7 @@ private:
    * @brief Apply modern theme to the application
    */
   void applyTheme();
-  QColor getSeverityColor(const QString &severity);
+  QColor getDamageClassificationColor(const QString &damageClassification);
 
   // UI Components
   QWidget *centralWidget;
@@ -133,7 +133,7 @@ private:
 
   // Input Fields
   QComboBox *classificationInput;
-  QComboBox *severityInput;
+  QComboBox *damageClassificationInput;  // Renamed from severityInput
   QLineEdit *radiusInput;
   QLineEdit *descriptionInput;
   QComboBox *sideInput;

@@ -8,7 +8,7 @@ A desktop application built with C++ and Qt6 that integrates a local Large Langu
 
 - ✅ **Privacy-First**: All processing happens locally—no cloud APIs, no data sent externally
 - ✅ **Qt GUI**: Clean, responsive interface built with Qt6 Widgets
-- ✅ **Annotation Management**: Add and track annotations with ease
+- ✅ **Structured Annotations**: Capture damage type, classification, location, and detailed descriptions
 - ✅ **Smart Conclusions**: LLM generates contextual conclusions based on annotation count
 - ✅ **Persistent Model Loading**: Models are loaded once and kept in memory for instant generation
 - ✅ **Multi-Model Support**: Built-in support for Llama 3, Mistral, Phi-3, Gemma, and Qwen with automatic prompt templating
@@ -196,8 +196,12 @@ cmake --build build --config Release -j4
    - (Optional) Adjust **Temperature** or **System Prompt** in the Settings tab.
 
 2. **Add Annotations**
-   - Enter text in the input field
-   - Click "Add Annotation" or press Enter
+   - **Classification**: Select the type of damage (Crack, Erosion, Lightning Strike, etc.)
+   - **Damage Classification**: Choose the severity level (Minor, Moderate, Severe, Critical)
+   - **Blade Radius (m)**: Enter the radial position of the damage
+   - **Blade Side**: Select the location on the blade (Pressure Side, Suction Side, etc.)
+   - **Description**: Provide detailed observations about the damage
+   - Click "Add Annotation" to save
    - Repeat to build your annotation list
 
 3. **Generate Report**
@@ -359,6 +363,22 @@ You can adjust the following parameters in the **LLM Settings** dialog:
 ### Console Output
 
 The **LLM Settings** dialog includes a **Console** tab that displays real-time logs from the application and the underlying `llama.cpp` library. This is useful for debugging and monitoring inference progress.
+
+### Annotation Fields Explained
+
+The application uses a structured approach to capture damage information with distinct fields:
+
+- **Classification**: The type of damage detected (e.g., Crack, Erosion, Lightning Strike, Delamination, Other)
+- **Damage Classification**: The severity or priority level of the damage:
+  - **Minor**: Low-priority damage, typically cosmetic (maps to Category 1-2 in reports)
+  - **Moderate**: Medium-priority damage requiring attention (maps to Category 3 in reports)
+  - **Severe**: High-priority damage with structural concerns (maps to Category 4 in reports)
+  - **Critical**: Highest priority, requiring immediate action (maps to Category 5 in reports)
+- **Blade Radius (m)**: The radial distance from the blade root where the damage is located
+- **Blade Side**: The specific surface area (Pressure Side, Suction Side, Leading Edge, Trailing Edge)
+- **Description**: Free-text field for detailed observations, measurements, or contextual information
+
+This separation ensures clear data capture and enables the LLM to generate more accurate technical assessments.
 
 ## Development
 
