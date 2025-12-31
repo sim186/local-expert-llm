@@ -119,6 +119,26 @@ private:
   QString createPrompt();
 
   /**
+   * @brief Sanitize and validate damage classification input
+   * @param classification The classification string to sanitize
+   * @return Sanitized classification string, or empty string if invalid
+   */
+  QString sanitizeClassification(const QString &classification);
+
+  /**
+   * @brief Check if a classification is valid
+   * @param classification The classification string to validate
+   * @return true if valid, false otherwise
+   */
+  bool isValidClassification(const QString &classification);
+
+  /**
+   * @brief Get list of valid classifications
+   * @return QStringList of valid classification values
+   */
+  QStringList getValidClassifications() const;
+
+  /**
    * @brief Apply modern theme to the application
    */
   void applyTheme();

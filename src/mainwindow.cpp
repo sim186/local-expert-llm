@@ -98,8 +98,7 @@ void MainWindow::setupUI() {
   // Classification
   inputGrid->addWidget(new QLabel("Classification:"), 0, 0);
   classificationInput = new QComboBox(annotationGroup);
-  classificationInput->addItems(
-      {"Crack", "Erosion", "Lightning Strike", "Delamination", "Other"});
+  classificationInput->addItems(getValidClassifications());
   inputGrid->addWidget(classificationInput, 0, 1);
 
   // Severity
@@ -239,48 +238,58 @@ void MainWindow::updateAnnotationCount() {
 }
 
 /**
+ * @brief Get list of valid classifications
+ */
+QStringList MainWindow::getValidClassifications() const {
+  return {"Crack", "Erosion", "Lightning Strike", "Delamination", "Other"};
+}
+
+/**
+ * @brief Sanitize and validate damage classification input
+ */
+QString MainWindow::sanitizeClassification(const QString &classification) {
+  // Trim whitespace and normalize
+  QString sanitized = classification.trimmed();
+  
+  // Check if it's valid
+  if (!isValidClassification(sanitized)) {
+    return QString(); // Return empty string for invalid classifications
+  }
+  
+  return sanitized;
+}
+
+/**
+ * @brief Check if a classification is valid
+ */
+bool MainWindow::isValidClassification(const QString &classification) {
+  QStringList validClassifications = getValidClassifications();
+  return validClassifications.contains(classification.trimmed(), Qt::CaseSensitive);
+}
+
+/**
  * @brief Create LLM prompt based on annotations
  */
 QString MainWindow::createPrompt() {
-  QString contextPath = QDir::currentPath() + "/context/custom_prompt.txt";
-  if (!QFile::exists(contextPath)) {
-      contextPath = QDir::currentPath() + "/context/input_context.txt";
-  }
+  // Build a simple list of damage classifications only
+  QString classificationsOnly;
   
-  QFile contextFile(contextPath);
-
-  if (!contextFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
-    return "Critical Error: input_context.txt not found.";
-  }
-
-  QTextStream in(&contextFile);
-  QString templateContent = in.readAll();
-  contextFile.close();
-
-  // 1. Format the dynamic annotation data
-  QString annotationsSection;
   for (int i = 0; i < annotations.size(); ++i) {
     const auto &ann = annotations[i];
     
-    // Map severity to category hint to guide the LLM
-    QString categoryHint;
-    if (ann.severity == "Low") categoryHint = " (Category 1-2)";
-    else if (ann.severity == "Medium") categoryHint = " (Category 3)";
-    else if (ann.severity == "High") categoryHint = " (Category 4)";
-    else if (ann.severity == "Critical") categoryHint = " (Category 5)";
-
-    annotationsSection += QString("--- DAMAGE #%1 ---\n").arg(i + 1);
-    annotationsSection += QString("Type: %1\n").arg(ann.classification);
-    annotationsSection += QString("Severity: %1%2\n").arg(ann.severity, categoryHint);
-    annotationsSection +=
-        QString("Location: %1m on %2\n\n").arg(ann.radius, ann.side);
+    // Sanitize the classification before adding it to the prompt
+    QString sanitized = sanitizeClassification(ann.classification);
+    
+    // Only include valid classifications
+    if (!sanitized.isEmpty()) {
+      if (i > 0) {
+        classificationsOnly += ", ";
+      }
+      classificationsOnly += sanitized;
+    }
   }
 
-  // 2. Inject data into the template
-  QString fullInstructions = templateContent;
-  fullInstructions.replace("{{ANNOTATIONS}}", annotationsSection);
-
-  // 3. Wrap in Chat Template based on model type
+  // Wrap in Chat Template based on model type
   QString templateType = m_controller->getTemplateType();
   QString finalPrompt;
 
@@ -291,7 +300,7 @@ QString MainWindow::createPrompt() {
               "<|start_header_id|>user<|end_header_id|>\n\n"
               "%1<|eot_id|>"
               "<|start_header_id|>assistant<|end_header_id|>\n\n")
-          .arg(fullInstructions);
+          .arg(classificationsOnly);
   } else if (templateType == "chatml") {
       finalPrompt = QString("<|im_start|>system\n"
               "You are a Wind Turbine Blade Expert. Follow the Blade Handbook "
@@ -299,29 +308,29 @@ QString MainWindow::createPrompt() {
               "<|im_start|>user\n"
               "%1<|im_end|>\n"
               "<|im_start|>assistant\n")
-          .arg(fullInstructions);
+          .arg(classificationsOnly);
   } else if (templateType == "mistral") {
       finalPrompt = QString("<s>[INST] You are a Wind Turbine Blade Expert. Follow the Blade Handbook "
               "2022 standards strictly.\n\n"
               "%1 [/INST]")
-          .arg(fullInstructions);
+          .arg(classificationsOnly);
   } else if (templateType == "phi3") {
       finalPrompt = QString("<|user|>\n"
               "You are a Wind Turbine Blade Expert. Follow the Blade Handbook "
               "2022 standards strictly.\n\n"
               "%1<|end|>\n"
               "<|assistant|>\n")
-          .arg(fullInstructions);
+          .arg(classificationsOnly);
   } else if (templateType == "gemma") {
       finalPrompt = QString("<start_of_turn>user\n"
               "You are a Wind Turbine Blade Expert. Follow the Blade Handbook "
               "2022 standards strictly.\n\n"
               "%1<end_of_turn>\n"
               "<start_of_turn>model\n")
-          .arg(fullInstructions);
+          .arg(classificationsOnly);
   } else {
       // Fallback to raw prompt if unknown
-      finalPrompt = fullInstructions;
+      finalPrompt = classificationsOnly;
   }
 
   return finalPrompt;
@@ -332,11 +341,18 @@ QString MainWindow::createPrompt() {
  */
 void MainWindow::onAddAnnotation() {
   Annotation ann;
-  ann.classification = classificationInput->currentText();
+  ann.classification = sanitizeClassification(classificationInput->currentText());
   ann.severity = severityInput->currentText();
   ann.radius = radiusInput->text().trimmed();
   ann.description = descriptionInput->text().trimmed();
   ann.side = sideInput->currentText();
+
+  // Validate classification
+  if (ann.classification.isEmpty() || !isValidClassification(ann.classification)) {
+    QMessageBox::warning(this, "Invalid Classification",
+                         "Please select a valid damage classification.");
+    return;
+  }
 
   if (ann.radius.isEmpty() || ann.description.isEmpty()) {
     QMessageBox::warning(this, "Incomplete Data",
@@ -371,11 +387,18 @@ void MainWindow::onUpdateAnnotation() {
   if (row < 0 || row >= annotations.size()) return;
 
   Annotation &ann = annotations[row];
-  ann.classification = classificationInput->currentText();
+  ann.classification = sanitizeClassification(classificationInput->currentText());
   ann.severity = severityInput->currentText();
   ann.radius = radiusInput->text().trimmed();
   ann.description = descriptionInput->text().trimmed();
   ann.side = sideInput->currentText();
+
+  // Validate classification
+  if (ann.classification.isEmpty() || !isValidClassification(ann.classification)) {
+    QMessageBox::warning(this, "Invalid Classification",
+                         "Please select a valid damage classification.");
+    return;
+  }
 
   if (ann.radius.isEmpty() || ann.description.isEmpty()) {
     QMessageBox::warning(this, "Incomplete Data",
@@ -429,8 +452,7 @@ void MainWindow::onAnnotationSelected() {
  * @brief Handle "Add Random" button click
  */
 void MainWindow::onAddRandomAnnotation() {
-  QStringList classifications = {"Crack", "Erosion", "Lightning Strike",
-                                 "Delamination", "Other"};
+  QStringList classifications = getValidClassifications();
   QStringList severities = {"Low", "Medium", "High", "Critical"};
   QStringList sides = {"Pressure Side", "Suction Side", "Leading Edge",
                        "Trailing Edge"};
