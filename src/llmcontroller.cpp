@@ -150,7 +150,13 @@ void LLMControllerDialog::setupModelList()
         {"Phi-3.5 Mini", "2.2 GB", "3.8B", "Strong reasoning capabilities", 
          "https://huggingface.co/bartowski/Phi-3.5-mini-instruct-GGUF/resolve/main/Phi-3.5-mini-instruct-Q4_K_M.gguf", "phi-3.5-mini-instruct-q4_k_m.gguf"},
         {"Qwen 2.5 1.5B", "1.1 GB", "1.5B", "Good for coding & general tasks", 
-         "https://huggingface.co/bartowski/Qwen2.5-1.5B-Instruct-GGUF/resolve/main/Qwen2.5-1.5B-Instruct-Q4_K_M.gguf", "qwen2.5-1.5b-instruct-q4_k_m.gguf"}
+         "https://huggingface.co/bartowski/Qwen2.5-1.5B-Instruct-GGUF/resolve/main/Qwen2.5-1.5B-Instruct-Q4_K_M.gguf", "qwen2.5-1.5b-instruct-q4_k_m.gguf"},
+        {"Mistral 7B v0.3", "4.1 GB", "7B", "High performance, versatile", 
+         "https://huggingface.co/bartowski/Mistral-7B-Instruct-v0.3-GGUF/resolve/main/Mistral-7B-Instruct-v0.3-Q4_K_M.gguf", "mistral-7b-instruct-v0.3-q4_k_m.gguf"},
+        {"Gemma 2 2B", "1.6 GB", "2B", "Google's lightweight open model", 
+         "https://huggingface.co/bartowski/gemma-2-2b-it-GGUF/resolve/main/gemma-2-2b-it-Q4_K_M.gguf", "gemma-2-2b-it-q4_k_m.gguf"},
+        {"TinyLlama 1.1B", "638 MB", "1.1B", "Very small, fast for testing", 
+         "https://huggingface.co/TheBloke/TinyLlama-1.1B-Chat-v1.0-GGUF/resolve/main/tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf", "tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf"}
     };
 
     m_modelTable->setRowCount(m_models.size());
