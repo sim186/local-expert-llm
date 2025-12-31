@@ -241,9 +241,17 @@ QString MainWindow::createPrompt() {
   QString annotationsSection;
   for (int i = 0; i < annotations.size(); ++i) {
     const auto &ann = annotations[i];
+    
+    // Map severity to category hint to guide the LLM
+    QString categoryHint;
+    if (ann.severity == "Low") categoryHint = " (Category 1-2)";
+    else if (ann.severity == "Medium") categoryHint = " (Category 3)";
+    else if (ann.severity == "High") categoryHint = " (Category 4)";
+    else if (ann.severity == "Critical") categoryHint = " (Category 5)";
+
     annotationsSection += QString("--- DAMAGE #%1 ---\n").arg(i + 1);
     annotationsSection += QString("Type: %1\n").arg(ann.classification);
-    annotationsSection += QString("Severity: %1/5\n").arg(ann.severity);
+    annotationsSection += QString("Severity: %1%2\n").arg(ann.severity, categoryHint);
     annotationsSection +=
         QString("Location: %1m on %2\n\n").arg(ann.radius, ann.side);
   }
