@@ -44,6 +44,7 @@ private:
     void loadSettings();
     void loadPrompt();
     void setupModelList();
+    void highlightSelectedModel();
 
     // UI Elements
     QTextEdit *m_promptEdit;

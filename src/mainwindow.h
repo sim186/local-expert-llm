@@ -91,6 +91,9 @@ private slots:
    */
   void onAddRandomAnnotation();
 
+  void onUpdateAnnotation();
+  void onAnnotationSelected();
+
   /**
    * @brief Slot called when "Remove" button is clicked
    */
@@ -119,6 +122,7 @@ private:
    * @brief Apply modern theme to the application
    */
   void applyTheme();
+  QColor getSeverityColor(const QString &severity);
 
   // UI Components
   QWidget *centralWidget;
@@ -135,6 +139,7 @@ private:
   QComboBox *sideInput;
 
   QPushButton *addButton;
+  QPushButton *updateButton;
   QPushButton *randomButton;
   QPushButton *removeButton;
   QLabel *countLabel;

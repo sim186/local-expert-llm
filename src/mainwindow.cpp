@@ -10,6 +10,8 @@
 #include <QMenuBar>
 #include <QAction>
 #include <QSplitter>
+#include <QPixmap>
+#include <QIcon>
 
 /**
  * @brief Constructor - Initialize main window and UI
@@ -83,7 +85,14 @@ void MainWindow::setupUI() {
   // Severity
   inputGrid->addWidget(new QLabel("Severity:"), 0, 2);
   severityInput = new QComboBox(annotationGroup);
-  severityInput->addItems({"Low", "Medium", "High", "Critical"});
+  QStringList severities = {"Low", "Medium", "High", "Critical"};
+  for (const QString &sev : severities) {
+      severityInput->addItem(sev);
+      int index = severityInput->count() - 1;
+      QPixmap pixmap(16, 16);
+      pixmap.fill(getSeverityColor(sev));
+      severityInput->setItemIcon(index, QIcon(pixmap));
+  }
   inputGrid->addWidget(severityInput, 0, 3);
 
   // Radius
@@ -115,6 +124,12 @@ void MainWindow::setupUI() {
   addButton = new QPushButton("[+] Add Annotation", annotationGroup);
   addButton->setObjectName("addButton");
   buttonLayout->addWidget(addButton);
+
+  // Update button
+  updateButton = new QPushButton("[✎] Update Selected", annotationGroup);
+  updateButton->setObjectName("updateButton");
+  updateButton->setEnabled(false);
+  buttonLayout->addWidget(updateButton);
 
   // Add Random button
   randomButton = new QPushButton("[?] Add Random", annotationGroup);
@@ -186,13 +201,12 @@ void MainWindow::setupUI() {
 
   // ====== Connect Signals and Slots ======
   connect(addButton, &QPushButton::clicked, this, &MainWindow::onAddAnnotation);
+  connect(updateButton, &QPushButton::clicked, this, &MainWindow::onUpdateAnnotation);
   connect(randomButton, &QPushButton::clicked, this,
           &MainWindow::onAddRandomAnnotation);
   connect(removeButton, &QPushButton::clicked, this,
           &MainWindow::onRemoveAnnotation);
-  connect(annotationList, &QListWidget::itemSelectionChanged, this, [this]() {
-    removeButton->setEnabled(annotationList->currentRow() >= 0);
-  });
+  connect(annotationList, &QListWidget::itemSelectionChanged, this, &MainWindow::onAnnotationSelected);
   connect(generateButton, &QPushButton::clicked, this,
           &MainWindow::onGenerateReport);
 }
@@ -231,8 +245,7 @@ QString MainWindow::createPrompt() {
     annotationsSection += QString("Type: %1\n").arg(ann.classification);
     annotationsSection += QString("Severity: %1/5\n").arg(ann.severity);
     annotationsSection +=
-        QString("Location: %1m on %2\n").arg(ann.radius, ann.side);
-    annotationsSection += QString("Description: %1\n\n").arg(ann.description);
+        QString("Location: %1m on %2\n\n").arg(ann.radius, ann.side);
   }
 
   // 2. Inject data into the template
@@ -274,7 +287,11 @@ void MainWindow::onAddAnnotation() {
   annotations.append(ann);
 
   // Add to list widget
-  annotationList->addItem(ann.toString());
+  QListWidgetItem *item = new QListWidgetItem(ann.toString());
+  QPixmap pixmap(16, 16);
+  pixmap.fill(getSeverityColor(ann.severity));
+  item->setIcon(QIcon(pixmap));
+  annotationList->addItem(item);
 
   // Clear numeric/text fields
   radiusInput->clear();
@@ -283,6 +300,68 @@ void MainWindow::onAddAnnotation() {
 
   // Update count
   updateAnnotationCount();
+}
+
+/**
+ * @brief Handle "Update Annotation" button click
+ */
+void MainWindow::onUpdateAnnotation() {
+  int row = annotationList->currentRow();
+  if (row < 0 || row >= annotations.size()) return;
+
+  Annotation &ann = annotations[row];
+  ann.classification = classificationInput->currentText();
+  ann.severity = severityInput->currentText();
+  ann.radius = radiusInput->text().trimmed();
+  ann.description = descriptionInput->text().trimmed();
+  ann.side = sideInput->currentText();
+
+  if (ann.radius.isEmpty() || ann.description.isEmpty()) {
+    QMessageBox::warning(this, "Incomplete Data",
+                         "Please enter a radius and description.");
+    return;
+  }
+
+  // Update list widget item
+  QListWidgetItem *item = annotationList->item(row);
+  item->setText(ann.toString());
+  QPixmap pixmap(16, 16);
+  pixmap.fill(getSeverityColor(ann.severity));
+  item->setIcon(QIcon(pixmap));
+
+  // Clear numeric/text fields
+  radiusInput->clear();
+  descriptionInput->clear();
+  classificationInput->setFocus();
+  
+  // Deselect
+  annotationList->clearSelection();
+}
+
+/**
+ * @brief Handle annotation selection change
+ */
+void MainWindow::onAnnotationSelected() {
+  int row = annotationList->currentRow();
+  bool hasSelection = (row >= 0 && row < annotations.size());
+  
+  removeButton->setEnabled(hasSelection);
+  updateButton->setEnabled(hasSelection);
+  
+  if (hasSelection) {
+    const Annotation &ann = annotations[row];
+    classificationInput->setCurrentText(ann.classification);
+    severityInput->setCurrentText(ann.severity);
+    radiusInput->setText(ann.radius);
+    descriptionInput->setText(ann.description);
+    sideInput->setCurrentText(ann.side);
+  } else {
+    radiusInput->clear();
+    descriptionInput->clear();
+    classificationInput->setCurrentIndex(0);
+    severityInput->setCurrentIndex(0);
+    sideInput->setCurrentIndex(0);
+  }
 }
 
 /**
@@ -310,7 +389,11 @@ void MainWindow::onAddRandomAnnotation() {
   annotations.append(ann);
 
   // Add to list widget
-  annotationList->addItem(ann.toString());
+  QListWidgetItem *item = new QListWidgetItem(ann.toString());
+  QPixmap pixmap(16, 16);
+  pixmap.fill(getSeverityColor(ann.severity));
+  item->setIcon(QIcon(pixmap));
+  annotationList->addItem(item);
 
   // Update count
   updateAnnotationCount();
@@ -511,6 +594,7 @@ void MainWindow::applyTheme() {
     
     QListWidget::item:hover {
       background-color: #ecf0f1;
+      color: #2c3e50;
     }
     
     /* Text edit */
@@ -560,6 +644,20 @@ void MainWindow::applyTheme() {
     QPushButton#addButton:disabled {
       background-color: #95a5a6;
     }
+
+    /* Update button - Teal */
+    QPushButton#updateButton {
+      background-color: #1abc9c;
+      color: white;
+    }
+
+    QPushButton#updateButton:hover {
+      background-color: #16a085;
+    }
+
+    QPushButton#updateButton:disabled {
+      background-color: #95a5a6;
+    }
     
     /* Random button - Orange */
     QPushButton#randomButton {
@@ -603,4 +701,12 @@ void MainWindow::applyTheme() {
   )";
 
   setStyleSheet(theme);
+}
+
+QColor MainWindow::getSeverityColor(const QString &severity) {
+  if (severity == "Low") return QColor("#2ecc71");      // Green
+  if (severity == "Medium") return QColor("#f1c40f");   // Yellow
+  if (severity == "High") return QColor("#e67e22");     // Orange
+  if (severity == "Critical") return QColor("#e74c3c"); // Red
+  return Qt::black;
 }

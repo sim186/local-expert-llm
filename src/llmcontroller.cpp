@@ -175,6 +175,7 @@ void LLMControllerDialog::setupModelList()
                 m_currentModelPath = modelPath;
                 m_currentModelLabel->setText("Selected Model: " + m_models[i].name);
                 saveSettings();
+                highlightSelectedModel();
             });
         } else {
             btn->setText("Download");
@@ -237,6 +238,7 @@ void LLMControllerDialog::onDownloadFinished()
                     m_currentModelPath = modelPath;
                     m_currentModelLabel->setText("Selected Model: " + m_models[row].name);
                     saveSettings();
+                    highlightSelectedModel();
                 });
             }
         } else {
@@ -301,6 +303,21 @@ void LLMControllerDialog::loadSettings()
     
     if (!m_currentModelPath.isEmpty()) {
         m_currentModelLabel->setText("Selected Model: " + QFileInfo(m_currentModelPath).fileName());
+    }
+    highlightSelectedModel();
+}
+
+void LLMControllerDialog::highlightSelectedModel()
+{
+    for (int i = 0; i < m_modelTable->rowCount(); ++i) {
+        QString modelPath = "models/" + m_models[i].filename;
+        QColor bgColor = (modelPath == m_currentModelPath) ? QColor(200, 255, 200) : Qt::white;
+        
+        for (int j = 0; j < m_modelTable->columnCount() - 1; ++j) { // Skip button column
+            if (m_modelTable->item(i, j)) {
+                m_modelTable->item(i, j)->setBackground(bgColor);
+            }
+        }
     }
 }
 
