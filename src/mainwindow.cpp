@@ -16,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), worker(nullptr) {
 
   setupUI();
   updateAnnotationCount();
+  applyTheme();
 }
 
 /**
@@ -49,6 +50,7 @@ void MainWindow::setupUI() {
   // Annotation list widget
   annotationList = new QListWidget(annotationGroup);
   annotationList->setAlternatingRowColors(true);
+  annotationList->setMinimumHeight(400); // Increase minimum height
   annotationLayout->addWidget(annotationList);
 
   // Input Grid
@@ -86,17 +88,21 @@ void MainWindow::setupUI() {
   descriptionInput->setPlaceholderText("Enter detailed description...");
   inputGrid->addWidget(descriptionInput, 2, 1);
 
-  // Add Random button
-  randomButton = new QPushButton("Add Random", annotationGroup);
-  randomButton->setStyleSheet(
-      "background-color: #e67e22; color: white; font-weight: bold;");
-  inputGrid->addWidget(randomButton, 2, 2);
-
   // Add button
-  addButton = new QPushButton("Add Annotation", annotationGroup);
-  addButton->setStyleSheet(
-      "background-color: #2ecc71; color: white; font-weight: bold;");
+  addButton = new QPushButton("[+] Add Annotation", annotationGroup);
+  addButton->setObjectName("addButton");
   inputGrid->addWidget(addButton, 2, 3);
+
+  // Add Random button
+  randomButton = new QPushButton("[?] Add Random", annotationGroup);
+  randomButton->setObjectName("randomButton");
+  inputGrid->addWidget(randomButton, 3, 3);
+
+  // Remove button
+  removeButton = new QPushButton("[-] Remove Selected", annotationGroup);
+  removeButton->setObjectName("removeButton");
+  removeButton->setEnabled(false); // Disabled until an item is selected
+  inputGrid->addWidget(removeButton, 4, 3);
 
   annotationLayout->addLayout(inputGrid);
 
@@ -112,12 +118,9 @@ void MainWindow::setupUI() {
   QVBoxLayout *reportLayout = new QVBoxLayout(reportGroup);
 
   // Generate button
-  generateButton = new QPushButton("Generate Expert Conclusion", reportGroup);
-  generateButton->setStyleSheet(
-      "QPushButton { background-color: #3498db; color: white; padding: 8px; "
-      "font-weight: bold; }"
-      "QPushButton:hover { background-color: #2980b9; }"
-      "QPushButton:disabled { background-color: #95a5a6; }");
+  generateButton =
+      new QPushButton("[>] Generate Expert Conclusion", reportGroup);
+  generateButton->setObjectName("generateButton");
   reportLayout->addWidget(generateButton);
 
   // Status label
@@ -136,13 +139,18 @@ void MainWindow::setupUI() {
   mainLayout->addWidget(reportGroup);
 
   // Set layout stretch factors
-  mainLayout->setStretch(0, 5);
-  mainLayout->setStretch(1, 5);
+  mainLayout->setStretch(0, 7); // Give more space to annotations
+  mainLayout->setStretch(1, 4); // Give less space to report section
 
   // ====== Connect Signals and Slots ======
   connect(addButton, &QPushButton::clicked, this, &MainWindow::onAddAnnotation);
   connect(randomButton, &QPushButton::clicked, this,
           &MainWindow::onAddRandomAnnotation);
+  connect(removeButton, &QPushButton::clicked, this,
+          &MainWindow::onRemoveAnnotation);
+  connect(annotationList, &QListWidget::itemSelectionChanged, this, [this]() {
+    removeButton->setEnabled(annotationList->currentRow() >= 0);
+  });
   connect(generateButton, &QPushButton::clicked, this,
           &MainWindow::onGenerateReport);
 }
@@ -158,89 +166,45 @@ void MainWindow::updateAnnotationCount() {
  * @brief Create LLM prompt based on annotations
  */
 QString MainWindow::createPrompt() {
-  // Try to load the context template file
   QString contextPath = QDir::currentPath() + "/context/input_context.txt";
   QFile contextFile(contextPath);
 
-  QString prompt;
-
-  if (contextFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
-    // Read the template
-    QTextStream in(&contextFile);
-    QString templateContent = in.readAll();
-    contextFile.close();
-
-    // Build formatted annotations section
-    QString annotationsSection;
-    for (int i = 0; i < annotations.size(); ++i) {
-      const auto &ann = annotations[i];
-
-      if (i > 0) {
-        annotationsSection += "\n"; // Separate multiple annotations
-      }
-
-      annotationsSection += QString("Annotation #%1:\n").arg(i + 1);
-      annotationsSection +=
-          QString("Classification: %1\n").arg(ann.classification);
-      annotationsSection += QString("Severity (1-5): %1\n").arg(ann.severity);
-      annotationsSection +=
-          QString("Radius (meters from root): %1\n").arg(ann.radius);
-      annotationsSection += QString("Side (SS/PS): %1\n").arg(ann.side);
-      annotationsSection += QString("Description: %1\n").arg(ann.description);
-    }
-
-    // Replace the placeholder section in the template
-    // Find and replace the INPUT ANNOTATIONS section (lines 10-15 in the
-    // template)
-    QStringList lines = templateContent.split('\n');
-    QString result;
-    bool inAnnotationSection = false;
-
-    for (const QString &line : lines) {
-      if (line.contains("### INPUT ANNOTATIONS:")) {
-        result += line + "\n";
-        result += annotationsSection;
-        inAnnotationSection = true;
-      } else if (inAnnotationSection && line.contains("### TASK:")) {
-        result += "\n" + line + "\n";
-        inAnnotationSection = false;
-      } else if (!inAnnotationSection) {
-        result += line + "\n";
-      }
-    }
-
-    prompt = result;
-
-  } else {
-    // Fallback to the original prompt if context file is not found
-    prompt = "You are a Wind Turbine Blade Expert. Your task is to "
-             "analyze damage annotations and provide a professional "
-             "technical conclusion based on blade standards reports.\n\n";
-    prompt += "Input Annotations:\n";
-
-    for (const auto &ann : annotations) {
-      prompt +=
-          QString(
-              "- Damage: %1, Severity: %2, Location: %3m on %4. Detail: %5\n")
-              .arg(ann.classification)
-              .arg(ann.severity)
-              .arg(ann.radius)
-              .arg(ann.side)
-              .arg(ann.description);
-    }
-
-    prompt += "\nBased on these findings, please generate a report with the "
-              "following sections:\n";
-    prompt += "1. Summary of Findings: A technical summary of the identified "
-              "damages.\n";
-    prompt += "2. Recommendations/Guidelines: Specific actions based on blade "
-              "inspection standards.\n";
-    prompt += "3. Next Inspection Suggestions: Timeline and focus areas.\n";
-    prompt += "4. Conclusion: Final assessment of the blade's condition.\n\n";
-    prompt += "Expert Conclusion:";
+  if (!contextFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
+    return "Critical Error: input_context.txt not found.";
   }
 
-  return prompt;
+  QTextStream in(&contextFile);
+  QString templateContent = in.readAll();
+  contextFile.close();
+
+  // 1. Format the dynamic annotation data
+  QString annotationsSection;
+  for (int i = 0; i < annotations.size(); ++i) {
+    const auto &ann = annotations[i];
+    annotationsSection += QString("--- DAMAGE #%1 ---\n").arg(i + 1);
+    annotationsSection += QString("Type: %1\n").arg(ann.classification);
+    annotationsSection += QString("Severity: %1/5\n").arg(ann.severity);
+    annotationsSection +=
+        QString("Location: %1m on %2\n").arg(ann.radius, ann.side);
+    annotationsSection += QString("Description: %1\n\n").arg(ann.description);
+  }
+
+  // 2. Inject data into the template
+  QString fullInstructions = templateContent;
+  fullInstructions.replace("{{ANNOTATIONS}}", annotationsSection);
+
+  // 3. Wrap in Llama 3.1 Chat Template (CRITICAL for 7B/8B models)
+  // This tells the model: "You are the expert, here is the data, now answer."
+  QString finalPrompt =
+      QString("<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\n"
+              "You are a Wind Turbine Blade Expert. Follow the Blade Handbook "
+              "2022 standards strictly.<|eot_id|>"
+              "<|start_header_id|>user<|end_header_id|>\n\n"
+              "%1<|eot_id|>"
+              "<|start_header_id|>assistant<|end_header_id|>\n\n")
+          .arg(fullInstructions);
+
+  return finalPrompt;
 }
 
 /**
@@ -304,6 +268,31 @@ void MainWindow::onAddRandomAnnotation() {
 
   // Update count
   updateAnnotationCount();
+}
+
+/**
+ * @brief Handle "Remove" button click
+ */
+void MainWindow::onRemoveAnnotation() {
+  int currentRow = annotationList->currentRow();
+
+  if (currentRow < 0) {
+    return; // No selection
+  }
+
+  // Remove from data storage
+  annotations.removeAt(currentRow);
+
+  // Remove from list widget
+  delete annotationList->takeItem(currentRow);
+
+  // Update count
+  updateAnnotationCount();
+
+  // Disable remove button if no items remain
+  if (annotationList->count() == 0) {
+    removeButton->setEnabled(false);
+  }
 }
 
 /**
@@ -402,4 +391,172 @@ void MainWindow::onGenerationError(const QString &error) {
 
   // Clean up worker
   worker = nullptr;
+}
+
+/**
+ * @brief Apply modern theme to the application
+ */
+void MainWindow::applyTheme() {
+  // Set window properties
+  setWindowTitle("LocalLLM - Wind Turbine Blade Inspector");
+  setMinimumSize(900, 700);
+
+  // Modern flat theme stylesheet
+  QString theme = R"(
+    /* Main window background */
+    QMainWindow {
+      background-color: #f5f6fa;
+    }
+    
+    /* Group boxes */
+    QGroupBox {
+      font-weight: bold;
+      font-size: 14px;
+      color: #2c3e50;
+      border: 2px solid #dfe6e9;
+      border-radius: 8px;
+      margin-top: 12px;
+      padding-top: 15px;
+      background-color: white;
+    }
+    
+    QGroupBox::title {
+      subcontrol-origin: margin;
+      subcontrol-position: top left;
+      padding: 5px 10px;
+      color: #2c3e50;
+    }
+    
+    /* Input fields */
+    QLineEdit, QComboBox {
+      border: 1px solid #dfe6e9;
+      border-radius: 4px;
+      padding: 6px 10px;
+      background-color: white;
+      selection-background-color: #3498db;
+      font-size: 13px;
+    }
+    
+    QLineEdit:focus, QComboBox:focus {
+      border: 2px solid #3498db;
+    }
+    
+    QComboBox::drop-down {
+      border: none;
+      width: 20px;
+    }
+    
+    /* List widget */
+    QListWidget {
+      border: 1px solid #dfe6e9;
+      border-radius: 4px;
+      background-color: white;
+      font-size: 13px;
+      padding: 4px;
+    }
+    
+    QListWidget::item {
+      padding: 8px;
+      border-radius: 4px;
+    }
+    
+    QListWidget::item:selected {
+      background-color: #3498db;
+      color: white;
+    }
+    
+    QListWidget::item:hover {
+      background-color: #ecf0f1;
+    }
+    
+    /* Text edit */
+    QTextEdit {
+      border: 1px solid #dfe6e9;
+      border-radius: 4px;
+      background-color: white;
+      font-size: 13px;
+      padding: 8px;
+    }
+    
+    /* Labels */
+    QLabel {
+      color: #2c3e50;
+      font-size: 13px;
+    }
+    
+    /* Buttons - General */
+    QPushButton {
+      border: none;
+      border-radius: 6px;
+      padding: 10px 20px;
+      font-weight: bold;
+      font-size: 13px;
+      min-height: 20px;
+    }
+    
+    QPushButton:hover {
+      opacity: 0.9;
+    }
+    
+    QPushButton:pressed {
+      padding-top: 12px;
+      padding-bottom: 8px;
+    }
+    
+    /* Add button - Green */
+    QPushButton#addButton {
+      background-color: #27ae60;
+      color: white;
+    }
+    
+    QPushButton#addButton:hover {
+      background-color: #229954;
+    }
+    
+    QPushButton#addButton:disabled {
+      background-color: #95a5a6;
+    }
+    
+    /* Random button - Orange */
+    QPushButton#randomButton {
+      background-color: #e67e22;
+      color: white;
+    }
+    
+    QPushButton#randomButton:hover {
+      background-color: #d35400;
+    }
+    
+    /* Remove button - Red */
+    QPushButton#removeButton {
+      background-color: #e74c3c;
+      color: white;
+    }
+    
+    QPushButton#removeButton:hover {
+      background-color: #c0392b;
+    }
+    
+    QPushButton#removeButton:disabled {
+      background-color: #95a5a6;
+    }
+    
+    /* Generate button - Blue */
+    QPushButton#generateButton {
+      background-color: #3498db;
+      color: white;
+      padding: 12px 24px;
+      font-size: 14px;
+    }
+    
+    QPushButton#generateButton:hover {
+      background-color: #2980b9;
+    }
+    
+    QPushButton#generateButton:disabled {
+      background-color: #95a5a6;
+    }
+  )";
+
+  setStyleSheet(theme);
 }
