@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "consolelogger.h"
 #include <QApplication>
 
 /**
@@ -13,6 +14,9 @@
 int main(int argc, char *argv[]) {
   // Create Qt application
   QApplication app(argc, argv);
+
+  // Install Console Logger
+  ConsoleLogger::instance().install();
 
   // Set application metadata
   QApplication::setApplicationName("LocalLLM");

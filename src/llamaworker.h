@@ -4,6 +4,14 @@
 #include <QString>
 #include <QThread>
 
+struct LlamaParams {
+    QString modelPath;
+    float temperature = 0.7f;
+    float topP = 0.9f;
+    int contextSize = 4096;
+    int threads = 4;
+};
+
 /**
  * @brief Worker thread for running llama.cpp inference
  *
@@ -16,11 +24,11 @@ class LlamaWorker : public QThread {
 public:
   /**
    * @brief Constructor
-   * @param modelPath Path to the GGUF model file
+   * @param params Configuration parameters for the model
    * @param prompt Input prompt for text generation
    * @param parent Parent QObject
    */
-  explicit LlamaWorker(const QString &modelPath, const QString &prompt,
+  explicit LlamaWorker(const LlamaParams &params, const QString &prompt,
                        QObject *parent = nullptr);
 
   /**
@@ -41,6 +49,12 @@ signals:
    */
   void error(const QString &error);
 
+  /**
+   * @brief Signal emitted with generation statistics
+   * @param elapsedSec Time taken for generation in seconds
+   */
+  void statsReady(float elapsedSec);
+
 protected:
   /**
    * @brief Thread run method - performs LLM inference
@@ -48,8 +62,8 @@ protected:
   void run() override;
 
 private:
-  QString m_modelPath; ///< Path to model file
-  QString m_prompt;    ///< Input prompt
+    LlamaParams m_params;
+    QString m_prompt;
 };
 
 #endif // LLAMAWORKER_H

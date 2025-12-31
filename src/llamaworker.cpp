@@ -1,6 +1,7 @@
 #include "llamaworker.h"
 #include <QDebug>
 #include <QFile>
+#include <QElapsedTimer>
 #include <ctime>
 
 // Include llama.cpp headers
@@ -19,9 +20,9 @@ extern "C" {
 /**
  * @brief Constructor
  */
-LlamaWorker::LlamaWorker(const QString &modelPath, const QString &prompt,
+LlamaWorker::LlamaWorker(const LlamaParams &params, const QString &prompt,
                          QObject *parent)
-    : QThread(parent), m_modelPath(modelPath), m_prompt(prompt) {}
+    : QThread(parent), m_params(params), m_prompt(prompt) {}
 
 /**
  * @brief Destructor
@@ -32,8 +33,11 @@ LlamaWorker::~LlamaWorker() {}
  * @brief Run LLM inference in background thread
  */
 void LlamaWorker::run() {
+  QElapsedTimer timer;
+  timer.start();
+
   try {
-    std::string model_path = m_modelPath.toStdString();
+    std::string model_path = m_params.modelPath.toStdString();
     std::string prompt = m_prompt.toStdString();
 
     llama_backend_init();
@@ -50,10 +54,10 @@ void LlamaWorker::run() {
     }
 
     llama_context_params ctx_params = llama_context_default_params();
-    ctx_params.n_ctx = 4096;
+    ctx_params.n_ctx = m_params.contextSize;
     ctx_params.n_batch =
         2048; // Faster for modern CPUs, avoids frequent batch splits
-    ctx_params.n_threads = 8; // Adjust based on your CPU cores
+    ctx_params.n_threads = m_params.threads; // Adjust based on your CPU cores
 
     llama_context *ctx = llama_new_context_with_model(model, ctx_params);
     const struct llama_vocab *vocab = llama_model_get_vocab(model);
@@ -72,9 +76,9 @@ void LlamaWorker::run() {
     llama_sampler_chain_add(sampler,
                             llama_sampler_init_penalties(64, 1.1f, 0.0f, 0.0f));
     // Top-P: Cuts out the "garbage" tokens
-    llama_sampler_chain_add(sampler, llama_sampler_init_top_p(0.95f, 1));
+    llama_sampler_chain_add(sampler, llama_sampler_init_top_p(m_params.topP, 1));
     // Temp: Controls creativity (low = professional)
-    llama_sampler_chain_add(sampler, llama_sampler_init_temp(0.2f));
+    llama_sampler_chain_add(sampler, llama_sampler_init_temp(m_params.temperature));
     // Dist: Final selection
     llama_sampler_chain_add(sampler, llama_sampler_init_dist(time(NULL)));
 
@@ -126,6 +130,7 @@ void LlamaWorker::run() {
     llama_backend_free();
 
     emit finished(QString::fromStdString(result));
+    emit statsReady(timer.elapsed() / 1000.0f);
 
   } catch (...) {
     emit error("An unknown error occurred during inference.");

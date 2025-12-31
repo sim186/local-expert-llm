@@ -11,8 +11,13 @@ A desktop application built with C++ and Qt6 that integrates a local Large Langu
 - ✅ **Annotation Management**: Add and track annotations with ease
 - ✅ **Smart Conclusions**: LLM generates contextual conclusions based on annotation count
 - ✅ **Background Inference**: Non-blocking UI with threaded LLM processing
+- ✅ **LLM Controller**: Manage models, download new ones, and tweak parameters (Temp, Top-P)
+- ✅ **Custom Prompts**: Edit and save system prompts directly in the app
 - ✅ **Cross-Platform**: Works on Windows, Linux, and macOS
 - ✅ **Docker Support**: Consistent build environment with all dependencies
+
+## Documentation
+- [LLM Concepts for C++ Developers](LLAMA_CONCEPTS.md): Learn how `llama.cpp` works under the hood.
 
 ## Prerequisites
 

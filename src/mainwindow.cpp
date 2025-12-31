@@ -1,18 +1,21 @@
 #include "mainwindow.h"
 #include "llamaworker.h"
+#include "llmcontroller.h"
 #include <QDir>
 #include <QFile>
 #include <QFileDialog>
 #include <QGridLayout>
 #include <QMessageBox>
 #include <QTextStream>
+#include <QMenuBar>
+#include <QAction>
+#include <QSplitter>
 
 /**
  * @brief Constructor - Initialize main window and UI
  */
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), worker(nullptr) {
-  // Set default model path (relative to executable or absolute)
-  modelPath = QDir::currentPath() + "/models/model.gguf";
+  m_controller = new LLMControllerDialog(this);
 
   setupUI();
   updateAnnotationCount();
@@ -35,6 +38,17 @@ MainWindow::~MainWindow() {
  * @brief Set up the user interface
  */
 void MainWindow::setupUI() {
+  // Create Menu Bar
+  QMenuBar *menuBar = new QMenuBar(this);
+  setMenuBar(menuBar);
+  
+  QMenu *fileMenu = menuBar->addMenu("File");
+  QAction *settingsAction = fileMenu->addAction("LLM Settings...");
+  connect(settingsAction, &QAction::triggered, this, &MainWindow::openSettings);
+  
+  QAction *exitAction = fileMenu->addAction("Exit");
+  connect(exitAction, &QAction::triggered, this, &QWidget::close);
+
   // Create central widget
   centralWidget = new QWidget(this);
   setCentralWidget(centralWidget);
@@ -43,14 +57,17 @@ void MainWindow::setupUI() {
   mainLayout->setSpacing(10);
   mainLayout->setContentsMargins(10, 10, 10, 10);
 
+  // Create Splitter
+  QSplitter *splitter = new QSplitter(Qt::Vertical, centralWidget);
+
   // ====== Annotation Section ======
-  annotationGroup = new QGroupBox("Damage Annotations", centralWidget);
+  annotationGroup = new QGroupBox("Damage Annotations", splitter);
   QVBoxLayout *annotationLayout = new QVBoxLayout(annotationGroup);
 
   // Annotation list widget
   annotationList = new QListWidget(annotationGroup);
   annotationList->setAlternatingRowColors(true);
-  annotationList->setMinimumHeight(400); // Increase minimum height
+  annotationList->setMinimumHeight(200); 
   annotationLayout->addWidget(annotationList);
 
   // Input Grid
@@ -86,35 +103,44 @@ void MainWindow::setupUI() {
   inputGrid->addWidget(new QLabel("Description:"), 2, 0);
   descriptionInput = new QLineEdit(annotationGroup);
   descriptionInput->setPlaceholderText("Enter detailed description...");
-  inputGrid->addWidget(descriptionInput, 2, 1);
+  inputGrid->addWidget(descriptionInput, 2, 1, 1, 3);
+
+  annotationLayout->addLayout(inputGrid);
+
+  // Buttons Layout
+  QHBoxLayout *buttonLayout = new QHBoxLayout();
+  buttonLayout->addStretch();
 
   // Add button
   addButton = new QPushButton("[+] Add Annotation", annotationGroup);
   addButton->setObjectName("addButton");
-  inputGrid->addWidget(addButton, 2, 3);
+  buttonLayout->addWidget(addButton);
 
   // Add Random button
   randomButton = new QPushButton("[?] Add Random", annotationGroup);
   randomButton->setObjectName("randomButton");
-  inputGrid->addWidget(randomButton, 3, 3);
+  buttonLayout->addWidget(randomButton);
 
   // Remove button
   removeButton = new QPushButton("[-] Remove Selected", annotationGroup);
   removeButton->setObjectName("removeButton");
   removeButton->setEnabled(false); // Disabled until an item is selected
-  inputGrid->addWidget(removeButton, 4, 3);
+  buttonLayout->addWidget(removeButton);
 
-  annotationLayout->addLayout(inputGrid);
+  // Settings button
+  QPushButton *settingsButton = new QPushButton("⚙ Settings", annotationGroup);
+  connect(settingsButton, &QPushButton::clicked, this, &MainWindow::openSettings);
+  buttonLayout->addWidget(settingsButton);
+
+  annotationLayout->addLayout(buttonLayout);
 
   // Annotation count label
   countLabel = new QLabel("Total annotations: 0", annotationGroup);
   countLabel->setStyleSheet("font-weight: bold; color: #2c3e50;");
   annotationLayout->addWidget(countLabel);
 
-  mainLayout->addWidget(annotationGroup);
-
   // ====== Report Generation Section ======
-  reportGroup = new QGroupBox("Expert Technical Conclusion", centralWidget);
+  reportGroup = new QGroupBox("Expert Technical Conclusion", splitter);
   QVBoxLayout *reportLayout = new QVBoxLayout(reportGroup);
 
   // Generate button
@@ -133,14 +159,30 @@ void MainWindow::setupUI() {
   reportOutput->setReadOnly(true);
   reportOutput->setPlaceholderText(
       "The expert conclusion will appear here after generation...");
-  reportOutput->setMinimumHeight(200);
+  reportOutput->setMinimumHeight(100);
   reportLayout->addWidget(reportOutput);
 
-  mainLayout->addWidget(reportGroup);
+  // Status Bar Area
+  QHBoxLayout *statusBarLayout = new QHBoxLayout();
+  m_elapsedTimeLabel = new QLabel("Time: -- s");
+  m_modelInfoLabel = new QLabel("Model: None");
+  
+  statusBarLayout->addWidget(statusLabel);
+  statusBarLayout->addStretch();
+  statusBarLayout->addWidget(m_modelInfoLabel);
+  statusBarLayout->addWidget(m_elapsedTimeLabel);
+  
+  reportLayout->addLayout(statusBarLayout);
 
-  // Set layout stretch factors
-  mainLayout->setStretch(0, 7); // Give more space to annotations
-  mainLayout->setStretch(1, 4); // Give less space to report section
+  // Add groups to splitter
+  splitter->addWidget(annotationGroup);
+  splitter->addWidget(reportGroup);
+
+  // Set layout stretch factors for splitter
+  splitter->setStretchFactor(0, 7); // Give more space to annotations
+  splitter->setStretchFactor(1, 4); // Give less space to report section
+
+  mainLayout->addWidget(splitter);
 
   // ====== Connect Signals and Slots ======
   connect(addButton, &QPushButton::clicked, this, &MainWindow::onAddAnnotation);
@@ -166,7 +208,11 @@ void MainWindow::updateAnnotationCount() {
  * @brief Create LLM prompt based on annotations
  */
 QString MainWindow::createPrompt() {
-  QString contextPath = QDir::currentPath() + "/context/input_context.txt";
+  QString contextPath = QDir::currentPath() + "/context/custom_prompt.txt";
+  if (!QFile::exists(contextPath)) {
+      contextPath = QDir::currentPath() + "/context/input_context.txt";
+  }
+  
   QFile contextFile(contextPath);
 
   if (!contextFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
@@ -307,28 +353,14 @@ void MainWindow::onGenerateReport() {
     return;
   }
 
+  LlamaParams params = m_controller->getParams();
+
   // Check if model file exists
-  if (!QFile::exists(modelPath)) {
-    QMessageBox::StandardButton reply =
-        QMessageBox::question(this, "Model Not Found",
-                              QString("Model file not found at:\n%1\n\nWould "
-                                      "you like to select a model file?")
-                                  .arg(modelPath),
-                              QMessageBox::Yes | QMessageBox::No);
-
-    if (reply == QMessageBox::Yes) {
-      QString selectedPath = QFileDialog::getOpenFileName(
-          this, "Select GGUF Model File", QDir::currentPath() + "/models",
-          "GGUF Model Files (*.gguf);;All Files (*)");
-
-      if (!selectedPath.isEmpty()) {
-        modelPath = selectedPath;
-      } else {
-        return; // User cancelled
-      }
-    } else {
-      return; // User declined
-    }
+  if (!QFile::exists(params.modelPath)) {
+    QMessageBox::warning(this, "Model Not Found", 
+        "Please select a valid model in the Settings menu.");
+    openSettings();
+    return;
   }
 
   // Create prompt
@@ -343,14 +375,26 @@ void MainWindow::onGenerateReport() {
   reportOutput->setPlaceholderText("Please wait, LLM is generating...");
 
   // Create and start worker thread
-  worker = new LlamaWorker(modelPath, prompt);
+  worker = new LlamaWorker(params, prompt);
+  
+  m_modelInfoLabel->setText("Model: " + QFileInfo(params.modelPath).fileName());
 
   connect(worker, &LlamaWorker::finished, this,
           &MainWindow::onGenerationComplete);
   connect(worker, &LlamaWorker::error, this, &MainWindow::onGenerationError);
+  connect(worker, &LlamaWorker::statsReady, this, [this](float seconds){
+      m_elapsedTimeLabel->setText(QString("Time: %1 s").arg(seconds, 0, 'f', 2));
+      m_controller->setLastElapsedTime(seconds);
+  });
   connect(worker, &QThread::finished, worker, &QObject::deleteLater);
 
   worker->start();
+}
+
+void MainWindow::openSettings() {
+    m_controller->show();
+    m_controller->raise();
+    m_controller->activateWindow();
 }
 
 /**

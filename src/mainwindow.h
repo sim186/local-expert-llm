@@ -13,9 +13,11 @@
 #include <QTextEdit>
 #include <QVBoxLayout>
 #include <QVector>
+#include "llmcontroller.h"
 
 // Forward declaration
 class LlamaWorker;
+class LLMControllerDialog;
 
 /**
  * @brief Structured annotation data
@@ -94,6 +96,8 @@ private slots:
    */
   void onRemoveAnnotation();
 
+  void openSettings();
+
 private:
   /**
    * @brief Initialize the user interface
@@ -139,6 +143,8 @@ private:
   QPushButton *generateButton;
   QTextEdit *reportOutput;
   QLabel *statusLabel;
+  QLabel *m_elapsedTimeLabel;
+  QLabel *m_modelInfoLabel;
 
   // Data storage
   QVector<Annotation> annotations;
@@ -146,8 +152,7 @@ private:
   // LLM worker (runs in separate thread)
   LlamaWorker *worker;
 
-  // Model path (could be made configurable via settings)
-  QString modelPath;
+  LLMControllerDialog *m_controller;
 };
 
 #endif // MAINWINDOW_H

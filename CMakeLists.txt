@@ -11,7 +11,7 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 
 # Find Qt6 packages
-find_package(Qt6 REQUIRED COMPONENTS Core Widgets)
+find_package(Qt6 REQUIRED COMPONENTS Core Widgets Network)
 
 # Add llama.cpp library
 # Note: llama.cpp will be added as a git submodule in external/llama.cpp
@@ -31,11 +31,15 @@ set(SOURCES
     src/main.cpp
     src/mainwindow.cpp
     src/llamaworker.cpp
+    src/llmcontroller.cpp
+    src/consolelogger.cpp
 )
 
 set(HEADERS
     src/mainwindow.h
     src/llamaworker.h
+    src/llmcontroller.h
+    src/consolelogger.h
 )
 
 # Create executable
@@ -45,6 +49,7 @@ add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
 target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt6::Core
     Qt6::Widgets
+    Qt6::Network
 )
 
 # Link llama.cpp library if available
