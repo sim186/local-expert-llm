@@ -263,7 +263,8 @@ QString MainWindow::sanitizeClassification(const QString &classification) {
  * @brief Check if a classification is valid
  */
 bool MainWindow::isValidClassification(const QString &classification) {
-  QStringList validClassifications = getValidClassifications();
+  // Use static to avoid repeated allocations
+  static const QStringList validClassifications = getValidClassifications();
   return validClassifications.contains(classification.trimmed(), Qt::CaseSensitive);
 }
 
@@ -273,6 +274,7 @@ bool MainWindow::isValidClassification(const QString &classification) {
 QString MainWindow::createPrompt() {
   // Build a simple list of damage classifications only
   QString classificationsOnly;
+  bool isFirst = true;
   
   for (int i = 0; i < annotations.size(); ++i) {
     const auto &ann = annotations[i];
@@ -282,10 +284,11 @@ QString MainWindow::createPrompt() {
     
     // Only include valid classifications
     if (!sanitized.isEmpty()) {
-      if (i > 0) {
+      if (!isFirst) {
         classificationsOnly += ", ";
       }
       classificationsOnly += sanitized;
+      isFirst = false;
     }
   }
 
