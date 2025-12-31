@@ -187,18 +187,23 @@ cmake --build build --config Release -j4
 
 ## Usage
 
-1. **Add Annotations**
+1. **Configure LLM**
+   - Click **⚙ Settings** or go to **File > LLM Settings**.
+   - Go to the **Models** tab and download a model (e.g., Llama 3.2 1B).
+   - Click **Select** once downloaded.
+   - (Optional) Adjust **Temperature** or **System Prompt** in the Settings tab.
+
+2. **Add Annotations**
    - Enter text in the input field
    - Click "Add Annotation" or press Enter
    - Repeat to build your annotation list
 
-2. **Generate Report**
-   - Click "Generate Report Conclusion"
-   - If prompted, select your GGUF model file
-   - Wait for the LLM to generate (may take 10-60 seconds)
+3. **Generate Report**
+   - Click "Generate Expert Conclusion"
+   - Wait for the LLM to generate (progress shown in status bar)
    - View the generated conclusion in the output area
 
-3. **Sample Workflow**
+4. **Sample Workflow**
    - Add 3-4 annotations → LLM suggests more analysis needed
    - Add 10+ annotations → LLM highlights substantial insights available
 
@@ -321,23 +326,18 @@ C:\Qt\6.x.x\msvc2019_64\bin\windeployqt.exe .\build\Release\LocalLLM.exe
 
 ### Custom Model Path
 
-Edit `src/mainwindow.cpp`, line 17:
-```cpp
-modelPath = "/your/custom/path/to/model.gguf";
-```
+You can select a custom model path directly from the **LLM Settings** dialog in the application.
 
 ### Adjust Inference Parameters
 
-Edit `src/llamaworker.cpp`:
-```cpp
-ctx_params.n_ctx = 2048;        // Context window size
-ctx_params.n_threads = 4;       // CPU threads
-const int max_tokens = 256;     // Max generated tokens
+You can adjust the following parameters in the **LLM Settings** dialog:
+- **Temperature**: Controls randomness (0.0 - 2.0). Lower values are more deterministic.
+- **Top-P**: Nucleus sampling (0.0 - 1.0). Controls diversity.
+- **System Prompt**: Customize the instructions given to the model.
 
-// Sampling parameters
-llama_sampler_init_temp(0.7f);      // Temperature (0.0-1.0)
-llama_sampler_init_top_p(0.9f, 1);  // Top-p sampling
-```
+### Console Output
+
+The **LLM Settings** dialog includes a **Console** tab that displays real-time logs from the application and the underlying `llama.cpp` library. This is useful for debugging and monitoring inference progress.
 
 ## Development
 
@@ -353,6 +353,8 @@ llama_sampler_init_top_p(0.9f, 1);  // Top-p sampling
 - **main.cpp**: QApplication initialization
 - **mainwindow.{h,cpp}**: UI and annotation management
 - **llamaworker.{h,cpp}**: Background LLM inference with llama.cpp API
+- **llmcontroller.{h,cpp}**: Settings dialog, model manager, and console
+- **consolelogger.{h,cpp}**: Captures stdout/stderr/qDebug for the console tab
 
 ## Performance Characteristics
 
