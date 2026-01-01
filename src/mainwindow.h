@@ -40,6 +40,29 @@ struct Annotation {
         .arg(radius)
         .arg(side);
   }
+
+  /**
+   * @brief Convert annotation to a prompt-ready string (classification, severity, location)
+   * Includes the operator description only if non-empty.
+   */
+  QString toPromptString() const {
+    // Provide an explicit severity→category mapping to keep the model consistent
+    QString categoryHint;
+    if (severity == "Low") categoryHint = " (Category 1: Cosmetic)";
+    else if (severity == "Medium") categoryHint = " (Category 3: Significant)";
+    else if (severity == "High") categoryHint = " (Category 4: Serious)";
+    else if (severity == "Critical") categoryHint = " (Category 5: Critical)";
+
+    QString out;
+    out += QString("Type: %1\n").arg(classification);
+    out += QString("Severity: %1%2\n").arg(severity, categoryHint);
+    out += QString("Location: %1m on %2\n").arg(radius, side);
+    if (!description.trimmed().isEmpty()) {
+      out += QString("Description: %1\n").arg(description.trimmed());
+    }
+    out += "\n";
+    return out;
+  }
 };
 
 /**

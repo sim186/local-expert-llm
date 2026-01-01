@@ -97,9 +97,25 @@ void MainWindow::setupUI() {
 
   // Classification
   inputGrid->addWidget(new QLabel("Classification:"), 0, 0);
-  classificationInput = new QComboBox(annotationGroup);
-  classificationInput->addItems(
-      {"Crack", "Erosion", "Lightning Strike", "Delamination", "Other"});
+    classificationInput = new QComboBox(annotationGroup);
+    classificationInput->addItems({
+      "Crack",
+      "Erosion",
+      "Lightning Strike",
+      "Delamination",
+      "Corrosion",
+      "Impact",
+      "Abrasion",
+      "Fretting",
+      "Buckling",
+      "Void",
+      "Fiber Break",
+      "Blistering",
+      "Surface Contamination",
+      "Bonding Failure",
+      "Resin Starvation",
+      "Other"
+    });
   inputGrid->addWidget(classificationInput, 0, 1);
 
   // Severity
@@ -261,19 +277,8 @@ QString MainWindow::createPrompt() {
   QString annotationsSection;
   for (int i = 0; i < annotations.size(); ++i) {
     const auto &ann = annotations[i];
-    
-    // Map severity to category hint to guide the LLM
-    QString categoryHint;
-    if (ann.severity == "Low") categoryHint = " (Category 1-2)";
-    else if (ann.severity == "Medium") categoryHint = " (Category 3)";
-    else if (ann.severity == "High") categoryHint = " (Category 4)";
-    else if (ann.severity == "Critical") categoryHint = " (Category 5)";
-
     annotationsSection += QString("--- DAMAGE #%1 ---\n").arg(i + 1);
-    annotationsSection += QString("Type: %1\n").arg(ann.classification);
-    annotationsSection += QString("Severity: %1%2\n").arg(ann.severity, categoryHint);
-    annotationsSection +=
-        QString("Location: %1m on %2\n\n").arg(ann.radius, ann.side);
+    annotationsSection += ann.toPromptString();
   }
 
   // 2. Inject data into the template
@@ -338,9 +343,9 @@ void MainWindow::onAddAnnotation() {
   ann.description = descriptionInput->text().trimmed();
   ann.side = sideInput->currentText();
 
-  if (ann.radius.isEmpty() || ann.description.isEmpty()) {
+  if (ann.radius.isEmpty()) {
     QMessageBox::warning(this, "Incomplete Data",
-                         "Please enter a radius and description.");
+                         "Please enter a radius.");
     return;
   }
 
@@ -377,9 +382,9 @@ void MainWindow::onUpdateAnnotation() {
   ann.description = descriptionInput->text().trimmed();
   ann.side = sideInput->currentText();
 
-  if (ann.radius.isEmpty() || ann.description.isEmpty()) {
+  if (ann.radius.isEmpty()) {
     QMessageBox::warning(this, "Incomplete Data",
-                         "Please enter a radius and description.");
+                         "Please enter a radius.");
     return;
   }
 
@@ -429,8 +434,7 @@ void MainWindow::onAnnotationSelected() {
  * @brief Handle "Add Random" button click
  */
 void MainWindow::onAddRandomAnnotation() {
-  QStringList classifications = {"Crack", "Erosion", "Lightning Strike",
-                                 "Delamination", "Other"};
+  QStringList classifications = {"Crack", "Erosion", "Lightning Strike", "Delamination", "Corrosion", "Impact", "Abrasion", "Fretting", "Buckling", "Void", "Fiber Break", "Blistering", "Surface Contamination", "Bonding Failure", "Resin Starvation", "Other"};
   QStringList severities = {"Low", "Medium", "High", "Critical"};
   QStringList sides = {"Pressure Side", "Suction Side", "Leading Edge",
                        "Trailing Edge"};

@@ -8,15 +8,24 @@ You are a Wind Turbine Blade Expert. Your task is to analyze damage data and gen
 - Cat 4 (Serious): Structural risk. Action: Repair within 3 months.
 - Cat 5 (Critical): Imminent failure. Action: IMMEDIATE SHUTDOWN.
 
-### DAMAGE RULES
-- Leading Edge (LE) or Root (0-15m) location increases priority.
-- Cracks >10cm or Delamination >100cm² are automatically Category 4+.
+### SEVERITY→CATEGORY MAPPING (APPLY FIRST)
+- Low => Category 1 only (cosmetic). Do NOT assign Cat 2 to Low unless an explicit override below triggers.
+- Medium => Category 3.
+- High => Category 4.
+- Critical => Category 5.
+
+### OVERRIDE RULES (APPLY AFTER MAPPING)
+- Leading Edge (LE) or Root (0-15m) location increases priority by one category (cap at Cat 5).
+- Cracks >10cm or Delamination >100cm² are automatically Category 4 or higher (keep the higher of mapping vs this rule).
+- If an override fires, state the reason clearly.
 
 ### INPUT DATA:
 {{ANNOTATIONS}}
 
+Note: Only Type, Severity and Location (and an optional non-empty operator Description) will be provided to the model. Operator free-text is not forwarded by default.
+
 ### TASK
-Generate a report following this EXACT format. Keep the total response under 400 words.
+Generate a report following this EXACT format. Keep the total response under 400 words. Ensure the per-damage categories, highest category, and breakdown counts are consistent with the mapping/overrides above.
 
 **1. DETAILED ANALYSIS OF EACH DAMAGE**
 Annotation #[X]: [Type] at [Radius]m ([Side])

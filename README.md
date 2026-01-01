@@ -196,7 +196,8 @@ cmake --build build --config Release -j4
    - (Optional) Adjust **Temperature** or **System Prompt** in the Settings tab.
 
 2. **Add Annotations**
-   - Enter text in the input field
+   - Select a damage type from the Classification dropdown (includes 16 common damage categories).
+   - Enter blade radius (meters) and optionally a free-text description (description is optional for prompts).
    - Click "Add Annotation" or press Enter
    - Repeat to build your annotation list
 
