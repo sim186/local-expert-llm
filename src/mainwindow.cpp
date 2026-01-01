@@ -16,6 +16,8 @@
 #include <QDockWidget>
 #include <QVBoxLayout>
 #include <QResizeEvent>
+#include <QCloseEvent>
+#include <QEvent>
 
 /**
  * @brief Constructor - Initialize main window and UI
@@ -28,7 +30,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), m_workerThread(nu
   applyTheme();
 
   // Start with a wide window to accommodate three columns
-  resize(1600, 900);
+  resize(1200, 900);
+
+  setCentralWidget(nullptr); // Central area is empty, docks are used
 
   // Initialize Worker Thread
   m_workerThread = new QThread(this);
@@ -74,6 +78,9 @@ void MainWindow::setupUI() {
   
   QAction *exitAction = fileMenu->addAction("Exit");
   connect(exitAction, &QAction::triggered, this, &QWidget::close);
+
+  // Create View Menu
+  QMenu *viewMenu = menuBar->addMenu("View");
 
   // Create central widget
   centralWidget = new QWidget(this);
@@ -181,9 +188,6 @@ void MainWindow::setupUI() {
   removeButton->setEnabled(false); // Disabled until an item is selected
   buttonLayout->addWidget(removeButton);
 
-  // Settings button
-  // Settings button removed (settings are always visible in the right dock)
-
   annotationLayout->addLayout(buttonLayout);
 
   // Annotation count label
@@ -226,14 +230,13 @@ void MainWindow::setupUI() {
   
   reportLayout->addLayout(statusBarLayout);
 
-  // No central splitter — we'll dock the three main panels so they are always visible
-  // Leave the central area empty (mainLayout) so docks can attach around it
-
   // Create a dock to host the settings dialog and keep it visible
   m_controllerDock = new QDockWidget("LLM Settings", this);
   m_controllerDock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
-  // Make settings dock movable and floatable but not closable
-  m_controllerDock->setFeatures(QDockWidget::DockWidgetMovable | QDockWidget::DockWidgetFloatable);
+  // Make settings dock movable, floatable, and closable
+  m_controllerDock->setFeatures(QDockWidget::DockWidgetMovable | QDockWidget::DockWidgetFloatable | QDockWidget::DockWidgetClosable);
+  m_controllerDock->installEventFilter(this);
+  viewMenu->addAction(m_controllerDock->toggleViewAction());
 
   m_controllerDockContainer = new QWidget(m_controllerDock);
   QVBoxLayout *dockLayout = new QVBoxLayout(m_controllerDockContainer);
@@ -244,15 +247,14 @@ void MainWindow::setupUI() {
   dockLayout->addWidget(m_controller);
 
   m_controllerDock->setWidget(m_controllerDockContainer);
-  addDockWidget(Qt::RightDockWidgetArea, m_controllerDock);
-  m_controllerDock->setMinimumWidth(420);
-  m_controllerDock->setMaximumWidth(560);
-  m_controllerDock->show();
+  m_controllerDock->setMinimumWidth(300);
 
   // Create a dock for the LLM output (report) so it's dockable and visible
   m_outputDock = new QDockWidget("Expert Conclusion", this);
   m_outputDock->setAllowedAreas(Qt::RightDockWidgetArea | Qt::LeftDockWidgetArea);
-  m_outputDock->setFeatures(QDockWidget::DockWidgetMovable | QDockWidget::DockWidgetFloatable);
+  m_outputDock->setFeatures(QDockWidget::DockWidgetMovable | QDockWidget::DockWidgetFloatable | QDockWidget::DockWidgetClosable);
+  m_outputDock->installEventFilter(this);
+  viewMenu->addAction(m_outputDock->toggleViewAction());
 
   m_outputDockContainer = new QWidget(m_outputDock);
   QVBoxLayout *outDockLayout = new QVBoxLayout(m_outputDockContainer);
@@ -263,14 +265,14 @@ void MainWindow::setupUI() {
   outDockLayout->addWidget(reportGroup);
 
   m_outputDock->setWidget(m_outputDockContainer);
-  addDockWidget(Qt::RightDockWidgetArea, m_outputDock);
-  m_outputDock->setMinimumWidth(800);
-  m_outputDock->show();
+  m_outputDock->setMinimumWidth(400);
 
   // Create a dock for the annotation panel and reparent the annotationGroup into it
   m_annotationDock = new QDockWidget("Damage Annotations", this);
   m_annotationDock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
-  m_annotationDock->setFeatures(QDockWidget::DockWidgetMovable | QDockWidget::DockWidgetFloatable);
+  m_annotationDock->setFeatures(QDockWidget::DockWidgetMovable | QDockWidget::DockWidgetFloatable | QDockWidget::DockWidgetClosable);
+  m_annotationDock->installEventFilter(this);
+  viewMenu->addAction(m_annotationDock->toggleViewAction());
 
   m_annotationDockContainer = new QWidget(m_annotationDock);
   QVBoxLayout *annDockLayout = new QVBoxLayout(m_annotationDockContainer);
@@ -282,14 +284,23 @@ void MainWindow::setupUI() {
 
   m_annotationDock->setWidget(m_annotationDockContainer);
   addDockWidget(Qt::LeftDockWidgetArea, m_annotationDock);
-  m_annotationDock->setMinimumWidth(320);
-  m_annotationDock->setMaximumWidth(480);
+  m_annotationDock->setMinimumWidth(250);
   m_annotationDock->show();
 
+  // Add output and controller docks after the annotation dock to ensure
+  // they are split horizontally in the desired order: annotation | output | settings
+  addDockWidget(Qt::RightDockWidgetArea, m_outputDock);
+  m_outputDock->show();
+
+  addDockWidget(Qt::RightDockWidgetArea, m_controllerDock);
+  m_controllerDock->show();
+
   // Arrange docks horizontally: annotation | output | settings
-  // Ensure output is next to annotation, then settings next to output
   splitDockWidget(m_annotationDock, m_outputDock, Qt::Horizontal);
   splitDockWidget(m_outputDock, m_controllerDock, Qt::Horizontal);
+
+  // Set initial dock sizes to prevent collapsing
+  resizeDocks({m_annotationDock, m_outputDock, m_controllerDock}, {250, 600, 300}, Qt::Horizontal);
 
   // ====== Connect Signals and Slots ======
   connect(addButton, &QPushButton::clicked, this, &MainWindow::onAddAnnotation);
@@ -642,7 +653,7 @@ void MainWindow::applyTheme() {
   // Modern flat theme stylesheet
   QString theme = R"(
     /* Main window background */
-    QMainWindow {
+    QMainWindow, QDialog {
       background-color: #f5f6fa;
     }
     
@@ -824,4 +835,16 @@ QColor MainWindow::getSeverityColor(const QString &severity) {
   if (severity == "High") return QColor("#e67e22");     // Orange
   if (severity == "Critical") return QColor("#e74c3c"); // Red
   return Qt::black;
+}
+
+bool MainWindow::eventFilter(QObject *watched, QEvent *event) {
+  if (event->type() == QEvent::Close) {
+    QDockWidget *dock = qobject_cast<QDockWidget *>(watched);
+    if (dock && dock->isFloating()) {
+      dock->setFloating(false);
+      event->ignore(); // Prevent closing/hiding
+      return true;
+    }
+  }
+  return QMainWindow::eventFilter(watched, event);
 }

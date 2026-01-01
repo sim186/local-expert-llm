@@ -33,7 +33,11 @@ LLMControllerDialog::~LLMControllerDialog()
 
 void LLMControllerDialog::setupUi()
 {
+    // Ensure the dialog expands to fill the dock
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
+    mainLayout->setContentsMargins(0, 0, 0, 0); // Remove margins to fill the dock
     QTabWidget *tabWidget = new QTabWidget(this);
 
     // --- Settings Tab ---

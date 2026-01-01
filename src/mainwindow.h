@@ -88,6 +88,12 @@ public:
    */
   ~MainWindow();
 
+protected:
+  /**
+   * @brief Event filter to handle dock widget close events
+   */
+  bool eventFilter(QObject *watched, QEvent *event) override;
+
 private slots:
   /**
    * @brief Slot called when "Add Annotation" button is clicked
