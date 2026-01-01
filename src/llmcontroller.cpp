@@ -19,7 +19,7 @@ LLMControllerDialog::LLMControllerDialog(QWidget *parent)
       m_settings("settings.ini", QSettings::IniFormat)
 {
     setWindowTitle("LLM Controller");
-    resize(800, 600);
+    resize(1000, 700);
     setupUi();
     setupModelList();
     loadSettings();

@@ -13,6 +13,9 @@
 #include <QPixmap>
 #include <QIcon>
 #include <QThread>
+#include <QDockWidget>
+#include <QVBoxLayout>
+#include <QResizeEvent>
 
 /**
  * @brief Constructor - Initialize main window and UI
@@ -23,6 +26,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), m_workerThread(nu
   setupUI();
   updateAnnotationCount();
   applyTheme();
+
+  // Start with a wide window to accommodate three columns
+  resize(1600, 900);
 
   // Initialize Worker Thread
   m_workerThread = new QThread(this);
@@ -65,8 +71,6 @@ void MainWindow::setupUI() {
   setMenuBar(menuBar);
   
   QMenu *fileMenu = menuBar->addMenu("File");
-  QAction *settingsAction = fileMenu->addAction("LLM Settings...");
-  connect(settingsAction, &QAction::triggered, this, &MainWindow::openSettings);
   
   QAction *exitAction = fileMenu->addAction("Exit");
   connect(exitAction, &QAction::triggered, this, &QWidget::close);
@@ -79,11 +83,10 @@ void MainWindow::setupUI() {
   mainLayout->setSpacing(10);
   mainLayout->setContentsMargins(10, 10, 10, 10);
 
-  // Create Splitter
-  QSplitter *splitter = new QSplitter(Qt::Vertical, centralWidget);
+  // We'll use dock widgets for a three-column layout (annotation | output | settings)
 
   // ====== Annotation Section ======
-  annotationGroup = new QGroupBox("Damage Annotations", splitter);
+  annotationGroup = new QGroupBox("Damage Annotations", centralWidget);
   QVBoxLayout *annotationLayout = new QVBoxLayout(annotationGroup);
 
   // Annotation list widget
@@ -157,31 +160,29 @@ void MainWindow::setupUI() {
   buttonLayout->addStretch();
 
   // Add button
-  addButton = new QPushButton("[+] Add Annotation", annotationGroup);
+  addButton = new QPushButton("Add", annotationGroup);
   addButton->setObjectName("addButton");
   buttonLayout->addWidget(addButton);
 
   // Update button
-  updateButton = new QPushButton("[✎] Update Selected", annotationGroup);
+  updateButton = new QPushButton("Update", annotationGroup);
   updateButton->setObjectName("updateButton");
   updateButton->setEnabled(false);
   buttonLayout->addWidget(updateButton);
 
   // Add Random button
-  randomButton = new QPushButton("[?] Add Random", annotationGroup);
+  randomButton = new QPushButton("Random", annotationGroup);
   randomButton->setObjectName("randomButton");
   buttonLayout->addWidget(randomButton);
 
   // Remove button
-  removeButton = new QPushButton("[-] Remove Selected", annotationGroup);
+  removeButton = new QPushButton("Remove", annotationGroup);
   removeButton->setObjectName("removeButton");
   removeButton->setEnabled(false); // Disabled until an item is selected
   buttonLayout->addWidget(removeButton);
 
   // Settings button
-  QPushButton *settingsButton = new QPushButton("⚙ Settings", annotationGroup);
-  connect(settingsButton, &QPushButton::clicked, this, &MainWindow::openSettings);
-  buttonLayout->addWidget(settingsButton);
+  // Settings button removed (settings are always visible in the right dock)
 
   annotationLayout->addLayout(buttonLayout);
 
@@ -191,7 +192,7 @@ void MainWindow::setupUI() {
   annotationLayout->addWidget(countLabel);
 
   // ====== Report Generation Section ======
-  reportGroup = new QGroupBox("Expert Technical Conclusion", splitter);
+  reportGroup = new QGroupBox("Expert Technical Conclusion", centralWidget);
   QVBoxLayout *reportLayout = new QVBoxLayout(reportGroup);
 
   // Generate button
@@ -225,15 +226,70 @@ void MainWindow::setupUI() {
   
   reportLayout->addLayout(statusBarLayout);
 
-  // Add groups to splitter
-  splitter->addWidget(annotationGroup);
-  splitter->addWidget(reportGroup);
+  // No central splitter — we'll dock the three main panels so they are always visible
+  // Leave the central area empty (mainLayout) so docks can attach around it
 
-  // Set layout stretch factors for splitter
-  splitter->setStretchFactor(0, 7); // Give more space to annotations
-  splitter->setStretchFactor(1, 4); // Give less space to report section
+  // Create a dock to host the settings dialog and keep it visible
+  m_controllerDock = new QDockWidget("LLM Settings", this);
+  m_controllerDock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
+  // Make settings dock movable and floatable but not closable
+  m_controllerDock->setFeatures(QDockWidget::DockWidgetMovable | QDockWidget::DockWidgetFloatable);
 
-  mainLayout->addWidget(splitter);
+  m_controllerDockContainer = new QWidget(m_controllerDock);
+  QVBoxLayout *dockLayout = new QVBoxLayout(m_controllerDockContainer);
+  dockLayout->setContentsMargins(0, 0, 0, 0);
+
+  m_controller->setParent(m_controllerDockContainer);
+  m_controller->setWindowFlags(Qt::Widget);
+  dockLayout->addWidget(m_controller);
+
+  m_controllerDock->setWidget(m_controllerDockContainer);
+  addDockWidget(Qt::RightDockWidgetArea, m_controllerDock);
+  m_controllerDock->setMinimumWidth(420);
+  m_controllerDock->setMaximumWidth(560);
+  m_controllerDock->show();
+
+  // Create a dock for the LLM output (report) so it's dockable and visible
+  m_outputDock = new QDockWidget("Expert Conclusion", this);
+  m_outputDock->setAllowedAreas(Qt::RightDockWidgetArea | Qt::LeftDockWidgetArea);
+  m_outputDock->setFeatures(QDockWidget::DockWidgetMovable | QDockWidget::DockWidgetFloatable);
+
+  m_outputDockContainer = new QWidget(m_outputDock);
+  QVBoxLayout *outDockLayout = new QVBoxLayout(m_outputDockContainer);
+  outDockLayout->setContentsMargins(6, 6, 6, 6);
+
+  // Reparent the report group into the output dock
+  reportGroup->setParent(m_outputDockContainer);
+  outDockLayout->addWidget(reportGroup);
+
+  m_outputDock->setWidget(m_outputDockContainer);
+  addDockWidget(Qt::RightDockWidgetArea, m_outputDock);
+  m_outputDock->setMinimumWidth(800);
+  m_outputDock->show();
+
+  // Create a dock for the annotation panel and reparent the annotationGroup into it
+  m_annotationDock = new QDockWidget("Damage Annotations", this);
+  m_annotationDock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
+  m_annotationDock->setFeatures(QDockWidget::DockWidgetMovable | QDockWidget::DockWidgetFloatable);
+
+  m_annotationDockContainer = new QWidget(m_annotationDock);
+  QVBoxLayout *annDockLayout = new QVBoxLayout(m_annotationDockContainer);
+  annDockLayout->setContentsMargins(6,6,6,6);
+
+  // Reparent the annotation group into the dock
+  annotationGroup->setParent(m_annotationDockContainer);
+  annDockLayout->addWidget(annotationGroup);
+
+  m_annotationDock->setWidget(m_annotationDockContainer);
+  addDockWidget(Qt::LeftDockWidgetArea, m_annotationDock);
+  m_annotationDock->setMinimumWidth(320);
+  m_annotationDock->setMaximumWidth(480);
+  m_annotationDock->show();
+
+  // Arrange docks horizontally: annotation | output | settings
+  // Ensure output is next to annotation, then settings next to output
+  splitDockWidget(m_annotationDock, m_outputDock, Qt::Horizontal);
+  splitDockWidget(m_outputDock, m_controllerDock, Qt::Horizontal);
 
   // ====== Connect Signals and Slots ======
   connect(addButton, &QPushButton::clicked, this, &MainWindow::onAddAnnotation);
@@ -529,9 +585,16 @@ void MainWindow::onGenerateReport() {
 }
 
 void MainWindow::openSettings() {
+  // Always show the settings dock and bring it to front
+  if (m_controllerDock) {
+    m_controllerDock->show();
+    m_controllerDock->raise();
+  }
+  if (m_controller) {
     m_controller->show();
     m_controller->raise();
     m_controller->activateWindow();
+  }
 }
 
 /**
@@ -574,7 +637,7 @@ void MainWindow::onGenerationError(const QString &error) {
 void MainWindow::applyTheme() {
   // Set window properties
   setWindowTitle("LocalLLM - Wind Turbine Blade Inspector");
-  setMinimumSize(900, 700);
+  setMinimumSize(1200, 800);
 
   // Modern flat theme stylesheet
   QString theme = R"(
@@ -749,6 +812,10 @@ void MainWindow::applyTheme() {
   )";
 
   setStyleSheet(theme);
+  // Apply same theme to the settings dialog so it matches other panels
+  if (m_controller) {
+    m_controller->setStyleSheet(theme);
+  }
 }
 
 QColor MainWindow::getSeverityColor(const QString &severity) {

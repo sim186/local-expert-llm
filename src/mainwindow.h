@@ -18,6 +18,8 @@
 // Forward declaration
 class LlamaWorker;
 class LLMControllerDialog;
+class QDockWidget;
+class QWidget;
 
 /**
  * @brief Structured annotation data
@@ -182,6 +184,12 @@ private:
   LlamaWorker *m_worker;
 
   LLMControllerDialog *m_controller;
+  QDockWidget *m_controllerDock;
+  QWidget *m_controllerDockContainer;
+  QDockWidget *m_outputDock;
+  QWidget *m_outputDockContainer;
+  QDockWidget *m_annotationDock;
+  QWidget *m_annotationDockContainer;
 
 signals:
     void requestGeneration(const QString &prompt, const LlamaParams &params);
