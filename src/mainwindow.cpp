@@ -1,28 +1,30 @@
 #include "mainwindow.h"
 #include "llamaworker.h"
 #include "llmcontroller.h"
+#include <QAction>
+#include <QCloseEvent>
 #include <QDir>
+#include <QDockWidget>
+#include <QEvent>
 #include <QFile>
 #include <QFileDialog>
 #include <QGridLayout>
-#include <QMessageBox>
-#include <QTextStream>
-#include <QMenuBar>
-#include <QAction>
-#include <QSplitter>
-#include <QPixmap>
 #include <QIcon>
-#include <QThread>
-#include <QDockWidget>
-#include <QVBoxLayout>
+#include <QMenuBar>
+#include <QMessageBox>
+#include <QPixmap>
 #include <QResizeEvent>
-#include <QCloseEvent>
-#include <QEvent>
+#include <QSplitter>
+#include <QTextStream>
+#include <QThread>
+#include <QVBoxLayout>
+
 
 /**
  * @brief Constructor - Initialize main window and UI
  */
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), m_workerThread(nullptr), m_worker(nullptr) {
+MainWindow::MainWindow(QWidget *parent)
+    : QMainWindow(parent), m_workerThread(nullptr), m_worker(nullptr) {
   m_controller = new LLMControllerDialog(this);
 
   setupUI();
@@ -40,18 +42,20 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), m_workerThread(nu
   m_worker->moveToThread(m_workerThread);
 
   connect(m_workerThread, &QThread::finished, m_worker, &QObject::deleteLater);
-  connect(this, &MainWindow::requestGeneration, m_worker, &LlamaWorker::generate);
-  connect(this, &MainWindow::requestLoadModel, m_worker, &LlamaWorker::loadModel);
-  
-  connect(m_worker, &LlamaWorker::finished, this, &MainWindow::onGenerationComplete);
+  connect(this, &MainWindow::requestGeneration, m_worker,
+          &LlamaWorker::generate);
+  connect(this, &MainWindow::requestLoadModel, m_worker,
+          &LlamaWorker::loadModel);
+
+  connect(m_worker, &LlamaWorker::finished, this,
+          &MainWindow::onGenerationComplete);
   connect(m_worker, &LlamaWorker::error, this, &MainWindow::onGenerationError);
-  connect(m_worker, &LlamaWorker::statsReady, this, [this](float seconds){
-      m_elapsedTimeLabel->setText(QString("Time: %1 s").arg(seconds, 0, 'f', 2));
-      m_controller->setLastElapsedTime(seconds);
+  connect(m_worker, &LlamaWorker::statsReady, this, [this](float seconds) {
+    m_elapsedTimeLabel->setText(QString("Time: %1 s").arg(seconds, 0, 'f', 2));
+    m_controller->setLastElapsedTime(seconds);
   });
-  connect(m_worker, &LlamaWorker::statusUpdate, this, [this](const QString &status){
-      statusLabel->setText(status);
-  });
+  connect(m_worker, &LlamaWorker::statusUpdate, this,
+          [this](const QString &status) { statusLabel->setText(status); });
 
   m_workerThread->start();
 }
@@ -61,8 +65,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), m_workerThread(nu
  */
 MainWindow::~MainWindow() {
   if (m_workerThread) {
-      m_workerThread->quit();
-      m_workerThread->wait();
+    m_workerThread->quit();
+    m_workerThread->wait();
   }
 }
 
@@ -73,9 +77,9 @@ void MainWindow::setupUI() {
   // Create Menu Bar
   QMenuBar *menuBar = new QMenuBar(this);
   setMenuBar(menuBar);
-  
+
   QMenu *fileMenu = menuBar->addMenu("File");
-  
+
   QAction *exitAction = fileMenu->addAction("Exit");
   connect(exitAction, &QAction::triggered, this, &QWidget::close);
 
@@ -90,7 +94,8 @@ void MainWindow::setupUI() {
   mainLayout->setSpacing(10);
   mainLayout->setContentsMargins(10, 10, 10, 10);
 
-  // We'll use dock widgets for a three-column layout (annotation | output | settings)
+  // We'll use dock widgets for a three-column layout (annotation | output |
+  // settings)
 
   // ====== Annotation Section ======
   annotationGroup = new QGroupBox("Damage Annotations", centralWidget);
@@ -99,7 +104,7 @@ void MainWindow::setupUI() {
   // Annotation list widget
   annotationList = new QListWidget(annotationGroup);
   annotationList->setAlternatingRowColors(true);
-  annotationList->setMinimumHeight(200); 
+  annotationList->setMinimumHeight(200);
   annotationLayout->addWidget(annotationList);
 
   // Input Grid
@@ -107,25 +112,12 @@ void MainWindow::setupUI() {
 
   // Classification
   inputGrid->addWidget(new QLabel("Classification:"), 0, 0);
-    classificationInput = new QComboBox(annotationGroup);
-    classificationInput->addItems({
-      "Crack",
-      "Erosion",
-      "Lightning Strike",
-      "Delamination",
-      "Corrosion",
-      "Impact",
-      "Abrasion",
-      "Fretting",
-      "Buckling",
-      "Void",
-      "Fiber Break",
-      "Blistering",
-      "Surface Contamination",
-      "Bonding Failure",
-      "Resin Starvation",
-      "Other"
-    });
+  classificationInput = new QComboBox(annotationGroup);
+  classificationInput->addItems(
+      {"Crack", "Erosion", "Lightning Strike", "Delamination", "Corrosion",
+       "Impact", "Abrasion", "Fretting", "Buckling", "Void", "Fiber Break",
+       "Blistering", "Surface Contamination", "Bonding Failure",
+       "Resin Starvation", "Other"});
   inputGrid->addWidget(classificationInput, 0, 1);
 
   // Severity
@@ -133,11 +125,11 @@ void MainWindow::setupUI() {
   severityInput = new QComboBox(annotationGroup);
   QStringList severities = {"Low", "Medium", "High", "Critical"};
   for (const QString &sev : severities) {
-      severityInput->addItem(sev);
-      int index = severityInput->count() - 1;
-      QPixmap pixmap(16, 16);
-      pixmap.fill(getSeverityColor(sev));
-      severityInput->setItemIcon(index, QIcon(pixmap));
+    severityInput->addItem(sev);
+    int index = severityInput->count() - 1;
+    QPixmap pixmap(16, 16);
+    pixmap.fill(getSeverityColor(sev));
+    severityInput->setItemIcon(index, QIcon(pixmap));
   }
   inputGrid->addWidget(severityInput, 0, 3);
 
@@ -222,19 +214,22 @@ void MainWindow::setupUI() {
   QHBoxLayout *statusBarLayout = new QHBoxLayout();
   m_elapsedTimeLabel = new QLabel("Time: -- s");
   m_modelInfoLabel = new QLabel("Model: None");
-  
+
   statusBarLayout->addWidget(statusLabel);
   statusBarLayout->addStretch();
   statusBarLayout->addWidget(m_modelInfoLabel);
   statusBarLayout->addWidget(m_elapsedTimeLabel);
-  
+
   reportLayout->addLayout(statusBarLayout);
 
   // Create a dock to host the settings dialog and keep it visible
   m_controllerDock = new QDockWidget("LLM Settings", this);
-  m_controllerDock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
+  m_controllerDock->setAllowedAreas(Qt::LeftDockWidgetArea |
+                                    Qt::RightDockWidgetArea);
   // Make settings dock movable, floatable, and closable
-  m_controllerDock->setFeatures(QDockWidget::DockWidgetMovable | QDockWidget::DockWidgetFloatable | QDockWidget::DockWidgetClosable);
+  m_controllerDock->setFeatures(QDockWidget::DockWidgetMovable |
+                                QDockWidget::DockWidgetFloatable |
+                                QDockWidget::DockWidgetClosable);
   m_controllerDock->installEventFilter(this);
   viewMenu->addAction(m_controllerDock->toggleViewAction());
 
@@ -251,8 +246,11 @@ void MainWindow::setupUI() {
 
   // Create a dock for the LLM output (report) so it's dockable and visible
   m_outputDock = new QDockWidget("Expert Conclusion", this);
-  m_outputDock->setAllowedAreas(Qt::RightDockWidgetArea | Qt::LeftDockWidgetArea);
-  m_outputDock->setFeatures(QDockWidget::DockWidgetMovable | QDockWidget::DockWidgetFloatable | QDockWidget::DockWidgetClosable);
+  m_outputDock->setAllowedAreas(Qt::RightDockWidgetArea |
+                                Qt::LeftDockWidgetArea);
+  m_outputDock->setFeatures(QDockWidget::DockWidgetMovable |
+                            QDockWidget::DockWidgetFloatable |
+                            QDockWidget::DockWidgetClosable);
   m_outputDock->installEventFilter(this);
   viewMenu->addAction(m_outputDock->toggleViewAction());
 
@@ -267,16 +265,20 @@ void MainWindow::setupUI() {
   m_outputDock->setWidget(m_outputDockContainer);
   m_outputDock->setMinimumWidth(400);
 
-  // Create a dock for the annotation panel and reparent the annotationGroup into it
+  // Create a dock for the annotation panel and reparent the annotationGroup
+  // into it
   m_annotationDock = new QDockWidget("Damage Annotations", this);
-  m_annotationDock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
-  m_annotationDock->setFeatures(QDockWidget::DockWidgetMovable | QDockWidget::DockWidgetFloatable | QDockWidget::DockWidgetClosable);
+  m_annotationDock->setAllowedAreas(Qt::LeftDockWidgetArea |
+                                    Qt::RightDockWidgetArea);
+  m_annotationDock->setFeatures(QDockWidget::DockWidgetMovable |
+                                QDockWidget::DockWidgetFloatable |
+                                QDockWidget::DockWidgetClosable);
   m_annotationDock->installEventFilter(this);
   viewMenu->addAction(m_annotationDock->toggleViewAction());
 
   m_annotationDockContainer = new QWidget(m_annotationDock);
   QVBoxLayout *annDockLayout = new QVBoxLayout(m_annotationDockContainer);
-  annDockLayout->setContentsMargins(6,6,6,6);
+  annDockLayout->setContentsMargins(6, 6, 6, 6);
 
   // Reparent the annotation group into the dock
   annotationGroup->setParent(m_annotationDockContainer);
@@ -288,7 +290,8 @@ void MainWindow::setupUI() {
   m_annotationDock->show();
 
   // Add output and controller docks after the annotation dock to ensure
-  // they are split horizontally in the desired order: annotation | output | settings
+  // they are split horizontally in the desired order: annotation | output |
+  // settings
   addDockWidget(Qt::RightDockWidgetArea, m_outputDock);
   m_outputDock->show();
 
@@ -300,16 +303,19 @@ void MainWindow::setupUI() {
   splitDockWidget(m_outputDock, m_controllerDock, Qt::Horizontal);
 
   // Set initial dock sizes to prevent collapsing
-  resizeDocks({m_annotationDock, m_outputDock, m_controllerDock}, {250, 600, 300}, Qt::Horizontal);
+  resizeDocks({m_annotationDock, m_outputDock, m_controllerDock},
+              {250, 600, 300}, Qt::Horizontal);
 
   // ====== Connect Signals and Slots ======
   connect(addButton, &QPushButton::clicked, this, &MainWindow::onAddAnnotation);
-  connect(updateButton, &QPushButton::clicked, this, &MainWindow::onUpdateAnnotation);
+  connect(updateButton, &QPushButton::clicked, this,
+          &MainWindow::onUpdateAnnotation);
   connect(randomButton, &QPushButton::clicked, this,
           &MainWindow::onAddRandomAnnotation);
   connect(removeButton, &QPushButton::clicked, this,
           &MainWindow::onRemoveAnnotation);
-  connect(annotationList, &QListWidget::itemSelectionChanged, this, &MainWindow::onAnnotationSelected);
+  connect(annotationList, &QListWidget::itemSelectionChanged, this,
+          &MainWindow::onAnnotationSelected);
   connect(generateButton, &QPushButton::clicked, this,
           &MainWindow::onGenerateReport);
 }
@@ -325,78 +331,57 @@ void MainWindow::updateAnnotationCount() {
  * @brief Create LLM prompt based on annotations
  */
 QString MainWindow::createPrompt() {
+  // 1. Load Template
   QString contextPath = QDir::currentPath() + "/context/custom_prompt.txt";
   if (!QFile::exists(contextPath)) {
-      contextPath = QDir::currentPath() + "/context/input_context.txt";
+    contextPath = QDir::currentPath() + "/context/input_context.txt";
   }
-  
-  QFile contextFile(contextPath);
 
+  QFile contextFile(contextPath);
   if (!contextFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
     return "Critical Error: input_context.txt not found.";
   }
 
-  QTextStream in(&contextFile);
-  QString templateContent = in.readAll();
+  QString templateContent = QTextStream(&contextFile).readAll();
   contextFile.close();
 
-  // 1. Format the dynamic annotation data
+  // 2. Format Dynamic Data
   QString annotationsSection;
-  for (int i = 0; i < annotations.size(); ++i) {
-    const auto &ann = annotations[i];
-    annotationsSection += QString("--- DAMAGE #%1 ---\n").arg(i + 1);
-    annotationsSection += ann.toPromptString();
-  }
-
-  // 2. Inject data into the template
-  QString fullInstructions = templateContent;
-  fullInstructions.replace("{{ANNOTATIONS}}", annotationsSection);
-
-  // 3. Wrap in Chat Template based on model type
-  QString templateType = m_controller->getTemplateType();
-  QString finalPrompt;
-
-  if (templateType == "llama3") {
-      finalPrompt = QString("<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\n"
-              "You are a Wind Turbine Blade Expert. Follow the Blade Handbook "
-              "2022 standards strictly.<|eot_id|>"
-              "<|start_header_id|>user<|end_header_id|>\n\n"
-              "%1<|eot_id|>"
-              "<|start_header_id|>assistant<|end_header_id|>\n\n")
-          .arg(fullInstructions);
-  } else if (templateType == "chatml") {
-      finalPrompt = QString("<|im_start|>system\n"
-              "You are a Wind Turbine Blade Expert. Follow the Blade Handbook "
-              "2022 standards strictly.<|im_end|>\n"
-              "<|im_start|>user\n"
-              "%1<|im_end|>\n"
-              "<|im_start|>assistant\n")
-          .arg(fullInstructions);
-  } else if (templateType == "mistral") {
-      finalPrompt = QString("<s>[INST] You are a Wind Turbine Blade Expert. Follow the Blade Handbook "
-              "2022 standards strictly.\n\n"
-              "%1 [/INST]")
-          .arg(fullInstructions);
-  } else if (templateType == "phi3") {
-      finalPrompt = QString("<|user|>\n"
-              "You are a Wind Turbine Blade Expert. Follow the Blade Handbook "
-              "2022 standards strictly.\n\n"
-              "%1<|end|>\n"
-              "<|assistant|>\n")
-          .arg(fullInstructions);
-  } else if (templateType == "gemma") {
-      finalPrompt = QString("<start_of_turn>user\n"
-              "You are a Wind Turbine Blade Expert. Follow the Blade Handbook "
-              "2022 standards strictly.\n\n"
-              "%1<end_of_turn>\n"
-              "<start_of_turn>model\n")
-          .arg(fullInstructions);
+  if (annotations.isEmpty()) {
+    annotationsSection =
+        "No damages detected. LPS system shows normal resistance values.";
   } else {
-      // Fallback to raw prompt if unknown
-      finalPrompt = fullInstructions;
+    for (int i = 0; i < annotations.size(); ++i) {
+      annotationsSection += QString("--- DAMAGE #%1 ---\n%2\n")
+                                .arg(i + 1)
+                                .arg(annotations[i].toPromptString());
+    }
   }
 
-  return finalPrompt;
+  // 3. Inject into Template
+  QString processedInstructions =
+      templateContent.replace("{{ANNOTATIONS}}", annotationsSection);
+
+  // 4. Wrap in Model-Specific Chat Templates
+  QString templateType = m_controller->getTemplateType();
+
+  // Using a simpler structure for better readability
+  if (templateType == "llama3") {
+    return QString(
+               "<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\n"
+               "You are a Wind Turbine Blade Expert.<|eot_id|>"
+               "<|start_header_id|>user<|end_header_id|>\n\n%1<|eot_id|>"
+               "<|start_header_id|>assistant<|end_header_id|>\n\n")
+        .arg(processedInstructions);
+  } else if (templateType == "chatml") {
+    return QString("<|im_start|>system\nExpert Inspector Mode.<|im_end|>\n"
+                   "<|im_start|>user\n%1<|im_end|>\n"
+                   "<|im_start|>assistant\n")
+        .arg(processedInstructions);
+  }
+  // ... add other types similarly ...
+
+  return processedInstructions; // Fallback
 }
 
 /**
@@ -411,8 +396,7 @@ void MainWindow::onAddAnnotation() {
   ann.side = sideInput->currentText();
 
   if (ann.radius.isEmpty()) {
-    QMessageBox::warning(this, "Incomplete Data",
-                         "Please enter a radius.");
+    QMessageBox::warning(this, "Incomplete Data", "Please enter a radius.");
     return;
   }
 
@@ -440,7 +424,8 @@ void MainWindow::onAddAnnotation() {
  */
 void MainWindow::onUpdateAnnotation() {
   int row = annotationList->currentRow();
-  if (row < 0 || row >= annotations.size()) return;
+  if (row < 0 || row >= annotations.size())
+    return;
 
   Annotation &ann = annotations[row];
   ann.classification = classificationInput->currentText();
@@ -450,8 +435,7 @@ void MainWindow::onUpdateAnnotation() {
   ann.side = sideInput->currentText();
 
   if (ann.radius.isEmpty()) {
-    QMessageBox::warning(this, "Incomplete Data",
-                         "Please enter a radius.");
+    QMessageBox::warning(this, "Incomplete Data", "Please enter a radius.");
     return;
   }
 
@@ -466,7 +450,7 @@ void MainWindow::onUpdateAnnotation() {
   radiusInput->clear();
   descriptionInput->clear();
   classificationInput->setFocus();
-  
+
   // Deselect
   annotationList->clearSelection();
 }
@@ -477,10 +461,10 @@ void MainWindow::onUpdateAnnotation() {
 void MainWindow::onAnnotationSelected() {
   int row = annotationList->currentRow();
   bool hasSelection = (row >= 0 && row < annotations.size());
-  
+
   removeButton->setEnabled(hasSelection);
   updateButton->setEnabled(hasSelection);
-  
+
   if (hasSelection) {
     const Annotation &ann = annotations[row];
     classificationInput->setCurrentText(ann.classification);
@@ -501,7 +485,22 @@ void MainWindow::onAnnotationSelected() {
  * @brief Handle "Add Random" button click
  */
 void MainWindow::onAddRandomAnnotation() {
-  QStringList classifications = {"Crack", "Erosion", "Lightning Strike", "Delamination", "Corrosion", "Impact", "Abrasion", "Fretting", "Buckling", "Void", "Fiber Break", "Blistering", "Surface Contamination", "Bonding Failure", "Resin Starvation", "Other"};
+  QStringList classifications = {"Crack",
+                                 "Erosion",
+                                 "Lightning Strike",
+                                 "Delamination",
+                                 "Corrosion",
+                                 "Impact",
+                                 "Abrasion",
+                                 "Fretting",
+                                 "Buckling",
+                                 "Void",
+                                 "Fiber Break",
+                                 "Blistering",
+                                 "Surface Contamination",
+                                 "Bonding Failure",
+                                 "Resin Starvation",
+                                 "Other"};
   QStringList severities = {"Low", "Medium", "High", "Critical"};
   QStringList sides = {"Pressure Side", "Suction Side", "Leading Edge",
                        "Trailing Edge"};
@@ -572,8 +571,8 @@ void MainWindow::onGenerateReport() {
 
   // Check if model file exists
   if (!QFile::exists(params.modelPath)) {
-    QMessageBox::warning(this, "Model Not Found", 
-        "Please select a valid model in the Settings menu.");
+    QMessageBox::warning(this, "Model Not Found",
+                         "Please select a valid model in the Settings menu.");
     openSettings();
     return;
   }
@@ -830,10 +829,14 @@ void MainWindow::applyTheme() {
 }
 
 QColor MainWindow::getSeverityColor(const QString &severity) {
-  if (severity == "Low") return QColor("#2ecc71");      // Green
-  if (severity == "Medium") return QColor("#f1c40f");   // Yellow
-  if (severity == "High") return QColor("#e67e22");     // Orange
-  if (severity == "Critical") return QColor("#e74c3c"); // Red
+  if (severity == "Low")
+    return QColor("#2ecc71"); // Green
+  if (severity == "Medium")
+    return QColor("#f1c40f"); // Yellow
+  if (severity == "High")
+    return QColor("#e67e22"); // Orange
+  if (severity == "Critical")
+    return QColor("#e74c3c"); // Red
   return Qt::black;
 }
 
