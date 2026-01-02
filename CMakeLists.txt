@@ -2,13 +2,20 @@ cmake_minimum_required(VERSION 3.20)
 project(LocalLLM VERSION 1.0.0 LANGUAGES CXX)
 
 # Set C++ standard
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+if(MSVC)
+    add_compile_options(/Zc:char8_t-)
+endif()
 
 # Enable Qt MOC, UIC, and RCC
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
+
+# Set Qt location
+list(APPEND CMAKE_PREFIX_PATH "C:/Qt_SDK/6.5.3/msvc2019_64")
 
 # Find Qt6 packages
 find_package(Qt6 REQUIRED COMPONENTS Core Widgets Network)
@@ -63,7 +70,7 @@ endif()
 
 # Set output directory
 set_target_properties(${PROJECT_NAME} PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}
+    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
 )
 
 # Platform-specific settings
@@ -78,6 +85,38 @@ if(WIN32)
     # Set to ON for release builds without console
     set_target_properties(${PROJECT_NAME} PROPERTIES
         WIN32_EXECUTABLE OFF
+    )
+
+    # Run windeployqt to copy dependencies
+    # This mimics the t7_run_windeployqt() from the reference project
+    find_package(Qt6Core REQUIRED)
+    get_target_property(QT_QMAKE_EXECUTABLE Qt6::qmake IMPORTED_LOCATION)
+    get_filename_component(QT_BIN_DIR "${QT_QMAKE_EXECUTABLE}" DIRECTORY)
+    find_program(WINDEPLOYQT_EXECUTABLE windeployqt HINTS "${QT_BIN_DIR}")
+    
+    if(WINDEPLOYQT_EXECUTABLE)
+        add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+            COMMAND "${WINDEPLOYQT_EXECUTABLE}" --verbose 0 --release --no-compiler-runtime --dir $<TARGET_FILE_DIR:${PROJECT_NAME}> $<TARGET_FILE:${PROJECT_NAME}>
+            COMMENT "Running windeployqt..."
+        )
+    else()
+        message(WARNING "windeployqt not found. You may need to copy Qt DLLs manually.")
+    endif()
+
+    # Copy models directory
+    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_SOURCE_DIR}/models
+        $<TARGET_FILE_DIR:${PROJECT_NAME}>/models
+        COMMENT "Copying models directory..."
+    )
+
+    # Copy context directory
+    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_SOURCE_DIR}/context
+        $<TARGET_FILE_DIR:${PROJECT_NAME}>/context
+        COMMENT "Copying context directory..."
     )
 endif()
 

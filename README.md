@@ -170,14 +170,15 @@ cd local_llm
 git submodule update --init --recursive
 
 # Configure with Visual Studio generator
+# Note: If Qt is not found, add -DCMAKE_PREFIX_PATH="C:\Qt\6.x.x\msvc2019_64"
 cmake -B build -G "Visual Studio 17 2022"
-# Or for MinGW: cmake -B build -G "MinGW Makefiles"
 
 # Build (Release configuration recommended for better performance)
+# This will also run windeployqt and copy necessary assets
 cmake --build build --config Release -j4
 
 # Run
-.\build\Release\LocalLLM.exe
+.\build\bin\Release\LocalLLM.exe
 ```
 
 > **Note for Windows users**: If CMake can't find Qt6, you may need to specify the Qt path:
