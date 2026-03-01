@@ -1,4 +1,4 @@
-# LocalLLM - Annotation Report Generator
+# LocalExpertLLM - Annotation Report Generator
 
 A desktop application built with C++ and Qt6 that integrates a local Large Language Model (LLM) to generate report conclusions based on user annotations. Uses llama.cpp for local inference to ensure complete offline functionality and privacy.
 
